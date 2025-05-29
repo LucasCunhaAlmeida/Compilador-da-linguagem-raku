@@ -3,7 +3,7 @@
 ## 3.Delimitadores
 Delimitadores são símbolos usados para definir limites em diferentes contextos dentro do código. Em Raku são usados da seguinte forma:
 
-| Tipo de Delimitador         | Símbolo(s) | Utilização                                      | Exemplo                          |
+| Tipo de Delimitador         | Símbolos  | Utilização                                      | Exemplo                          |
 |----------------------------|------------|--------------------------------------------------|----------------------------------|
 | Final de comando           | `;`        | Indica o fim de uma instrução                    | `say "Olá, mundo!";`             |
 | Parâmetros de função       | `,`        | Separa os parâmetros dentro de uma função        | `soma(1, 2, 3)`                  |
