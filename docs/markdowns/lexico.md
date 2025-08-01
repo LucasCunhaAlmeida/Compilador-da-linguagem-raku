@@ -62,12 +62,6 @@ Observação: **Infix** refere-se a um **operador** que aparece entre dois **ope
 | -        | Prefix  | Força o operando para um valor numérico e retorna sua negação | -"3" | -3 |
 | ?        | Prefix  | Força o operando para um valor booleano       | ?0            | False |
 | !        | Prefix  | Força o operando para um valor booleano e retorna sua negação | !4 | False |
-| ..       | Infix   | Construtor de Sequências                      | 0..5          | Cria uma série de 0 a 5 |
-| ..^      | Infix   | Construtor de Sequências                      | 0..^5         | Cria uma série de 0 a 4 |
-| ^..      | Infix   | Construtor de Sequências                      | 0^..5         | Cria uma série de 1 a 5 |
-| ^..^     | Infix   | Construtor de Sequências                      | 0^..^5        | Cria uma série de 1 a 4 |
-| ^        | Prefix  | Construtor de Sequências                      | ^5            | Cria uma série de 0 a 4 |
-
 
 ### 2.2. Operadores Reversos  
 Adicionar um `R` antes de qualquer operador tem o efeito de inverter seus operandos.
