@@ -6,13 +6,11 @@ A linguagem de programação Raku possui uma ampla gama de palavra reservadas qu
 ### 1.1 Palavras Reservadas mais comuns
 Estas são amplamente utilizadas em programas Raku:
 
-- Controle de Fluxo: `if`, `else`, `elsif`, `unless`(Não usar), `when` (Não usar), `given` (Não usar), `while`, `for` (Não usar), `loop`, `repeat` (Não usar), `do` (Não usar), `next`, `last`, `redo`, `return`, `exit`, `die` (Não usar), `try` (Não usar), `CATCH` (Não usar), `LEAVE`(Não usar), `KEEP`(Não usar), `UNDO`(Não usar), `CONTROL`(Não usar), `NEXT` (Não usar), `LAST` (Não usar), `REDO`(Não usar), `BREAK`, `CONTINUE`(Não usar)
+- Controle de Fluxo: `if`, `else`, `elsif`, `while`, `for` (Não usar), `loop`, `next`, `last`, `redo`, `return`, `exit`, `BREAK`.
 
 - Declaração de variáveis e escopo: `my`, `our`, `has`, `state`, `constant`, `let`
 
-- Definição de sub-rotinas e métodos: `sub`, `method`(Não usar), `multi`, `proto`(Não usar), `is`(Não usar), `does`(Não usar), `only`, `also`(Não usar)
-
-- Orientação a objetos: `class`, `role`, `module`, `package`, `enum` (Não damos suporte)
+- Definição de sub-rotinas e métodos: `sub`, `multi`, `only`.
 
 - Tipos e valores especiais: `Any`, `Mu`, `Nil`, `True`, `False`, `Int`, `Str`, `Pair`, `List`, `Map`, `Set`, `Bag`
 
@@ -23,23 +21,9 @@ Estas são usadas em contextos mais específicos ou avançados:
 
 - Fases de execução: `BEGIN`, `CHECK`, `INIT`, `START`, `FIRST`, `ENTER`, `LEAVE`, `KEEP`, `UNDO`, `NEXT`, `LAST`, `PRE`, `POST`, `END`, `CLOSE`, `TEMP`, `UNITCHECK`
 
-- Manipulação de exceções: `try`, `CATCH`, `CONTROL`, `warn`, `die`, `fail`, `note` (Não damos suporte)
-
-- Regex e gramáticas: `regex`, `token`, `rule`, `grammar`, `make`, `take`, `gather`, `given`, `when` (Não damos suporte)
-
 - Declarações de importação e compilação: `use` (Verificar a usabilidade 'Seria um comando único?'), `require`, `need`, `import` (Verificar a usabilidade 'Seria um comando único?'), `export`, `unit`, `trusts`, `augment`, `supersede`
 
 - Outros: `do`, `given`, `with`, `without`, `unless`, `until`, `repeat`, `redo`, `break`, `continue`, `return`, `fail`, `LEAVE`, `KEEP`, `UNDO`, `CONTROL`, `NEXT`, `REDO`, `BREAK`, `CONTINUE`
-
-### 1.3 Palavras Reservadas especializadas
-
-Estas são utilizadas em casos muito específicos ou avançados:
-
-- Metaprogramação e introspecção: `augment`, `trusts`, `supersede`, `meta`, `HOW`, `WHAT`, `WHERE`, `WHO`, `WHENCE`, `WHY`(Não damos suporte)
-
-- Manipulação de threads e concorrência: `await`, `start`, `race`, `hyper`, `react`, `whenever`, `supply`, `emit`, `done`(Não damos suporte)
-
-- Manipulação de tempo e eventos: `sleep`, `now`, `time`, `Date`, `DateTime`, `Instant`, `Duration`, `Time`(Não damos suporte)
   
 ## 2. Operadores
 
@@ -122,23 +106,7 @@ Raku realiza conversões automáticas entre tipos quando necessário, mas també
 | Num     | Ponto flutuante                   | 3.14, 2e10           |
 | Complex | Número com parte imaginária       | 2+3i, Num.sqrt(-1)   |
 
-## 5. Erros (Não damos suporte)
-A Raku possui um sistema detalhado para tratamento de erros, incluindo erros de sintaxe (detectados durante a compilação), erros de tempo de execução (como variáveis não declaradas ou operações inválidas) e exceções (erros que podem ser capturados e tratados programaticamente).
-As exceções em Raku são objetos que herdam da classe Exception e podem ser tratadas usando blocos try e CATCH e para lidar com erros, é recomendado capturar apenas exceções específicas, fornecer mensagens claras de erro e validar entradas antes de realizar operações críticas, o uso de tipos numéricos adequados e verificações explícitas pode prevenir muitos erros comuns em operações matemáticas.
-
-Exemplo: Esse código trata de forma segura uma divisão por zero.
-```raku
-my $x = 0;
-try {
-    my $r = 10 / $x;
-    CATCH {
-        when X::Numeric::DivideByZero {
-            say "Erro: divisão por zero!";
-        }
-    }
-}
-```
-## 6. Identificadores
+## 5. Identificadores
 
 Em Raku, os identificadores seguem estas regras:
 
