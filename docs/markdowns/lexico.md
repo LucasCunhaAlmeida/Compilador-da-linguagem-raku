@@ -6,7 +6,7 @@ A linguagem de programação Raku possui uma ampla gama de palavra reservadas qu
 ### 1.1 Palavras Reservadas mais comuns
 Estas são amplamente utilizadas em programas Raku:
 
-- Controle de Fluxo: `if`, `else`, `elsif`, `while`, `for` (Não usar), `loop`, `next`, `last`, `redo`, `return`, `exit`, `BREAK`.
+- Controle de Fluxo: `if`, `else`, `elsif`, `while`, `for`, `loop`, `next`, `last`, `redo`, `return`, `exit`, `BREAK`.
 
 - Declaração de variáveis e escopo: `my`, `our`, `has`, `state`, `constant`, `let`
 
