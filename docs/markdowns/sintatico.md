@@ -1,4 +1,39 @@
 ## Como declarar uma função (Alanna)
+Raku permite a declaração de funções utilizando a palavra-chave sub. Uma função pode ou não ter parâmetros, e os parâmetros são declarados dentro de parênteses, podendo ter tipos opcionais.
+
+Sintaxe básica para declarar funções em Raku:
+
+# Função sem parâmetros
+sub saudacao {
+    say "Olá, mundo!";
+}
+
+# Função com parâmetros
+sub soma(Int $a, Int $b) {
+    return $a + $b;
+}
+
+# Função com retorno implícito (última expressão é retornada)
+sub quadrado($x) {
+    $x * $x
+}
+
+Regras Sintáticas
+
+A declaração de funções segue a forma:
+
+function_decl → "sub" ID "(" param_list? ")" block
+param_list    → param ("," param)*
+param         → type? "$"ID
+type          → ID
+block         → "{" statement* "}"
+
+sub: palavra-chave usada para definir funções.
+ID: identificador do nome da função.
+param_list: lista opcional de parâmetros.
+type: tipo opcional do parâmetro (como Int, Str, etc.).
+block: corpo da função delimitado por {}.
+
 
 ## Variaveis (Thiago)
 
