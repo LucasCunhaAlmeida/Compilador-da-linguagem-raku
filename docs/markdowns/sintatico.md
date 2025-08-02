@@ -32,15 +32,15 @@ param         → type? "$"ID
 type          → ID
 block         → "{" statement* "}"
 ```
-# sub: palavra-chave usada para definir funções.
+#### sub: palavra-chave usada para definir funções.
 
-# ID: identificador do nome da função.
+#### ID: identificador do nome da função.
 
-# param_list: lista opcional de parâmetros.
+#### param_list: lista opcional de parâmetros.
 
-# type: tipo opcional do parâmetro (como Int, Str, etc.).
+#### type: tipo opcional do parâmetro (como Int, Str, etc.).
 
-# block: corpo da função delimitado por {}.
+#### block: corpo da função delimitado por {}.
 
 
 ## Variaveis (Thiago)
