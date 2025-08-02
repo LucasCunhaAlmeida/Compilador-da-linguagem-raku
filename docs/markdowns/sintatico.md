@@ -43,12 +43,60 @@ type: tipo opcional do parâmetro (como Int, Str, etc.).
 
 block: corpo da função delimitado por {}.
 
+# Variáveis 
+As variáveis servem para armazenar informações (como números, textos, listas, etc.) que podem ser usadas, alteradas e reutilizadas ao longo do código.
+## Declaração de variáveis
+Você pode declarar variáveis com:
 
-## Variaveis (Thiago)
+`my`: escopo léxico (local).
 
-### Criação de uma variavel
+`our`: escopo global compartilhado.
 
-### Atribuição de variavel
+`state`: lembra o valor entre chamadas de função.
+```
+
+my $x = 10;       # variável local
+our $y = 20;      # variável global
+state $contador = 0;  # mantém valor entre chamadas
+
+```
+
+## Tipos de variáveis 
+### 1 - Escalar(`$`): 
+Usado para armazenar um único valor (inteiro, string, etc.).
+```
+my $nome = "Thiago"; 
+my $idade = 20;
+say "Nome: $nome, Idade: $idade";
+
+```
+
+### 2 - Lista(`@`):
+Usado para armazena uma lista ordenada de valores (semelhante a arrays em outras linguagens).
+
+```
+
+my @unidades = <unidade1 unidade2 unidade3>;
+say @unidades[0]; #Imprime unidade1
+
+``` 
+
+### 3 - Hash(`%`):
+Usado para armazena pares chave/valor (semelhante a dicionários ou mapas).
+```
+
+my %pessoa = nome => "Thiago", idade => 20;
+say %pessoa<nome>;
+
+```
+
+## Tipagem opcional 
+Você pode (opcionalmente) especificar tipos para variáveis:
+```
+my Int $idade = 20;
+my Str $nome = "Thiago";
+
+```
 
 ## Operações (Felipe e Lucas)
 
