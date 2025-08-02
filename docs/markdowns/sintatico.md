@@ -3,10 +3,6 @@ Raku permite a declaração de funções utilizando a palavra-chave sub. Uma fun
 
 Sintaxe básica para declarar funções em Raku:
 
-#### Exemplos:
-
-#### Exemplos:
-
 ```raku
 # Sem parâmetros
 sub ola() {
@@ -22,22 +18,29 @@ sub dobro($x) {
 sub soma($a, $b) {
     return $a + $b;
 }
+```
 
-Regras Sintáticas
+
+#### Regras Sintáticas
 
 A declaração de funções segue a forma:
 
+```raku
 function_decl → "sub" ID "(" param_list? ")" block
 param_list    → param ("," param)*
 param         → type? "$"ID
 type          → ID
 block         → "{" statement* "}"
+```
+# sub: palavra-chave usada para definir funções.
 
-sub: palavra-chave usada para definir funções.
-ID: identificador do nome da função.
-param_list: lista opcional de parâmetros.
-type: tipo opcional do parâmetro (como Int, Str, etc.).
-block: corpo da função delimitado por {}.
+# ID: identificador do nome da função.
+
+# param_list: lista opcional de parâmetros.
+
+# type: tipo opcional do parâmetro (como Int, Str, etc.).
+
+# block: corpo da função delimitado por {}.
 
 
 ## Variaveis (Thiago)
