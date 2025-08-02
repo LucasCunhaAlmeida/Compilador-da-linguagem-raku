@@ -1,4 +1,4 @@
-## Como declarar uma função (Alanna)
+## Como declarar uma função
 Raku permite a declaração de funções utilizando a palavra-chave sub. Uma função pode ou não ter parâmetros, e os parâmetros são declarados dentro de parênteses, podendo ter tipos opcionais.
 
 Sintaxe básica para declarar funções em Raku:
