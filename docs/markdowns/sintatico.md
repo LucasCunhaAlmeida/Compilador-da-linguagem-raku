@@ -3,19 +3,24 @@ Raku permite a declaração de funções utilizando a palavra-chave sub. Uma fun
 
 Sintaxe básica para declarar funções em Raku:
 
-# Função sem parâmetros
-sub saudacao {
-    say "Olá, mundo!";
+#### Exemplos:
+
+#### Exemplos:
+
+```raku
+# Sem parâmetros
+sub ola() {
+    say "Oi!";
 }
 
-# Função com parâmetros
-sub soma(Int $a, Int $b) {
+# Com um parâmetro
+sub dobro($x) {
+    return $x * 2;
+}
+
+# Com dois parâmetros
+sub soma($a, $b) {
     return $a + $b;
-}
-
-# Função com retorno implícito (última expressão é retornada)
-sub quadrado($x) {
-    $x * $x
 }
 
 Regras Sintáticas
