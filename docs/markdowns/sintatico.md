@@ -132,5 +132,25 @@ Ele é uma forma simples de repetir um bloco N vezes, muito útil para repetiç�
 }
 ```
 
+### 3 - While:
+Ele é útil quando você quer repetir algo até atingir um limite.
+```
+my $sintatico = 1;
+while $sintatico <= 5 {
+    say "Ezemplo de repetição com while: $sintatico";
+    $sintatico++;
+}
+```
+
+### 3 - While:
+Ele é útil quando você quer repetir algo até atingir um limite.
+```
+my $sintatico = 1;
+while $sintatico <= 5 {
+    say "Ezemplo de repetição com while: $sintatico";
+    $sintatico++;
+}
+```
+
 ## Estruturas condicionais (Lorena)
 
