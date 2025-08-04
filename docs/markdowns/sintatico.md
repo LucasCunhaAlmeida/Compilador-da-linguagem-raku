@@ -147,7 +147,7 @@ Ele é comum em programas que precisam ficar rodando e fazendo algo o tempo todo
 while True {
     my $hora = DateTime.now;
     say "Hora atual: $hora";
-    sleep 1; # a cada 1 segundo, mas pode retirar essa parte para não ser interrompido
+    sleep 1; 
 }
 ```
 
