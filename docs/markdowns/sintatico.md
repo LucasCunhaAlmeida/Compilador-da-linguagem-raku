@@ -137,18 +137,35 @@ Ele é útil quando você quer repetir algo até atingir um limite.
 ```
 my $sintatico = 1;
 while $sintatico <= 5 {
-    say "Ezemplo de repetição com while: $sintatico";
+    say "Exemplo de repetição com while: $sintatico";
     $sintatico++;
 }
 ```
-
-### 3 - While:
-Ele é útil quando você quer repetir algo até atingir um limite.
+#### 3.1 - While True:
+Ele é comum em programas que precisam ficar rodando e fazendo algo o tempo todo, podendo haver pausas, como por exemplo um relógio 
 ```
-my $sintatico = 1;
-while $sintatico <= 5 {
-    say "Ezemplo de repetição com while: $sintatico";
-    $sintatico++;
+while True {
+    my $hora = DateTime.now;
+    say "Hora atual: $hora";
+    sleep 1; # a cada 1 segundo, mas pode retirar essa parte para não ser interrompido
+}
+```
+
+
+### 4 - Loop:
+Estrutura de repetição com controle manual semelhante ao estilo que já conhecemos em C
+```
+loop (my $a = 0; $a < 4; $a++) {
+    say "Repetição com loop estilo C: $a";
+}
+```
+
+### 5 - Loop sem condição:
+Estrutura de repetição sem controle e precisa ser interrompido manualmente (Ctrl+C)
+```
+loop {
+    say "infinitamente rodando...";
+    sleep 2; # para dar uma pausa
 }
 ```
 
