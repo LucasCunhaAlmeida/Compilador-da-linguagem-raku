@@ -98,14 +98,123 @@ my Str $nome = "Thiago";
 
 ```
 
-## Operações (Felipe e Lucas)
+## Operações 
 
 ### Aritmeticas
 
-### Lógicas
+Raku oferece suporte completo às operações aritméticas básicas. Abaixo estão exemplos de como utilizá-las:
+
+```raku
+# Soma
+my Int $a = 10;
+my Int $b = 5;
+say $a + $b;  # Saída: 15
+
+# Subtração
+say $a - $b;  # Saída: 5
+
+# Multiplicação
+say $a * $b;  # Saída: 50
+
+# Divisão (retorna Rat por padrão)
+say $a / $b;  # Saída: 2.0
+
+# Divisão inteira
+say $a div $b;  # Saída: 2
+
+# Módulo (resto da divisão)
+say $a % $b;  # Saída: 0
+
+# Exponenciação
+say $a ** 2;  # Saída: 100
+
+# Incremento e decremento
+$a++;  # $a agora é 11
+$b--;  # $b agora é 4
+say $a, ", ", $b;
+```
+
+### 3.2 Lógicas
+  A linguagem Raku oferece suporte completo a operações lógicas utilizando os operadores **and**, **or**, **xor**, além das formas de negação **not** e **!**.
+
+  Esses operadores seguem o modelo de avaliação baseada em **truthy** e **falsy**, ou seja, qualquer tipo de valor pode ser utilizado como condição lógica. Isso permite que inteiros, strings, booleanos, floats e identificadores (variáveis) sejam avaliados diretamente em expressões lógicas, sendo eles transformado implicitamente em valores booleanos durante as operações lógicas.
+
+```
+exp_logic → tip "and" exp
+     | tip "or" exp
+     | tip "xor" exp
+     | "not" exp
+     | "!" exp
+```
+Exemplos no código:
+
+````
+# Operador AND
+my Bool $a = True;
+my Bool $b = False;
+say $a && $b;  # Saída: False
+
+# Operador OR
+say $a || $b;  # Saída: True
+
+# Operador XOR
+say $a ^^ $b;  # Saída: True
+
+# Negação com 'not'
+say not $a;    # Saída: False
+
+# Negação com '!'
+say !$b;       # Saída: True
+
+# Avaliação de inteiros como booleanos
+my Int $x = 0;
+my Int $y = 10;
+say $x || $y;  # Saída: 10 (0 é falsy, 10 é truthy)
+
+# Avaliação de strings como booleanos
+my Str $nome = "";
+say !$nome;    # Saída: True (string vazia é falsy)
+````
+
+### 3.3 Comparação
+  A linguagem Raku oferece uma variedade de operadores de comparação, que funcionam com diferente tipos de dados como Integer, Float, String e Boolean. Os operadores de comparação são constituidos de Igualdade (**==**), Diferença (**!=**), Maior ou Igual (**>=**), Maior (**>**), Menor ou Igual (**<=**), Menor (**<**) e o Smart Match (**~~**).
+
+```
+exp_comp → tip "==" exp
+         | tip "!=" exp
+         | tip ">=" exp
+         | tip "<=" exp
+         | tip ">"  exp
+         | tip "<"  exp
+         | tip "~~" exp
+```
+
+### Exemplos de código
+
+```
+my Int $a = 10;
+my Int $b = 20;
+
+say $a == $b;  # False
+say $a != $b;  # True
+say $a < $b;   # True
+say $b >= $a;  # True
+
+# Comparando strings
+my Str $nome1 = "Lucas";
+my Str $nome2 = "lucas";
+
+say $nome1 eq $nome2;  # False (case-sensitive)
+say $nome1.lc eq $nome2.lc;  # True (após lowercase)
+
+# Smart Match (~~)
+say $a ~~ Int;     # True (verifica tipo)
+say $nome1 ~~ /Luc/;  # True (regex match)
+```
 
 # Estruturas de repetição
 As estruturas de repetição são blocos de código que executam repetidamente até que uma condição seja atendida ou até que todos os elementos de uma sequência sejam percorridos. Assim como em outras linguagens com as quais estamos mais familiarizados, em Raku os loops permitem iterar sobre listas, ranges, hashes, ou repetir instruções.
+
 ## Tipos de repetição:
 ### 1 - For:
 Ele é usado principamente para percorrer listas, arrays e hashs. Lida bem quando precisa percorrer elementos de uma sequência
@@ -169,5 +278,28 @@ loop {
 }
 ```
 
-## Estruturas condicionais (Lorena)
+## Estruturas condicionais
+
+Aqui... Estrutura condicional Raku
+
+condicional -> IF expressão bloco
+		| IF expressão bloco ELSE bloco
+		| IF expressão bloco ELSIF expressão bloco
+		| IF expressão bloco lista_elsif ELSE bloco
+		
+lista_elsif -> ELSIF expressao bloco
+                | lista_elsif ELSIF expressao bloco	
+
+bloco -> ACHAVE declarações FCHAVE
+	   | declaração
+
+declarações -> declaração
+		| declarações declaração
+
+declaração -> atribuição PONTO_VIRGULA
+               | chamada função PONTO_VIRGULA
+               | condicional
+               | laco
+               | expressão PONTO_VIRGULA
+               | bloco
 
