@@ -81,15 +81,6 @@ say @unidades[0]; #Imprime unidade1
 
 ``` 
 
-### 3 - Hash(`%`):
-Usado para armazena pares chave/valor (semelhante a dicionários ou mapas).
-```
-
-my %pessoa = nome => "Thiago", idade => 20;
-say %pessoa<nome>;
-
-```
-
 ## Tipagem opcional 
 Você pode (opcionalmente) especificar tipos para variáveis:
 ```
