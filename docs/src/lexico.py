@@ -1,11 +1,12 @@
 import ply.lex as lex     #importa módulo ply.lex e o renomeia para lex
 
 # Definindo Tokens e padroes
-tokens = ['ADC','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','IGUAL','DECREMENTO','POW','MT','KMARK','LPAREN','RPAR','COMMA','STRING','FLOAT','INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC','DIVIDE','LCM','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH']
+tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','IGUAL','DECREMENTO','POW','MT','KMARK','LPAREN','RPAR','COMMA','STRING','FLOAT','INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC','DIVIDE','LCM','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 'PONTO', 'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PV']
 
 id_reservados = { 
   'if': 'IF',
     'else': 'ELSE',
+    'times': 'TIMES',
     'elsif': 'ELSIF',
     'while': 'WHILE',
     'loop': 'LOOP',
@@ -46,19 +47,19 @@ id_reservados = {
     'unit': 'UNIT',
     'import': 'IMPORT',
     'export': 'EXPORT',
+    'push': 'PUSH',
+    'unshift': 'UNSHIFT',
+    'splice': 'SPLICE',
 }
 
-# Adiciona os tokens das palavras reservadas à lista principal de tokens
 tokens += list(id_reservados.values())
-# Não foi realizado a implementação das seguintes tokens:
-# # t_GDC = r'gdc'
-# t_EQ = r'eq'
-# t_NEQ = r'ne'  
-# pois se forem utilizados, o lexer não irá reconhecer as strings como tokens fixos / palavras reservadas,  
-# Que vai contra a ideia da linguagem Raku.
 
+t_PV = r';'
+t_ABRE_CHAVE = r'\{'
+t_FECHA_CHAVE = r'\}'
+t_SETA = r'->'
+t_PONTO = r'\.'
 t_DIVIDE = r'/'
-t_LCM = r'lcm'
 t_LESSEQUAL = r'<='
 t_REPLICARSTRING = r'x'
 t_SMARTMATCH = r'~~'
@@ -119,6 +120,11 @@ def t_ID(t):
   t.type = id_reservados.get(t.value, 'ID')  # Verifica se é palavra reservada
   return t
 
+def t_LIST(t):
+  r'@[a-zA-Z_](?:[a-zA-Z0-9_]*([\'-](?!\d|\Z)[a-zA-Z_][a-zA-Z0-9_]*)?)*'
+  t.type = id_reservados.get(t.value, 'ID')
+  return t
+  
 def t_newline(t):
   r'\n+'
   t.lexer.lineno += len(t.value)
@@ -126,6 +132,10 @@ def t_newline(t):
 def t_error(t):
   print("Caractere ilegal '%s'" % t.value[0])
   t.lexer.skip(1)
+
+def t_TIMES(t):
+    r'\.times'
+    return t
 
 lexer = lex.lex()  # Cria o analisador léxico
 lexer.input("if while str False my our")  # Define a entrada do analisador léxico
