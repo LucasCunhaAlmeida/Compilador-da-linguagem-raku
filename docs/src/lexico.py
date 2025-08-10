@@ -1,7 +1,7 @@
 import ply.lex as lex     #importa módulo ply.lex e o renomeia para lex
 
 # Definindo Tokens e padroes
-tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','IGUAL','DECREMENTO','POW','MT','KMARK','LPAREN','RPAR','COMMA','STRING','FLOAT','INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC','DIVIDE','LCM','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 'PONTO']
+tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','IGUAL','DECREMENTO','POW','MT','KMARK','LPAREN','RPAR','COMMA','STRING','FLOAT','INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC','DIVIDE','LCM','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 'PONTO', 'SETA']
 
 id_reservados = { 
   'if': 'IF',
@@ -54,6 +54,7 @@ id_reservados = {
 
 tokens += list(id_reservados.values())
 
+t_SETA = r'->'
 t_PONTO = r'\.'
 t_DIVIDE = r'/'
 t_LESSEQUAL = r'<='
