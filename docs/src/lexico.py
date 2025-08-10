@@ -6,6 +6,7 @@ tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','
 id_reservados = { 
   'if': 'IF',
     'else': 'ELSE',
+    '.times': 'TIMES',
     'elsif': 'ELSIF',
     'while': 'WHILE',
     'loop': 'LOOP',
