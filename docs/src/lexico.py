@@ -6,7 +6,7 @@ tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','
 id_reservados = { 
   'if': 'IF',
     'else': 'ELSE',
-    '.times': 'TIMES',
+    'times': 'TIMES',
     'elsif': 'ELSIF',
     'while': 'WHILE',
     'loop': 'LOOP',
@@ -128,6 +128,10 @@ def t_newline(t):
 def t_error(t):
   print("Caractere ilegal '%s'" % t.value[0])
   t.lexer.skip(1)
+
+def t_TIMES(t):
+    r'\.times'
+    return t
 
 lexer = lex.lex()  # Cria o analisador léxico
 lexer.input("if while str False my our")  # Define a entrada do analisador léxico
