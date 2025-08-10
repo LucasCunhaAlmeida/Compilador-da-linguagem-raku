@@ -241,17 +241,6 @@ while $sintatico <= 5 {
     $sintatico++;
 }
 ```
-#### 3.1 - While True:
-Ele é comum em programas que precisam ficar rodando e fazendo algo o tempo todo, podendo haver pausas, como por exemplo um relógio 
-```
-while True {
-    my $hora = DateTime.now;
-    say "Hora atual: $hora";
-    sleep 1; 
-}
-```
-
-
 ### 4 - Loop:
 Estrutura de repetição com controle manual semelhante ao estilo que já conhecemos em C
 ```
