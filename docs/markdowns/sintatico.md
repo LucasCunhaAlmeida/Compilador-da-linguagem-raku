@@ -260,6 +260,15 @@ loop (my $a = 0; $a < 4; $a++) {
 }
 ```
 
+### 5 - Loop sem condição:
+Estrutura de repetição sem controle e precisa ser interrompido manualmente (Ctrl+C)
+```
+loop {
+    say "infinitamente rodando...";
+    sleep 2; # para dar uma pausa
+}
+```
+
 ## Estruturas condicionais
 
 Aqui... Estrutura condicional Raku
