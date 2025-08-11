@@ -17,6 +17,12 @@ def p_exp(p):
             | exp_comp'''
     pass
 
+def p_parametros(p):
+    '''parametros : ID
+                  | ID COMMA parametros
+                  | empty'''
+    pass
+
 # Operadores lógicos 
 def p_exp_logic(p):
      '''exp_logic : exp AND_S exp
@@ -63,6 +69,13 @@ def p_loop(p):
     
 def p_loop_sem_condicao(p):
     '''loop : LOOP ABRE_CHAVE comando FECHA_CHAVE'''
+
+#Estrutura de uma função
+def p_funcao(p):
+    '''funcao : FUNCTION ID LPAREN parametros RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
+
+def p_funcao_sem_parametros(p):
+    '''funcao : FUNCTION ID LPAREN RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
 
 
 
