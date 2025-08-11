@@ -89,11 +89,36 @@ my Str $nome = "Thiago";
 
 ```
 
-## Operações 
+## Operações
+No raku as operações sao compostas por varias estuturações, mas por limites de tempo iremos abordar as segintes expressões: expressões Aritimeticas (exp_metic), expressões Logicas (exp_logic) e expressões de Comparação (exp_comp), sendo elas compostas da seguinte forma:
 
+```
+exp → exp_metic
+     | exp_logic
+     | exp_comp
+     | exp_tip
+```
+
+Os valores que se pode ser atribuido aos valores de um expressão em raku são como inteiro, float e string, sendo que também é possivel a obtenção de valor por meio de um identificador/variavel, isso é representado por meior dessa gramatica:
+
+```
+exp_tip → INTEGER
+     | FLOAT
+     | STRING
+     | ID
+```
 ### Aritmeticas
 
-Raku oferece suporte completo às operações aritméticas básicas. Abaixo estão exemplos de como utilizá-las:
+Raku oferece suporte completo às operações aritméticas básicas.
+
+```
+exp_metic → exp "+" exp
+     | exp "-" exp
+     | exp "*" exp
+     | exp "/" exp
+```
+
+Abaixo estão exemplos de como utilizá-las:
 
 ```raku
 # Soma
@@ -126,14 +151,14 @@ say $a, ", ", $b;
 ```
 
 ### 3.2 Lógicas
-  A linguagem Raku oferece suporte completo a operações lógicas utilizando os operadores **and**, **or**, **xor**, além das formas de negação **not** e **!**.
+  A linguagem Raku oferece suporte completo a operações lógicas utilizando os operadores **&&**, **||**, **^^**, além das formas de negação **not** e **!**.
 
   Esses operadores seguem o modelo de avaliação baseada em **truthy** e **falsy**, ou seja, qualquer tipo de valor pode ser utilizado como condição lógica. Isso permite que inteiros, strings, booleanos, floats e identificadores (variáveis) sejam avaliados diretamente em expressões lógicas, sendo eles transformado implicitamente em valores booleanos durante as operações lógicas.
 
 ```
-exp_logic → tip "and" exp
-     | tip "or" exp
-     | tip "xor" exp
+exp_logic → exp "&&" exp
+     | exp "||" exp
+     | exp "^^" exp
      | "not" exp
      | "!" exp
 ```
@@ -171,13 +196,13 @@ say !$nome;    # Saída: True (string vazia é falsy)
   A linguagem Raku oferece uma variedade de operadores de comparação, que funcionam com diferente tipos de dados como Integer, Float, String e Boolean. Os operadores de comparação são constituidos de Igualdade (**==**), Diferença (**!=**), Maior ou Igual (**>=**), Maior (**>**), Menor ou Igual (**<=**), Menor (**<**) e o Smart Match (**~~**).
 
 ```
-exp_comp → tip "==" exp
-         | tip "!=" exp
-         | tip ">=" exp
-         | tip "<=" exp
-         | tip ">"  exp
-         | tip "<"  exp
-         | tip "~~" exp
+exp_comp → exp "==" exp
+         | exp "!=" exp
+         | exp ">=" exp
+         | exp "<=" exp
+         | exp ">"  exp
+         | exp "<"  exp
+         | exp "~~" exp
 ```
 
 ### Exemplos de código
