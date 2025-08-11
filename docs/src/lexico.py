@@ -5,7 +5,7 @@ tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','
           'DECREMENTO','POW','MAIOR','KMARK','LPAREN','RPAR','COMMA','STRING','FLOAT',
           'INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC',
           'DIVIDE','LCM','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 'PONTO', 
-          'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PV', 'AND_S', 'OR_S', 'XOR_S']
+          'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PV', 'AND_S', 'OR_S', 'XOR_S', 'FUNCTION']
 
 id_reservados = { 
   'if': 'IF',
@@ -129,6 +129,10 @@ def t_LIST(t):
   r'@[a-zA-Z_](?:[a-zA-Z0-9_]*([\'-](?!\d|\Z)[a-zA-Z_][a-zA-Z0-9_]*)?)*'
   t.type = id_reservados.get(t.value, 'ID')
   return t
+
+def t_FUNCTION(t):
+    r'function'
+    return t 
   
 def t_newline(t):
   r'\n+'
