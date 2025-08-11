@@ -1,0 +1,1295 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ABRE_CHAVE
+    ADC
+    ADC_DP
+    AND
+    ANY
+    BAG
+    BOOLEAN
+    BREAK
+    COMMA
+    COMMENT
+    CONC
+    CONSTANT
+    DECREMENTO
+    DIV
+    DIVI
+    DIVIDE
+    ELSE
+    ELSIF
+    EXIT
+    EXPORT
+    FALSE
+    FECHA_CHAVE
+    HAS
+    IF
+    IGUAL
+    IMPORT
+    INT
+    KMARK
+    LAST
+    LCM
+    LET
+    LIST
+    LOOP
+    LPAREN
+    MAP
+    MOD
+    MU
+    MULT
+    MULTI
+    MY
+    NEED
+    NEXT
+    NIL
+    ONLY
+    OR
+    OUR
+    PAIR
+    PONTO
+    POW
+    PUSH
+    PV
+    REDO
+    REPLICARSTRING
+    REQUIRE
+    RETURN
+    RPAR
+    SET
+    SETA
+    SPLICE
+    STATE
+    STR
+    SUB
+    TIMES
+    TRUE
+    UNARYMINUS
+    UNIT
+    UNSHIFT
+    USE
+    WHILE
+    XOR
+
+Grammar
+
+Rule 0     S' -> exp
+Rule 1     exp -> exp_tip
+Rule 2     exp -> exp_logic
+Rule 3     exp -> exp_comp
+Rule 4     exp_logic -> exp AND_S exp
+Rule 5     exp_logic -> exp OR_S exp
+Rule 6     exp_logic -> exp XOR_S exp
+Rule 7     exp_logic -> NOT exp
+Rule 8     exp_logic -> NEGAC exp
+Rule 9     exp_comp -> exp IGUAL_DP exp
+Rule 10    exp_comp -> exp DIF exp
+Rule 11    exp_comp -> exp MAIOR exp
+Rule 12    exp_comp -> exp MENOR exp
+Rule 13    exp_comp -> exp MAIOR_IGL exp
+Rule 14    exp_comp -> exp LESSEQUAL exp
+Rule 15    exp_comp -> exp SMARTMATCH exp
+Rule 16    exp_tip -> INTEGER
+Rule 17    exp_tip -> FLOAT
+Rule 18    exp_tip -> STRING
+Rule 19    exp_tip -> ID
+
+Terminals, with rules where they appear
+
+ABRE_CHAVE           : 
+ADC                  : 
+ADC_DP               : 
+AND                  : 
+AND_S                : 4
+ANY                  : 
+BAG                  : 
+BOOLEAN              : 
+BREAK                : 
+COMMA                : 
+COMMENT              : 
+CONC                 : 
+CONSTANT             : 
+DECREMENTO           : 
+DIF                  : 10
+DIV                  : 
+DIVI                 : 
+DIVIDE               : 
+ELSE                 : 
+ELSIF                : 
+EXIT                 : 
+EXPORT               : 
+FALSE                : 
+FECHA_CHAVE          : 
+FLOAT                : 17
+HAS                  : 
+ID                   : 19
+IF                   : 
+IGUAL                : 
+IGUAL_DP             : 9
+IMPORT               : 
+INT                  : 
+INTEGER              : 16
+KMARK                : 
+LAST                 : 
+LCM                  : 
+LESSEQUAL            : 14
+LET                  : 
+LIST                 : 
+LOOP                 : 
+LPAREN               : 
+MAIOR                : 11
+MAIOR_IGL            : 13
+MAP                  : 
+MENOR                : 12
+MOD                  : 
+MU                   : 
+MULT                 : 
+MULTI                : 
+MY                   : 
+NEED                 : 
+NEGAC                : 8
+NEXT                 : 
+NIL                  : 
+NOT                  : 7
+ONLY                 : 
+OR                   : 
+OR_S                 : 5
+OUR                  : 
+PAIR                 : 
+PONTO                : 
+POW                  : 
+PUSH                 : 
+PV                   : 
+REDO                 : 
+REPLICARSTRING       : 
+REQUIRE              : 
+RETURN               : 
+RPAR                 : 
+SET                  : 
+SETA                 : 
+SMARTMATCH           : 15
+SPLICE               : 
+STATE                : 
+STR                  : 
+STRING               : 18
+SUB                  : 
+TIMES                : 
+TRUE                 : 
+UNARYMINUS           : 
+UNIT                 : 
+UNSHIFT              : 
+USE                  : 
+WHILE                : 
+XOR                  : 
+XOR_S                : 6
+error                : 
+
+Nonterminals, with rules where they appear
+
+exp                  : 4 4 5 5 6 6 7 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 0
+exp_comp             : 3
+exp_logic            : 2
+exp_tip              : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . exp
+    (1) exp -> . exp_tip
+    (2) exp -> . exp_logic
+    (3) exp -> . exp_comp
+    (16) exp_tip -> . INTEGER
+    (17) exp_tip -> . FLOAT
+    (18) exp_tip -> . STRING
+    (19) exp_tip -> . ID
+    (4) exp_logic -> . exp AND_S exp
+    (5) exp_logic -> . exp OR_S exp
+    (6) exp_logic -> . exp XOR_S exp
+    (7) exp_logic -> . NOT exp
+    (8) exp_logic -> . NEGAC exp
+    (9) exp_comp -> . exp IGUAL_DP exp
+    (10) exp_comp -> . exp DIF exp
+    (11) exp_comp -> . exp MAIOR exp
+    (12) exp_comp -> . exp MENOR exp
+    (13) exp_comp -> . exp MAIOR_IGL exp
+    (14) exp_comp -> . exp LESSEQUAL exp
+    (15) exp_comp -> . exp SMARTMATCH exp
+
+    INTEGER         shift and go to state 5
+    FLOAT           shift and go to state 6
+    STRING          shift and go to state 7
+    ID              shift and go to state 8
+    NOT             shift and go to state 9
+    NEGAC           shift and go to state 10
+
+    exp                            shift and go to state 1
+    exp_tip                        shift and go to state 2
+    exp_logic                      shift and go to state 3
+    exp_comp                       shift and go to state 4
+
+state 1
+
+    (0) S' -> exp .
+    (4) exp_logic -> exp . AND_S exp
+    (5) exp_logic -> exp . OR_S exp
+    (6) exp_logic -> exp . XOR_S exp
+    (9) exp_comp -> exp . IGUAL_DP exp
+    (10) exp_comp -> exp . DIF exp
+    (11) exp_comp -> exp . MAIOR exp
+    (12) exp_comp -> exp . MENOR exp
+    (13) exp_comp -> exp . MAIOR_IGL exp
+    (14) exp_comp -> exp . LESSEQUAL exp
+    (15) exp_comp -> exp . SMARTMATCH exp
+
+    AND_S           shift and go to state 11
+    OR_S            shift and go to state 12
+    XOR_S           shift and go to state 13
+    IGUAL_DP        shift and go to state 14
+    DIF             shift and go to state 15
+    MAIOR           shift and go to state 16
+    MENOR           shift and go to state 17
+    MAIOR_IGL       shift and go to state 18
+    LESSEQUAL       shift and go to state 19
+    SMARTMATCH      shift and go to state 20
+
+
+state 2
+
+    (1) exp -> exp_tip .
+
+    AND_S           reduce using rule 1 (exp -> exp_tip .)
+    OR_S            reduce using rule 1 (exp -> exp_tip .)
+    XOR_S           reduce using rule 1 (exp -> exp_tip .)
+    IGUAL_DP        reduce using rule 1 (exp -> exp_tip .)
+    DIF             reduce using rule 1 (exp -> exp_tip .)
+    MAIOR           reduce using rule 1 (exp -> exp_tip .)
+    MENOR           reduce using rule 1 (exp -> exp_tip .)
+    MAIOR_IGL       reduce using rule 1 (exp -> exp_tip .)
+    LESSEQUAL       reduce using rule 1 (exp -> exp_tip .)
+    SMARTMATCH      reduce using rule 1 (exp -> exp_tip .)
+    $end            reduce using rule 1 (exp -> exp_tip .)
+
+
+state 3
+
+    (2) exp -> exp_logic .
+
+    AND_S           reduce using rule 2 (exp -> exp_logic .)
+    OR_S            reduce using rule 2 (exp -> exp_logic .)
+    XOR_S           reduce using rule 2 (exp -> exp_logic .)
+    IGUAL_DP        reduce using rule 2 (exp -> exp_logic .)
+    DIF             reduce using rule 2 (exp -> exp_logic .)
+    MAIOR           reduce using rule 2 (exp -> exp_logic .)
+    MENOR           reduce using rule 2 (exp -> exp_logic .)
+    MAIOR_IGL       reduce using rule 2 (exp -> exp_logic .)
+    LESSEQUAL       reduce using rule 2 (exp -> exp_logic .)
+    SMARTMATCH      reduce using rule 2 (exp -> exp_logic .)
+    $end            reduce using rule 2 (exp -> exp_logic .)
+
+
+state 4
+
+    (3) exp -> exp_comp .
+
+    AND_S           reduce using rule 3 (exp -> exp_comp .)
+    OR_S            reduce using rule 3 (exp -> exp_comp .)
+    XOR_S           reduce using rule 3 (exp -> exp_comp .)
+    IGUAL_DP        reduce using rule 3 (exp -> exp_comp .)
+    DIF             reduce using rule 3 (exp -> exp_comp .)
+    MAIOR           reduce using rule 3 (exp -> exp_comp .)
+    MENOR           reduce using rule 3 (exp -> exp_comp .)
+    MAIOR_IGL       reduce using rule 3 (exp -> exp_comp .)
+    LESSEQUAL       reduce using rule 3 (exp -> exp_comp .)
+    SMARTMATCH      reduce using rule 3 (exp -> exp_comp .)
+    $end            reduce using rule 3 (exp -> exp_comp .)
+
+
+state 5
+
+    (16) exp_tip -> INTEGER .
+
+    AND_S           reduce using rule 16 (exp_tip -> INTEGER .)
+    OR_S            reduce using rule 16 (exp_tip -> INTEGER .)
+    XOR_S           reduce using rule 16 (exp_tip -> INTEGER .)
+    IGUAL_DP        reduce using rule 16 (exp_tip -> INTEGER .)
+    DIF             reduce using rule 16 (exp_tip -> INTEGER .)
+    MAIOR           reduce using rule 16 (exp_tip -> INTEGER .)
+    MENOR           reduce using rule 16 (exp_tip -> INTEGER .)
+    MAIOR_IGL       reduce using rule 16 (exp_tip -> INTEGER .)
+    LESSEQUAL       reduce using rule 16 (exp_tip -> INTEGER .)
+    SMARTMATCH      reduce using rule 16 (exp_tip -> INTEGER .)
+    $end            reduce using rule 16 (exp_tip -> INTEGER .)
+
+
+state 6
+
+    (17) exp_tip -> FLOAT .
+
+    AND_S           reduce using rule 17 (exp_tip -> FLOAT .)
+    OR_S            reduce using rule 17 (exp_tip -> FLOAT .)
+    XOR_S           reduce using rule 17 (exp_tip -> FLOAT .)
+    IGUAL_DP        reduce using rule 17 (exp_tip -> FLOAT .)
+    DIF             reduce using rule 17 (exp_tip -> FLOAT .)
+    MAIOR           reduce using rule 17 (exp_tip -> FLOAT .)
+    MENOR           reduce using rule 17 (exp_tip -> FLOAT .)
+    MAIOR_IGL       reduce using rule 17 (exp_tip -> FLOAT .)
+    LESSEQUAL       reduce using rule 17 (exp_tip -> FLOAT .)
+    SMARTMATCH      reduce using rule 17 (exp_tip -> FLOAT .)
+    $end            reduce using rule 17 (exp_tip -> FLOAT .)
+
+
+state 7
+
+    (18) exp_tip -> STRING .
+
+    AND_S           reduce using rule 18 (exp_tip -> STRING .)
+    OR_S            reduce using rule 18 (exp_tip -> STRING .)
+    XOR_S           reduce using rule 18 (exp_tip -> STRING .)
+    IGUAL_DP        reduce using rule 18 (exp_tip -> STRING .)
+    DIF             reduce using rule 18 (exp_tip -> STRING .)
+    MAIOR           reduce using rule 18 (exp_tip -> STRING .)
+    MENOR           reduce using rule 18 (exp_tip -> STRING .)
+    MAIOR_IGL       reduce using rule 18 (exp_tip -> STRING .)
+    LESSEQUAL       reduce using rule 18 (exp_tip -> STRING .)
+    SMARTMATCH      reduce using rule 18 (exp_tip -> STRING .)
+    $end            reduce using rule 18 (exp_tip -> STRING .)
+
+
+state 8
+
+    (19) exp_tip -> ID .
+
+    AND_S           reduce using rule 19 (exp_tip -> ID .)
+    OR_S            reduce using rule 19 (exp_tip -> ID .)
+    XOR_S           reduce using rule 19 (exp_tip -> ID .)
+    IGUAL_DP        reduce using rule 19 (exp_tip -> ID .)
+    DIF             reduce using rule 19 (exp_tip -> ID .)
+    MAIOR           reduce using rule 19 (exp_tip -> ID .)
+    MENOR           reduce using rule 19 (exp_tip -> ID .)
+    MAIOR_IGL       reduce using rule 19 (exp_tip -> ID .)
+    LESSEQUAL       reduce using rule 19 (exp_tip -> ID .)
+    SMARTMATCH      reduce using rule 19 (exp_tip -> ID .)
+    $end            reduce using rule 19 (exp_tip -> ID .)
+
+
+state 9
+
+    (7) exp_logic -> NOT . exp
+    (1) exp -> . exp_tip
+    (2) exp -> . exp_logic
+    (3) exp -> . exp_comp
+    (16) exp_tip -> . INTEGER
+    (17) exp_tip -> . FLOAT
+    (18) exp_tip -> . STRING
+    (19) exp_tip -> . ID
+    (4) exp_logic -> . exp AND_S exp
+    (5) exp_logic -> . exp OR_S exp
+    (6) exp_logic -> . exp XOR_S exp
+    (7) exp_logic -> . NOT exp
+    (8) exp_logic -> . NEGAC exp
+    (9) exp_comp -> . exp IGUAL_DP exp
+    (10) exp_comp -> . exp DIF exp
+    (11) exp_comp -> . exp MAIOR exp
+    (12) exp_comp -> . exp MENOR exp
+    (13) exp_comp -> . exp MAIOR_IGL exp
+    (14) exp_comp -> . exp LESSEQUAL exp
+    (15) exp_comp -> . exp SMARTMATCH exp
+
+    INTEGER         shift and go to state 5
+    FLOAT           shift and go to state 6
+    STRING          shift and go to state 7
+    ID              shift and go to state 8
+    NOT             shift and go to state 9
+    NEGAC           shift and go to state 10
+
+    exp                            shift and go to state 21
+    exp_tip                        shift and go to state 2
+    exp_logic                      shift and go to state 3
+    exp_comp                       shift and go to state 4
+
+state 10
+
+    (8) exp_logic -> NEGAC . exp
+    (1) exp -> . exp_tip
+    (2) exp -> . exp_logic
+    (3) exp -> . exp_comp
+    (16) exp_tip -> . INTEGER
+    (17) exp_tip -> . FLOAT
+    (18) exp_tip -> . STRING
+    (19) exp_tip -> . ID
+    (4) exp_logic -> . exp AND_S exp
+    (5) exp_logic -> . exp OR_S exp
+    (6) exp_logic -> . exp XOR_S exp
+    (7) exp_logic -> . NOT exp
+    (8) exp_logic -> . NEGAC exp
+    (9) exp_comp -> . exp IGUAL_DP exp
+    (10) exp_comp -> . exp DIF exp
+    (11) exp_comp -> . exp MAIOR exp
+    (12) exp_comp -> . exp MENOR exp
+    (13) exp_comp -> . exp MAIOR_IGL exp
+    (14) exp_comp -> . exp LESSEQUAL exp
+    (15) exp_comp -> . exp SMARTMATCH exp
+
+    INTEGER         shift and go to state 5
+    FLOAT           shift and go to state 6
+    STRING          shift and go to state 7
+    ID              shift and go to state 8
+    NOT             shift and go to state 9
+    NEGAC           shift and go to state 10
+
+    exp                            shift and go to state 22
+    exp_tip                        shift and go to state 2
+    exp_logic                      shift and go to state 3
+    exp_comp                       shift and go to state 4
+
+state 11
+
+    (4) exp_logic -> exp AND_S . exp
+    (1) exp -> . exp_tip
+    (2) exp -> . exp_logic
+    (3) exp -> . exp_comp
+    (16) exp_tip -> . INTEGER
+    (17) exp_tip -> . FLOAT
+    (18) exp_tip -> . STRING
+    (19) exp_tip -> . ID
+    (4) exp_logic -> . exp AND_S exp
+    (5) exp_logic -> . exp OR_S exp
+    (6) exp_logic -> . exp XOR_S exp
+    (7) exp_logic -> . NOT exp
+    (8) exp_logic -> . NEGAC exp
+    (9) exp_comp -> . exp IGUAL_DP exp
+    (10) exp_comp -> . exp DIF exp
+    (11) exp_comp -> . exp MAIOR exp
+    (12) exp_comp -> . exp MENOR exp
+    (13) exp_comp -> . exp MAIOR_IGL exp
+    (14) exp_comp -> . exp LESSEQUAL exp
+    (15) exp_comp -> . exp SMARTMATCH exp
+
+    INTEGER         shift and go to state 5
+    FLOAT           shift and go to state 6
+    STRING          shift and go to state 7
+    ID              shift and go to state 8
+    NOT             shift and go to state 9
+    NEGAC           shift and go to state 10
+
+    exp                            shift and go to state 23
+    exp_tip                        shift and go to state 2
+    exp_logic                      shift and go to state 3
+    exp_comp                       shift and go to state 4
+
+state 12
+
+    (5) exp_logic -> exp OR_S . exp
+    (1) exp -> . exp_tip
+    (2) exp -> . exp_logic
+    (3) exp -> . exp_comp
+    (16) exp_tip -> . INTEGER
+    (17) exp_tip -> . FLOAT
+    (18) exp_tip -> . STRING
+    (19) exp_tip -> . ID
+    (4) exp_logic -> . exp AND_S exp
+    (5) exp_logic -> . exp OR_S exp
+    (6) exp_logic -> . exp XOR_S exp
+    (7) exp_logic -> . NOT exp
+    (8) exp_logic -> . NEGAC exp
+    (9) exp_comp -> . exp IGUAL_DP exp
+    (10) exp_comp -> . exp DIF exp
+    (11) exp_comp -> . exp MAIOR exp
+    (12) exp_comp -> . exp MENOR exp
+    (13) exp_comp -> . exp MAIOR_IGL exp
+    (14) exp_comp -> . exp LESSEQUAL exp
+    (15) exp_comp -> . exp SMARTMATCH exp
+
+    INTEGER         shift and go to state 5
+    FLOAT           shift and go to state 6
+    STRING          shift and go to state 7
+    ID              shift and go to state 8
+    NOT             shift and go to state 9
+    NEGAC           shift and go to state 10
+
+    exp                            shift and go to state 24
+    exp_tip                        shift and go to state 2
+    exp_logic                      shift and go to state 3
+    exp_comp                       shift and go to state 4
+
+state 13
+
+    (6) exp_logic -> exp XOR_S . exp
+    (1) exp -> . exp_tip
+    (2) exp -> . exp_logic
+    (3) exp -> . exp_comp
+    (16) exp_tip -> . INTEGER
+    (17) exp_tip -> . FLOAT
+    (18) exp_tip -> . STRING
+    (19) exp_tip -> . ID
+    (4) exp_logic -> . exp AND_S exp
+    (5) exp_logic -> . exp OR_S exp
+    (6) exp_logic -> . exp XOR_S exp
+    (7) exp_logic -> . NOT exp
+    (8) exp_logic -> . NEGAC exp
+    (9) exp_comp -> . exp IGUAL_DP exp
+    (10) exp_comp -> . exp DIF exp
+    (11) exp_comp -> . exp MAIOR exp
+    (12) exp_comp -> . exp MENOR exp
+    (13) exp_comp -> . exp MAIOR_IGL exp
+    (14) exp_comp -> . exp LESSEQUAL exp
+    (15) exp_comp -> . exp SMARTMATCH exp
+
+    INTEGER         shift and go to state 5
+    FLOAT           shift and go to state 6
+    STRING          shift and go to state 7
+    ID              shift and go to state 8
+    NOT             shift and go to state 9
+    NEGAC           shift and go to state 10
+
+    exp                            shift and go to state 25
+    exp_tip                        shift and go to state 2
+    exp_logic                      shift and go to state 3
+    exp_comp                       shift and go to state 4
+
+state 14
+
+    (9) exp_comp -> exp IGUAL_DP . exp
+    (1) exp -> . exp_tip
+    (2) exp -> . exp_logic
+    (3) exp -> . exp_comp
+    (16) exp_tip -> . INTEGER
+    (17) exp_tip -> . FLOAT
+    (18) exp_tip -> . STRING
+    (19) exp_tip -> . ID
+    (4) exp_logic -> . exp AND_S exp
+    (5) exp_logic -> . exp OR_S exp
+    (6) exp_logic -> . exp XOR_S exp
+    (7) exp_logic -> . NOT exp
+    (8) exp_logic -> . NEGAC exp
+    (9) exp_comp -> . exp IGUAL_DP exp
+    (10) exp_comp -> . exp DIF exp
+    (11) exp_comp -> . exp MAIOR exp
+    (12) exp_comp -> . exp MENOR exp
+    (13) exp_comp -> . exp MAIOR_IGL exp
+    (14) exp_comp -> . exp LESSEQUAL exp
+    (15) exp_comp -> . exp SMARTMATCH exp
+
+    INTEGER         shift and go to state 5
+    FLOAT           shift and go to state 6
+    STRING          shift and go to state 7
+    ID              shift and go to state 8
+    NOT             shift and go to state 9
+    NEGAC           shift and go to state 10
+
+    exp                            shift and go to state 26
+    exp_tip                        shift and go to state 2
+    exp_logic                      shift and go to state 3
+    exp_comp                       shift and go to state 4
+
+state 15
+
+    (10) exp_comp -> exp DIF . exp
+    (1) exp -> . exp_tip
+    (2) exp -> . exp_logic
+    (3) exp -> . exp_comp
+    (16) exp_tip -> . INTEGER
+    (17) exp_tip -> . FLOAT
+    (18) exp_tip -> . STRING
+    (19) exp_tip -> . ID
+    (4) exp_logic -> . exp AND_S exp
+    (5) exp_logic -> . exp OR_S exp
+    (6) exp_logic -> . exp XOR_S exp
+    (7) exp_logic -> . NOT exp
+    (8) exp_logic -> . NEGAC exp
+    (9) exp_comp -> . exp IGUAL_DP exp
+    (10) exp_comp -> . exp DIF exp
+    (11) exp_comp -> . exp MAIOR exp
+    (12) exp_comp -> . exp MENOR exp
+    (13) exp_comp -> . exp MAIOR_IGL exp
+    (14) exp_comp -> . exp LESSEQUAL exp
+    (15) exp_comp -> . exp SMARTMATCH exp
+
+    INTEGER         shift and go to state 5
+    FLOAT           shift and go to state 6
+    STRING          shift and go to state 7
+    ID              shift and go to state 8
+    NOT             shift and go to state 9
+    NEGAC           shift and go to state 10
+
+    exp                            shift and go to state 27
+    exp_tip                        shift and go to state 2
+    exp_logic                      shift and go to state 3
+    exp_comp                       shift and go to state 4
+
+state 16
+
+    (11) exp_comp -> exp MAIOR . exp
+    (1) exp -> . exp_tip
+    (2) exp -> . exp_logic
+    (3) exp -> . exp_comp
+    (16) exp_tip -> . INTEGER
+    (17) exp_tip -> . FLOAT
+    (18) exp_tip -> . STRING
+    (19) exp_tip -> . ID
+    (4) exp_logic -> . exp AND_S exp
+    (5) exp_logic -> . exp OR_S exp
+    (6) exp_logic -> . exp XOR_S exp
+    (7) exp_logic -> . NOT exp
+    (8) exp_logic -> . NEGAC exp
+    (9) exp_comp -> . exp IGUAL_DP exp
+    (10) exp_comp -> . exp DIF exp
+    (11) exp_comp -> . exp MAIOR exp
+    (12) exp_comp -> . exp MENOR exp
+    (13) exp_comp -> . exp MAIOR_IGL exp
+    (14) exp_comp -> . exp LESSEQUAL exp
+    (15) exp_comp -> . exp SMARTMATCH exp
+
+    INTEGER         shift and go to state 5
+    FLOAT           shift and go to state 6
+    STRING          shift and go to state 7
+    ID              shift and go to state 8
+    NOT             shift and go to state 9
+    NEGAC           shift and go to state 10
+
+    exp                            shift and go to state 28
+    exp_tip                        shift and go to state 2
+    exp_logic                      shift and go to state 3
+    exp_comp                       shift and go to state 4
+
+state 17
+
+    (12) exp_comp -> exp MENOR . exp
+    (1) exp -> . exp_tip
+    (2) exp -> . exp_logic
+    (3) exp -> . exp_comp
+    (16) exp_tip -> . INTEGER
+    (17) exp_tip -> . FLOAT
+    (18) exp_tip -> . STRING
+    (19) exp_tip -> . ID
+    (4) exp_logic -> . exp AND_S exp
+    (5) exp_logic -> . exp OR_S exp
+    (6) exp_logic -> . exp XOR_S exp
+    (7) exp_logic -> . NOT exp
+    (8) exp_logic -> . NEGAC exp
+    (9) exp_comp -> . exp IGUAL_DP exp
+    (10) exp_comp -> . exp DIF exp
+    (11) exp_comp -> . exp MAIOR exp
+    (12) exp_comp -> . exp MENOR exp
+    (13) exp_comp -> . exp MAIOR_IGL exp
+    (14) exp_comp -> . exp LESSEQUAL exp
+    (15) exp_comp -> . exp SMARTMATCH exp
+
+    INTEGER         shift and go to state 5
+    FLOAT           shift and go to state 6
+    STRING          shift and go to state 7
+    ID              shift and go to state 8
+    NOT             shift and go to state 9
+    NEGAC           shift and go to state 10
+
+    exp                            shift and go to state 29
+    exp_tip                        shift and go to state 2
+    exp_logic                      shift and go to state 3
+    exp_comp                       shift and go to state 4
+
+state 18
+
+    (13) exp_comp -> exp MAIOR_IGL . exp
+    (1) exp -> . exp_tip
+    (2) exp -> . exp_logic
+    (3) exp -> . exp_comp
+    (16) exp_tip -> . INTEGER
+    (17) exp_tip -> . FLOAT
+    (18) exp_tip -> . STRING
+    (19) exp_tip -> . ID
+    (4) exp_logic -> . exp AND_S exp
+    (5) exp_logic -> . exp OR_S exp
+    (6) exp_logic -> . exp XOR_S exp
+    (7) exp_logic -> . NOT exp
+    (8) exp_logic -> . NEGAC exp
+    (9) exp_comp -> . exp IGUAL_DP exp
+    (10) exp_comp -> . exp DIF exp
+    (11) exp_comp -> . exp MAIOR exp
+    (12) exp_comp -> . exp MENOR exp
+    (13) exp_comp -> . exp MAIOR_IGL exp
+    (14) exp_comp -> . exp LESSEQUAL exp
+    (15) exp_comp -> . exp SMARTMATCH exp
+
+    INTEGER         shift and go to state 5
+    FLOAT           shift and go to state 6
+    STRING          shift and go to state 7
+    ID              shift and go to state 8
+    NOT             shift and go to state 9
+    NEGAC           shift and go to state 10
+
+    exp                            shift and go to state 30
+    exp_tip                        shift and go to state 2
+    exp_logic                      shift and go to state 3
+    exp_comp                       shift and go to state 4
+
+state 19
+
+    (14) exp_comp -> exp LESSEQUAL . exp
+    (1) exp -> . exp_tip
+    (2) exp -> . exp_logic
+    (3) exp -> . exp_comp
+    (16) exp_tip -> . INTEGER
+    (17) exp_tip -> . FLOAT
+    (18) exp_tip -> . STRING
+    (19) exp_tip -> . ID
+    (4) exp_logic -> . exp AND_S exp
+    (5) exp_logic -> . exp OR_S exp
+    (6) exp_logic -> . exp XOR_S exp
+    (7) exp_logic -> . NOT exp
+    (8) exp_logic -> . NEGAC exp
+    (9) exp_comp -> . exp IGUAL_DP exp
+    (10) exp_comp -> . exp DIF exp
+    (11) exp_comp -> . exp MAIOR exp
+    (12) exp_comp -> . exp MENOR exp
+    (13) exp_comp -> . exp MAIOR_IGL exp
+    (14) exp_comp -> . exp LESSEQUAL exp
+    (15) exp_comp -> . exp SMARTMATCH exp
+
+    INTEGER         shift and go to state 5
+    FLOAT           shift and go to state 6
+    STRING          shift and go to state 7
+    ID              shift and go to state 8
+    NOT             shift and go to state 9
+    NEGAC           shift and go to state 10
+
+    exp                            shift and go to state 31
+    exp_tip                        shift and go to state 2
+    exp_logic                      shift and go to state 3
+    exp_comp                       shift and go to state 4
+
+state 20
+
+    (15) exp_comp -> exp SMARTMATCH . exp
+    (1) exp -> . exp_tip
+    (2) exp -> . exp_logic
+    (3) exp -> . exp_comp
+    (16) exp_tip -> . INTEGER
+    (17) exp_tip -> . FLOAT
+    (18) exp_tip -> . STRING
+    (19) exp_tip -> . ID
+    (4) exp_logic -> . exp AND_S exp
+    (5) exp_logic -> . exp OR_S exp
+    (6) exp_logic -> . exp XOR_S exp
+    (7) exp_logic -> . NOT exp
+    (8) exp_logic -> . NEGAC exp
+    (9) exp_comp -> . exp IGUAL_DP exp
+    (10) exp_comp -> . exp DIF exp
+    (11) exp_comp -> . exp MAIOR exp
+    (12) exp_comp -> . exp MENOR exp
+    (13) exp_comp -> . exp MAIOR_IGL exp
+    (14) exp_comp -> . exp LESSEQUAL exp
+    (15) exp_comp -> . exp SMARTMATCH exp
+
+    INTEGER         shift and go to state 5
+    FLOAT           shift and go to state 6
+    STRING          shift and go to state 7
+    ID              shift and go to state 8
+    NOT             shift and go to state 9
+    NEGAC           shift and go to state 10
+
+    exp                            shift and go to state 32
+    exp_tip                        shift and go to state 2
+    exp_logic                      shift and go to state 3
+    exp_comp                       shift and go to state 4
+
+state 21
+
+    (7) exp_logic -> NOT exp .
+    (4) exp_logic -> exp . AND_S exp
+    (5) exp_logic -> exp . OR_S exp
+    (6) exp_logic -> exp . XOR_S exp
+    (9) exp_comp -> exp . IGUAL_DP exp
+    (10) exp_comp -> exp . DIF exp
+    (11) exp_comp -> exp . MAIOR exp
+    (12) exp_comp -> exp . MENOR exp
+    (13) exp_comp -> exp . MAIOR_IGL exp
+    (14) exp_comp -> exp . LESSEQUAL exp
+    (15) exp_comp -> exp . SMARTMATCH exp
+
+  ! shift/reduce conflict for AND_S resolved as shift
+  ! shift/reduce conflict for OR_S resolved as shift
+  ! shift/reduce conflict for XOR_S resolved as shift
+  ! shift/reduce conflict for IGUAL_DP resolved as shift
+  ! shift/reduce conflict for DIF resolved as shift
+  ! shift/reduce conflict for MAIOR resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for MAIOR_IGL resolved as shift
+  ! shift/reduce conflict for LESSEQUAL resolved as shift
+  ! shift/reduce conflict for SMARTMATCH resolved as shift
+    $end            reduce using rule 7 (exp_logic -> NOT exp .)
+    AND_S           shift and go to state 11
+    OR_S            shift and go to state 12
+    XOR_S           shift and go to state 13
+    IGUAL_DP        shift and go to state 14
+    DIF             shift and go to state 15
+    MAIOR           shift and go to state 16
+    MENOR           shift and go to state 17
+    MAIOR_IGL       shift and go to state 18
+    LESSEQUAL       shift and go to state 19
+    SMARTMATCH      shift and go to state 20
+
+  ! AND_S           [ reduce using rule 7 (exp_logic -> NOT exp .) ]
+  ! OR_S            [ reduce using rule 7 (exp_logic -> NOT exp .) ]
+  ! XOR_S           [ reduce using rule 7 (exp_logic -> NOT exp .) ]
+  ! IGUAL_DP        [ reduce using rule 7 (exp_logic -> NOT exp .) ]
+  ! DIF             [ reduce using rule 7 (exp_logic -> NOT exp .) ]
+  ! MAIOR           [ reduce using rule 7 (exp_logic -> NOT exp .) ]
+  ! MENOR           [ reduce using rule 7 (exp_logic -> NOT exp .) ]
+  ! MAIOR_IGL       [ reduce using rule 7 (exp_logic -> NOT exp .) ]
+  ! LESSEQUAL       [ reduce using rule 7 (exp_logic -> NOT exp .) ]
+  ! SMARTMATCH      [ reduce using rule 7 (exp_logic -> NOT exp .) ]
+
+
+state 22
+
+    (8) exp_logic -> NEGAC exp .
+    (4) exp_logic -> exp . AND_S exp
+    (5) exp_logic -> exp . OR_S exp
+    (6) exp_logic -> exp . XOR_S exp
+    (9) exp_comp -> exp . IGUAL_DP exp
+    (10) exp_comp -> exp . DIF exp
+    (11) exp_comp -> exp . MAIOR exp
+    (12) exp_comp -> exp . MENOR exp
+    (13) exp_comp -> exp . MAIOR_IGL exp
+    (14) exp_comp -> exp . LESSEQUAL exp
+    (15) exp_comp -> exp . SMARTMATCH exp
+
+  ! shift/reduce conflict for AND_S resolved as shift
+  ! shift/reduce conflict for OR_S resolved as shift
+  ! shift/reduce conflict for XOR_S resolved as shift
+  ! shift/reduce conflict for IGUAL_DP resolved as shift
+  ! shift/reduce conflict for DIF resolved as shift
+  ! shift/reduce conflict for MAIOR resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for MAIOR_IGL resolved as shift
+  ! shift/reduce conflict for LESSEQUAL resolved as shift
+  ! shift/reduce conflict for SMARTMATCH resolved as shift
+    $end            reduce using rule 8 (exp_logic -> NEGAC exp .)
+    AND_S           shift and go to state 11
+    OR_S            shift and go to state 12
+    XOR_S           shift and go to state 13
+    IGUAL_DP        shift and go to state 14
+    DIF             shift and go to state 15
+    MAIOR           shift and go to state 16
+    MENOR           shift and go to state 17
+    MAIOR_IGL       shift and go to state 18
+    LESSEQUAL       shift and go to state 19
+    SMARTMATCH      shift and go to state 20
+
+  ! AND_S           [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
+  ! OR_S            [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
+  ! XOR_S           [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
+  ! IGUAL_DP        [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
+  ! DIF             [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
+  ! MAIOR           [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
+  ! MENOR           [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
+  ! MAIOR_IGL       [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
+  ! LESSEQUAL       [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
+  ! SMARTMATCH      [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
+
+
+state 23
+
+    (4) exp_logic -> exp AND_S exp .
+    (4) exp_logic -> exp . AND_S exp
+    (5) exp_logic -> exp . OR_S exp
+    (6) exp_logic -> exp . XOR_S exp
+    (9) exp_comp -> exp . IGUAL_DP exp
+    (10) exp_comp -> exp . DIF exp
+    (11) exp_comp -> exp . MAIOR exp
+    (12) exp_comp -> exp . MENOR exp
+    (13) exp_comp -> exp . MAIOR_IGL exp
+    (14) exp_comp -> exp . LESSEQUAL exp
+    (15) exp_comp -> exp . SMARTMATCH exp
+
+    AND_S           reduce using rule 4 (exp_logic -> exp AND_S exp .)
+    OR_S            reduce using rule 4 (exp_logic -> exp AND_S exp .)
+    XOR_S           reduce using rule 4 (exp_logic -> exp AND_S exp .)
+    $end            reduce using rule 4 (exp_logic -> exp AND_S exp .)
+    IGUAL_DP        shift and go to state 14
+    DIF             shift and go to state 15
+    MAIOR           shift and go to state 16
+    MENOR           shift and go to state 17
+    MAIOR_IGL       shift and go to state 18
+    LESSEQUAL       shift and go to state 19
+    SMARTMATCH      shift and go to state 20
+
+  ! IGUAL_DP        [ reduce using rule 4 (exp_logic -> exp AND_S exp .) ]
+  ! DIF             [ reduce using rule 4 (exp_logic -> exp AND_S exp .) ]
+  ! MAIOR           [ reduce using rule 4 (exp_logic -> exp AND_S exp .) ]
+  ! MENOR           [ reduce using rule 4 (exp_logic -> exp AND_S exp .) ]
+  ! MAIOR_IGL       [ reduce using rule 4 (exp_logic -> exp AND_S exp .) ]
+  ! LESSEQUAL       [ reduce using rule 4 (exp_logic -> exp AND_S exp .) ]
+  ! SMARTMATCH      [ reduce using rule 4 (exp_logic -> exp AND_S exp .) ]
+  ! AND_S           [ shift and go to state 11 ]
+  ! OR_S            [ shift and go to state 12 ]
+  ! XOR_S           [ shift and go to state 13 ]
+
+
+state 24
+
+    (5) exp_logic -> exp OR_S exp .
+    (4) exp_logic -> exp . AND_S exp
+    (5) exp_logic -> exp . OR_S exp
+    (6) exp_logic -> exp . XOR_S exp
+    (9) exp_comp -> exp . IGUAL_DP exp
+    (10) exp_comp -> exp . DIF exp
+    (11) exp_comp -> exp . MAIOR exp
+    (12) exp_comp -> exp . MENOR exp
+    (13) exp_comp -> exp . MAIOR_IGL exp
+    (14) exp_comp -> exp . LESSEQUAL exp
+    (15) exp_comp -> exp . SMARTMATCH exp
+
+    OR_S            reduce using rule 5 (exp_logic -> exp OR_S exp .)
+    XOR_S           reduce using rule 5 (exp_logic -> exp OR_S exp .)
+    $end            reduce using rule 5 (exp_logic -> exp OR_S exp .)
+    AND_S           shift and go to state 11
+    IGUAL_DP        shift and go to state 14
+    DIF             shift and go to state 15
+    MAIOR           shift and go to state 16
+    MENOR           shift and go to state 17
+    MAIOR_IGL       shift and go to state 18
+    LESSEQUAL       shift and go to state 19
+    SMARTMATCH      shift and go to state 20
+
+  ! AND_S           [ reduce using rule 5 (exp_logic -> exp OR_S exp .) ]
+  ! IGUAL_DP        [ reduce using rule 5 (exp_logic -> exp OR_S exp .) ]
+  ! DIF             [ reduce using rule 5 (exp_logic -> exp OR_S exp .) ]
+  ! MAIOR           [ reduce using rule 5 (exp_logic -> exp OR_S exp .) ]
+  ! MENOR           [ reduce using rule 5 (exp_logic -> exp OR_S exp .) ]
+  ! MAIOR_IGL       [ reduce using rule 5 (exp_logic -> exp OR_S exp .) ]
+  ! LESSEQUAL       [ reduce using rule 5 (exp_logic -> exp OR_S exp .) ]
+  ! SMARTMATCH      [ reduce using rule 5 (exp_logic -> exp OR_S exp .) ]
+  ! OR_S            [ shift and go to state 12 ]
+  ! XOR_S           [ shift and go to state 13 ]
+
+
+state 25
+
+    (6) exp_logic -> exp XOR_S exp .
+    (4) exp_logic -> exp . AND_S exp
+    (5) exp_logic -> exp . OR_S exp
+    (6) exp_logic -> exp . XOR_S exp
+    (9) exp_comp -> exp . IGUAL_DP exp
+    (10) exp_comp -> exp . DIF exp
+    (11) exp_comp -> exp . MAIOR exp
+    (12) exp_comp -> exp . MENOR exp
+    (13) exp_comp -> exp . MAIOR_IGL exp
+    (14) exp_comp -> exp . LESSEQUAL exp
+    (15) exp_comp -> exp . SMARTMATCH exp
+
+    OR_S            reduce using rule 6 (exp_logic -> exp XOR_S exp .)
+    XOR_S           reduce using rule 6 (exp_logic -> exp XOR_S exp .)
+    $end            reduce using rule 6 (exp_logic -> exp XOR_S exp .)
+    AND_S           shift and go to state 11
+    IGUAL_DP        shift and go to state 14
+    DIF             shift and go to state 15
+    MAIOR           shift and go to state 16
+    MENOR           shift and go to state 17
+    MAIOR_IGL       shift and go to state 18
+    LESSEQUAL       shift and go to state 19
+    SMARTMATCH      shift and go to state 20
+
+  ! AND_S           [ reduce using rule 6 (exp_logic -> exp XOR_S exp .) ]
+  ! IGUAL_DP        [ reduce using rule 6 (exp_logic -> exp XOR_S exp .) ]
+  ! DIF             [ reduce using rule 6 (exp_logic -> exp XOR_S exp .) ]
+  ! MAIOR           [ reduce using rule 6 (exp_logic -> exp XOR_S exp .) ]
+  ! MENOR           [ reduce using rule 6 (exp_logic -> exp XOR_S exp .) ]
+  ! MAIOR_IGL       [ reduce using rule 6 (exp_logic -> exp XOR_S exp .) ]
+  ! LESSEQUAL       [ reduce using rule 6 (exp_logic -> exp XOR_S exp .) ]
+  ! SMARTMATCH      [ reduce using rule 6 (exp_logic -> exp XOR_S exp .) ]
+  ! OR_S            [ shift and go to state 12 ]
+  ! XOR_S           [ shift and go to state 13 ]
+
+
+state 26
+
+    (9) exp_comp -> exp IGUAL_DP exp .
+    (4) exp_logic -> exp . AND_S exp
+    (5) exp_logic -> exp . OR_S exp
+    (6) exp_logic -> exp . XOR_S exp
+    (9) exp_comp -> exp . IGUAL_DP exp
+    (10) exp_comp -> exp . DIF exp
+    (11) exp_comp -> exp . MAIOR exp
+    (12) exp_comp -> exp . MENOR exp
+    (13) exp_comp -> exp . MAIOR_IGL exp
+    (14) exp_comp -> exp . LESSEQUAL exp
+    (15) exp_comp -> exp . SMARTMATCH exp
+
+    AND_S           reduce using rule 9 (exp_comp -> exp IGUAL_DP exp .)
+    OR_S            reduce using rule 9 (exp_comp -> exp IGUAL_DP exp .)
+    XOR_S           reduce using rule 9 (exp_comp -> exp IGUAL_DP exp .)
+    IGUAL_DP        reduce using rule 9 (exp_comp -> exp IGUAL_DP exp .)
+    DIF             reduce using rule 9 (exp_comp -> exp IGUAL_DP exp .)
+    $end            reduce using rule 9 (exp_comp -> exp IGUAL_DP exp .)
+    MAIOR           shift and go to state 16
+    MENOR           shift and go to state 17
+    MAIOR_IGL       shift and go to state 18
+    LESSEQUAL       shift and go to state 19
+    SMARTMATCH      shift and go to state 20
+
+  ! MAIOR           [ reduce using rule 9 (exp_comp -> exp IGUAL_DP exp .) ]
+  ! MENOR           [ reduce using rule 9 (exp_comp -> exp IGUAL_DP exp .) ]
+  ! MAIOR_IGL       [ reduce using rule 9 (exp_comp -> exp IGUAL_DP exp .) ]
+  ! LESSEQUAL       [ reduce using rule 9 (exp_comp -> exp IGUAL_DP exp .) ]
+  ! SMARTMATCH      [ reduce using rule 9 (exp_comp -> exp IGUAL_DP exp .) ]
+  ! AND_S           [ shift and go to state 11 ]
+  ! OR_S            [ shift and go to state 12 ]
+  ! XOR_S           [ shift and go to state 13 ]
+  ! IGUAL_DP        [ shift and go to state 14 ]
+  ! DIF             [ shift and go to state 15 ]
+
+
+state 27
+
+    (10) exp_comp -> exp DIF exp .
+    (4) exp_logic -> exp . AND_S exp
+    (5) exp_logic -> exp . OR_S exp
+    (6) exp_logic -> exp . XOR_S exp
+    (9) exp_comp -> exp . IGUAL_DP exp
+    (10) exp_comp -> exp . DIF exp
+    (11) exp_comp -> exp . MAIOR exp
+    (12) exp_comp -> exp . MENOR exp
+    (13) exp_comp -> exp . MAIOR_IGL exp
+    (14) exp_comp -> exp . LESSEQUAL exp
+    (15) exp_comp -> exp . SMARTMATCH exp
+
+    AND_S           reduce using rule 10 (exp_comp -> exp DIF exp .)
+    OR_S            reduce using rule 10 (exp_comp -> exp DIF exp .)
+    XOR_S           reduce using rule 10 (exp_comp -> exp DIF exp .)
+    IGUAL_DP        reduce using rule 10 (exp_comp -> exp DIF exp .)
+    DIF             reduce using rule 10 (exp_comp -> exp DIF exp .)
+    $end            reduce using rule 10 (exp_comp -> exp DIF exp .)
+    MAIOR           shift and go to state 16
+    MENOR           shift and go to state 17
+    MAIOR_IGL       shift and go to state 18
+    LESSEQUAL       shift and go to state 19
+    SMARTMATCH      shift and go to state 20
+
+  ! MAIOR           [ reduce using rule 10 (exp_comp -> exp DIF exp .) ]
+  ! MENOR           [ reduce using rule 10 (exp_comp -> exp DIF exp .) ]
+  ! MAIOR_IGL       [ reduce using rule 10 (exp_comp -> exp DIF exp .) ]
+  ! LESSEQUAL       [ reduce using rule 10 (exp_comp -> exp DIF exp .) ]
+  ! SMARTMATCH      [ reduce using rule 10 (exp_comp -> exp DIF exp .) ]
+  ! AND_S           [ shift and go to state 11 ]
+  ! OR_S            [ shift and go to state 12 ]
+  ! XOR_S           [ shift and go to state 13 ]
+  ! IGUAL_DP        [ shift and go to state 14 ]
+  ! DIF             [ shift and go to state 15 ]
+
+
+state 28
+
+    (11) exp_comp -> exp MAIOR exp .
+    (4) exp_logic -> exp . AND_S exp
+    (5) exp_logic -> exp . OR_S exp
+    (6) exp_logic -> exp . XOR_S exp
+    (9) exp_comp -> exp . IGUAL_DP exp
+    (10) exp_comp -> exp . DIF exp
+    (11) exp_comp -> exp . MAIOR exp
+    (12) exp_comp -> exp . MENOR exp
+    (13) exp_comp -> exp . MAIOR_IGL exp
+    (14) exp_comp -> exp . LESSEQUAL exp
+    (15) exp_comp -> exp . SMARTMATCH exp
+
+    AND_S           reduce using rule 11 (exp_comp -> exp MAIOR exp .)
+    OR_S            reduce using rule 11 (exp_comp -> exp MAIOR exp .)
+    XOR_S           reduce using rule 11 (exp_comp -> exp MAIOR exp .)
+    IGUAL_DP        reduce using rule 11 (exp_comp -> exp MAIOR exp .)
+    DIF             reduce using rule 11 (exp_comp -> exp MAIOR exp .)
+    MAIOR           reduce using rule 11 (exp_comp -> exp MAIOR exp .)
+    MENOR           reduce using rule 11 (exp_comp -> exp MAIOR exp .)
+    MAIOR_IGL       reduce using rule 11 (exp_comp -> exp MAIOR exp .)
+    LESSEQUAL       reduce using rule 11 (exp_comp -> exp MAIOR exp .)
+    SMARTMATCH      reduce using rule 11 (exp_comp -> exp MAIOR exp .)
+    $end            reduce using rule 11 (exp_comp -> exp MAIOR exp .)
+
+  ! AND_S           [ shift and go to state 11 ]
+  ! OR_S            [ shift and go to state 12 ]
+  ! XOR_S           [ shift and go to state 13 ]
+  ! IGUAL_DP        [ shift and go to state 14 ]
+  ! DIF             [ shift and go to state 15 ]
+  ! MAIOR           [ shift and go to state 16 ]
+  ! MENOR           [ shift and go to state 17 ]
+  ! MAIOR_IGL       [ shift and go to state 18 ]
+  ! LESSEQUAL       [ shift and go to state 19 ]
+  ! SMARTMATCH      [ shift and go to state 20 ]
+
+
+state 29
+
+    (12) exp_comp -> exp MENOR exp .
+    (4) exp_logic -> exp . AND_S exp
+    (5) exp_logic -> exp . OR_S exp
+    (6) exp_logic -> exp . XOR_S exp
+    (9) exp_comp -> exp . IGUAL_DP exp
+    (10) exp_comp -> exp . DIF exp
+    (11) exp_comp -> exp . MAIOR exp
+    (12) exp_comp -> exp . MENOR exp
+    (13) exp_comp -> exp . MAIOR_IGL exp
+    (14) exp_comp -> exp . LESSEQUAL exp
+    (15) exp_comp -> exp . SMARTMATCH exp
+
+    AND_S           reduce using rule 12 (exp_comp -> exp MENOR exp .)
+    OR_S            reduce using rule 12 (exp_comp -> exp MENOR exp .)
+    XOR_S           reduce using rule 12 (exp_comp -> exp MENOR exp .)
+    IGUAL_DP        reduce using rule 12 (exp_comp -> exp MENOR exp .)
+    DIF             reduce using rule 12 (exp_comp -> exp MENOR exp .)
+    MAIOR           reduce using rule 12 (exp_comp -> exp MENOR exp .)
+    MENOR           reduce using rule 12 (exp_comp -> exp MENOR exp .)
+    MAIOR_IGL       reduce using rule 12 (exp_comp -> exp MENOR exp .)
+    LESSEQUAL       reduce using rule 12 (exp_comp -> exp MENOR exp .)
+    SMARTMATCH      reduce using rule 12 (exp_comp -> exp MENOR exp .)
+    $end            reduce using rule 12 (exp_comp -> exp MENOR exp .)
+
+  ! AND_S           [ shift and go to state 11 ]
+  ! OR_S            [ shift and go to state 12 ]
+  ! XOR_S           [ shift and go to state 13 ]
+  ! IGUAL_DP        [ shift and go to state 14 ]
+  ! DIF             [ shift and go to state 15 ]
+  ! MAIOR           [ shift and go to state 16 ]
+  ! MENOR           [ shift and go to state 17 ]
+  ! MAIOR_IGL       [ shift and go to state 18 ]
+  ! LESSEQUAL       [ shift and go to state 19 ]
+  ! SMARTMATCH      [ shift and go to state 20 ]
+
+
+state 30
+
+    (13) exp_comp -> exp MAIOR_IGL exp .
+    (4) exp_logic -> exp . AND_S exp
+    (5) exp_logic -> exp . OR_S exp
+    (6) exp_logic -> exp . XOR_S exp
+    (9) exp_comp -> exp . IGUAL_DP exp
+    (10) exp_comp -> exp . DIF exp
+    (11) exp_comp -> exp . MAIOR exp
+    (12) exp_comp -> exp . MENOR exp
+    (13) exp_comp -> exp . MAIOR_IGL exp
+    (14) exp_comp -> exp . LESSEQUAL exp
+    (15) exp_comp -> exp . SMARTMATCH exp
+
+    AND_S           reduce using rule 13 (exp_comp -> exp MAIOR_IGL exp .)
+    OR_S            reduce using rule 13 (exp_comp -> exp MAIOR_IGL exp .)
+    XOR_S           reduce using rule 13 (exp_comp -> exp MAIOR_IGL exp .)
+    IGUAL_DP        reduce using rule 13 (exp_comp -> exp MAIOR_IGL exp .)
+    DIF             reduce using rule 13 (exp_comp -> exp MAIOR_IGL exp .)
+    MAIOR           reduce using rule 13 (exp_comp -> exp MAIOR_IGL exp .)
+    MENOR           reduce using rule 13 (exp_comp -> exp MAIOR_IGL exp .)
+    MAIOR_IGL       reduce using rule 13 (exp_comp -> exp MAIOR_IGL exp .)
+    LESSEQUAL       reduce using rule 13 (exp_comp -> exp MAIOR_IGL exp .)
+    SMARTMATCH      reduce using rule 13 (exp_comp -> exp MAIOR_IGL exp .)
+    $end            reduce using rule 13 (exp_comp -> exp MAIOR_IGL exp .)
+
+  ! AND_S           [ shift and go to state 11 ]
+  ! OR_S            [ shift and go to state 12 ]
+  ! XOR_S           [ shift and go to state 13 ]
+  ! IGUAL_DP        [ shift and go to state 14 ]
+  ! DIF             [ shift and go to state 15 ]
+  ! MAIOR           [ shift and go to state 16 ]
+  ! MENOR           [ shift and go to state 17 ]
+  ! MAIOR_IGL       [ shift and go to state 18 ]
+  ! LESSEQUAL       [ shift and go to state 19 ]
+  ! SMARTMATCH      [ shift and go to state 20 ]
+
+
+state 31
+
+    (14) exp_comp -> exp LESSEQUAL exp .
+    (4) exp_logic -> exp . AND_S exp
+    (5) exp_logic -> exp . OR_S exp
+    (6) exp_logic -> exp . XOR_S exp
+    (9) exp_comp -> exp . IGUAL_DP exp
+    (10) exp_comp -> exp . DIF exp
+    (11) exp_comp -> exp . MAIOR exp
+    (12) exp_comp -> exp . MENOR exp
+    (13) exp_comp -> exp . MAIOR_IGL exp
+    (14) exp_comp -> exp . LESSEQUAL exp
+    (15) exp_comp -> exp . SMARTMATCH exp
+
+    AND_S           reduce using rule 14 (exp_comp -> exp LESSEQUAL exp .)
+    OR_S            reduce using rule 14 (exp_comp -> exp LESSEQUAL exp .)
+    XOR_S           reduce using rule 14 (exp_comp -> exp LESSEQUAL exp .)
+    IGUAL_DP        reduce using rule 14 (exp_comp -> exp LESSEQUAL exp .)
+    DIF             reduce using rule 14 (exp_comp -> exp LESSEQUAL exp .)
+    MAIOR           reduce using rule 14 (exp_comp -> exp LESSEQUAL exp .)
+    MENOR           reduce using rule 14 (exp_comp -> exp LESSEQUAL exp .)
+    MAIOR_IGL       reduce using rule 14 (exp_comp -> exp LESSEQUAL exp .)
+    LESSEQUAL       reduce using rule 14 (exp_comp -> exp LESSEQUAL exp .)
+    SMARTMATCH      reduce using rule 14 (exp_comp -> exp LESSEQUAL exp .)
+    $end            reduce using rule 14 (exp_comp -> exp LESSEQUAL exp .)
+
+  ! AND_S           [ shift and go to state 11 ]
+  ! OR_S            [ shift and go to state 12 ]
+  ! XOR_S           [ shift and go to state 13 ]
+  ! IGUAL_DP        [ shift and go to state 14 ]
+  ! DIF             [ shift and go to state 15 ]
+  ! MAIOR           [ shift and go to state 16 ]
+  ! MENOR           [ shift and go to state 17 ]
+  ! MAIOR_IGL       [ shift and go to state 18 ]
+  ! LESSEQUAL       [ shift and go to state 19 ]
+  ! SMARTMATCH      [ shift and go to state 20 ]
+
+
+state 32
+
+    (15) exp_comp -> exp SMARTMATCH exp .
+    (4) exp_logic -> exp . AND_S exp
+    (5) exp_logic -> exp . OR_S exp
+    (6) exp_logic -> exp . XOR_S exp
+    (9) exp_comp -> exp . IGUAL_DP exp
+    (10) exp_comp -> exp . DIF exp
+    (11) exp_comp -> exp . MAIOR exp
+    (12) exp_comp -> exp . MENOR exp
+    (13) exp_comp -> exp . MAIOR_IGL exp
+    (14) exp_comp -> exp . LESSEQUAL exp
+    (15) exp_comp -> exp . SMARTMATCH exp
+
+    AND_S           reduce using rule 15 (exp_comp -> exp SMARTMATCH exp .)
+    OR_S            reduce using rule 15 (exp_comp -> exp SMARTMATCH exp .)
+    XOR_S           reduce using rule 15 (exp_comp -> exp SMARTMATCH exp .)
+    IGUAL_DP        reduce using rule 15 (exp_comp -> exp SMARTMATCH exp .)
+    DIF             reduce using rule 15 (exp_comp -> exp SMARTMATCH exp .)
+    MAIOR           reduce using rule 15 (exp_comp -> exp SMARTMATCH exp .)
+    MENOR           reduce using rule 15 (exp_comp -> exp SMARTMATCH exp .)
+    MAIOR_IGL       reduce using rule 15 (exp_comp -> exp SMARTMATCH exp .)
+    LESSEQUAL       reduce using rule 15 (exp_comp -> exp SMARTMATCH exp .)
+    SMARTMATCH      reduce using rule 15 (exp_comp -> exp SMARTMATCH exp .)
+    $end            reduce using rule 15 (exp_comp -> exp SMARTMATCH exp .)
+
+  ! AND_S           [ shift and go to state 11 ]
+  ! OR_S            [ shift and go to state 12 ]
+  ! XOR_S           [ shift and go to state 13 ]
+  ! IGUAL_DP        [ shift and go to state 14 ]
+  ! DIF             [ shift and go to state 15 ]
+  ! MAIOR           [ shift and go to state 16 ]
+  ! MENOR           [ shift and go to state 17 ]
+  ! MAIOR_IGL       [ shift and go to state 18 ]
+  ! LESSEQUAL       [ shift and go to state 19 ]
+  ! SMARTMATCH      [ shift and go to state 20 ]
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for AND_S in state 21 resolved as shift
+WARNING: shift/reduce conflict for OR_S in state 21 resolved as shift
+WARNING: shift/reduce conflict for XOR_S in state 21 resolved as shift
+WARNING: shift/reduce conflict for IGUAL_DP in state 21 resolved as shift
+WARNING: shift/reduce conflict for DIF in state 21 resolved as shift
+WARNING: shift/reduce conflict for MAIOR in state 21 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 21 resolved as shift
+WARNING: shift/reduce conflict for MAIOR_IGL in state 21 resolved as shift
+WARNING: shift/reduce conflict for LESSEQUAL in state 21 resolved as shift
+WARNING: shift/reduce conflict for SMARTMATCH in state 21 resolved as shift
+WARNING: shift/reduce conflict for AND_S in state 22 resolved as shift
+WARNING: shift/reduce conflict for OR_S in state 22 resolved as shift
+WARNING: shift/reduce conflict for XOR_S in state 22 resolved as shift
+WARNING: shift/reduce conflict for IGUAL_DP in state 22 resolved as shift
+WARNING: shift/reduce conflict for DIF in state 22 resolved as shift
+WARNING: shift/reduce conflict for MAIOR in state 22 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 22 resolved as shift
+WARNING: shift/reduce conflict for MAIOR_IGL in state 22 resolved as shift
+WARNING: shift/reduce conflict for LESSEQUAL in state 22 resolved as shift
+WARNING: shift/reduce conflict for SMARTMATCH in state 22 resolved as shift

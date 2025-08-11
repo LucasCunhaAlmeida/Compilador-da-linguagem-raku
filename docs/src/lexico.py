@@ -1,7 +1,11 @@
 import ply.lex as lex     #importa módulo ply.lex e o renomeia para lex
 
 # Definindo Tokens e padroes
-tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','IGUAL','DECREMENTO','POW','MT','KMARK','LPAREN','RPAR','COMMA','STRING','FLOAT','INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC','DIVIDE','LCM','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 'PONTO', 'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PV']
+tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','IGUAL',
+          'DECREMENTO','POW','MAIOR','KMARK','LPAREN','RPAR','COMMA','STRING','FLOAT',
+          'INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC',
+          'DIVIDE','LCM','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 'PONTO', 
+          'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PV', 'AND_S', 'OR_S', 'XOR_S']
 
 id_reservados = { 
   'if': 'IF',
@@ -37,10 +41,10 @@ id_reservados = {
     'Map': 'MAP',
     'Set': 'SET',
     'Bag': 'BAG',
-    'and': 'AND',
-    'or': 'OR',
-    'not': 'NOT',
-    'xor': 'XOR',
+    'and': 'AND',   # Tem que retirar?
+    'or': 'OR',     # Tem que retirar?
+    'not': 'NOT',   
+    'xor': 'XOR',   # Tem que retirar?
     'require': 'REQUIRE',
     'need': 'NEED',
     'use': 'USE',
@@ -54,6 +58,9 @@ id_reservados = {
 
 tokens += list(id_reservados.values())
 
+t_AND_S = r'&&'
+t_OR_S = r'\|\|'
+t_XOR_S = r'\^\^'
 t_PV = r';'
 t_ABRE_CHAVE = r'\{'
 t_FECHA_CHAVE = r'\}'
@@ -79,7 +86,7 @@ t_DIF = r'!='
 t_IGUAL = r'='
 t_DECREMENTO = r'\-\-'
 t_POW = r'\*\*'
-t_MT = r'>'
+t_MAIOR = r'>'
 t_LPAREN = r'\('
 t_RPAR = r'\)'
 t_COMMA = r','
