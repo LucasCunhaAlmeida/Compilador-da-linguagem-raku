@@ -809,38 +809,28 @@ state 21
     (14) exp_comp -> exp . LESSEQUAL exp
     (15) exp_comp -> exp . SMARTMATCH exp
 
-  ! shift/reduce conflict for AND_S resolved as shift
-  ! shift/reduce conflict for OR_S resolved as shift
-  ! shift/reduce conflict for XOR_S resolved as shift
-  ! shift/reduce conflict for IGUAL_DP resolved as shift
-  ! shift/reduce conflict for DIF resolved as shift
-  ! shift/reduce conflict for MAIOR resolved as shift
-  ! shift/reduce conflict for MENOR resolved as shift
-  ! shift/reduce conflict for MAIOR_IGL resolved as shift
-  ! shift/reduce conflict for LESSEQUAL resolved as shift
-  ! shift/reduce conflict for SMARTMATCH resolved as shift
+    AND_S           reduce using rule 7 (exp_logic -> NOT exp .)
+    OR_S            reduce using rule 7 (exp_logic -> NOT exp .)
+    XOR_S           reduce using rule 7 (exp_logic -> NOT exp .)
+    IGUAL_DP        reduce using rule 7 (exp_logic -> NOT exp .)
+    DIF             reduce using rule 7 (exp_logic -> NOT exp .)
+    MAIOR           reduce using rule 7 (exp_logic -> NOT exp .)
+    MENOR           reduce using rule 7 (exp_logic -> NOT exp .)
+    MAIOR_IGL       reduce using rule 7 (exp_logic -> NOT exp .)
+    LESSEQUAL       reduce using rule 7 (exp_logic -> NOT exp .)
+    SMARTMATCH      reduce using rule 7 (exp_logic -> NOT exp .)
     $end            reduce using rule 7 (exp_logic -> NOT exp .)
-    AND_S           shift and go to state 11
-    OR_S            shift and go to state 12
-    XOR_S           shift and go to state 13
-    IGUAL_DP        shift and go to state 14
-    DIF             shift and go to state 15
-    MAIOR           shift and go to state 16
-    MENOR           shift and go to state 17
-    MAIOR_IGL       shift and go to state 18
-    LESSEQUAL       shift and go to state 19
-    SMARTMATCH      shift and go to state 20
 
-  ! AND_S           [ reduce using rule 7 (exp_logic -> NOT exp .) ]
-  ! OR_S            [ reduce using rule 7 (exp_logic -> NOT exp .) ]
-  ! XOR_S           [ reduce using rule 7 (exp_logic -> NOT exp .) ]
-  ! IGUAL_DP        [ reduce using rule 7 (exp_logic -> NOT exp .) ]
-  ! DIF             [ reduce using rule 7 (exp_logic -> NOT exp .) ]
-  ! MAIOR           [ reduce using rule 7 (exp_logic -> NOT exp .) ]
-  ! MENOR           [ reduce using rule 7 (exp_logic -> NOT exp .) ]
-  ! MAIOR_IGL       [ reduce using rule 7 (exp_logic -> NOT exp .) ]
-  ! LESSEQUAL       [ reduce using rule 7 (exp_logic -> NOT exp .) ]
-  ! SMARTMATCH      [ reduce using rule 7 (exp_logic -> NOT exp .) ]
+  ! AND_S           [ shift and go to state 11 ]
+  ! OR_S            [ shift and go to state 12 ]
+  ! XOR_S           [ shift and go to state 13 ]
+  ! IGUAL_DP        [ shift and go to state 14 ]
+  ! DIF             [ shift and go to state 15 ]
+  ! MAIOR           [ shift and go to state 16 ]
+  ! MENOR           [ shift and go to state 17 ]
+  ! MAIOR_IGL       [ shift and go to state 18 ]
+  ! LESSEQUAL       [ shift and go to state 19 ]
+  ! SMARTMATCH      [ shift and go to state 20 ]
 
 
 state 22
@@ -857,38 +847,28 @@ state 22
     (14) exp_comp -> exp . LESSEQUAL exp
     (15) exp_comp -> exp . SMARTMATCH exp
 
-  ! shift/reduce conflict for AND_S resolved as shift
-  ! shift/reduce conflict for OR_S resolved as shift
-  ! shift/reduce conflict for XOR_S resolved as shift
-  ! shift/reduce conflict for IGUAL_DP resolved as shift
-  ! shift/reduce conflict for DIF resolved as shift
-  ! shift/reduce conflict for MAIOR resolved as shift
-  ! shift/reduce conflict for MENOR resolved as shift
-  ! shift/reduce conflict for MAIOR_IGL resolved as shift
-  ! shift/reduce conflict for LESSEQUAL resolved as shift
-  ! shift/reduce conflict for SMARTMATCH resolved as shift
+    AND_S           reduce using rule 8 (exp_logic -> NEGAC exp .)
+    OR_S            reduce using rule 8 (exp_logic -> NEGAC exp .)
+    XOR_S           reduce using rule 8 (exp_logic -> NEGAC exp .)
+    IGUAL_DP        reduce using rule 8 (exp_logic -> NEGAC exp .)
+    DIF             reduce using rule 8 (exp_logic -> NEGAC exp .)
+    MAIOR           reduce using rule 8 (exp_logic -> NEGAC exp .)
+    MENOR           reduce using rule 8 (exp_logic -> NEGAC exp .)
+    MAIOR_IGL       reduce using rule 8 (exp_logic -> NEGAC exp .)
+    LESSEQUAL       reduce using rule 8 (exp_logic -> NEGAC exp .)
+    SMARTMATCH      reduce using rule 8 (exp_logic -> NEGAC exp .)
     $end            reduce using rule 8 (exp_logic -> NEGAC exp .)
-    AND_S           shift and go to state 11
-    OR_S            shift and go to state 12
-    XOR_S           shift and go to state 13
-    IGUAL_DP        shift and go to state 14
-    DIF             shift and go to state 15
-    MAIOR           shift and go to state 16
-    MENOR           shift and go to state 17
-    MAIOR_IGL       shift and go to state 18
-    LESSEQUAL       shift and go to state 19
-    SMARTMATCH      shift and go to state 20
 
-  ! AND_S           [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
-  ! OR_S            [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
-  ! XOR_S           [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
-  ! IGUAL_DP        [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
-  ! DIF             [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
-  ! MAIOR           [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
-  ! MENOR           [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
-  ! MAIOR_IGL       [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
-  ! LESSEQUAL       [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
-  ! SMARTMATCH      [ reduce using rule 8 (exp_logic -> NEGAC exp .) ]
+  ! AND_S           [ shift and go to state 11 ]
+  ! OR_S            [ shift and go to state 12 ]
+  ! XOR_S           [ shift and go to state 13 ]
+  ! IGUAL_DP        [ shift and go to state 14 ]
+  ! DIF             [ shift and go to state 15 ]
+  ! MAIOR           [ shift and go to state 16 ]
+  ! MENOR           [ shift and go to state 17 ]
+  ! MAIOR_IGL       [ shift and go to state 18 ]
+  ! LESSEQUAL       [ shift and go to state 19 ]
+  ! SMARTMATCH      [ shift and go to state 20 ]
 
 
 state 23
@@ -1270,26 +1250,3 @@ state 32
   ! LESSEQUAL       [ shift and go to state 19 ]
   ! SMARTMATCH      [ shift and go to state 20 ]
 
-WARNING: 
-WARNING: Conflicts:
-WARNING: 
-WARNING: shift/reduce conflict for AND_S in state 21 resolved as shift
-WARNING: shift/reduce conflict for OR_S in state 21 resolved as shift
-WARNING: shift/reduce conflict for XOR_S in state 21 resolved as shift
-WARNING: shift/reduce conflict for IGUAL_DP in state 21 resolved as shift
-WARNING: shift/reduce conflict for DIF in state 21 resolved as shift
-WARNING: shift/reduce conflict for MAIOR in state 21 resolved as shift
-WARNING: shift/reduce conflict for MENOR in state 21 resolved as shift
-WARNING: shift/reduce conflict for MAIOR_IGL in state 21 resolved as shift
-WARNING: shift/reduce conflict for LESSEQUAL in state 21 resolved as shift
-WARNING: shift/reduce conflict for SMARTMATCH in state 21 resolved as shift
-WARNING: shift/reduce conflict for AND_S in state 22 resolved as shift
-WARNING: shift/reduce conflict for OR_S in state 22 resolved as shift
-WARNING: shift/reduce conflict for XOR_S in state 22 resolved as shift
-WARNING: shift/reduce conflict for IGUAL_DP in state 22 resolved as shift
-WARNING: shift/reduce conflict for DIF in state 22 resolved as shift
-WARNING: shift/reduce conflict for MAIOR in state 22 resolved as shift
-WARNING: shift/reduce conflict for MENOR in state 22 resolved as shift
-WARNING: shift/reduce conflict for MAIOR_IGL in state 22 resolved as shift
-WARNING: shift/reduce conflict for LESSEQUAL in state 22 resolved as shift
-WARNING: shift/reduce conflict for SMARTMATCH in state 22 resolved as shift

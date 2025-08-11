@@ -6,7 +6,8 @@ precedence = ( ## Adicionar as regras da operação aritimetica // Isso é muito
     ('left', 'OR_S', 'XOR_S'),
     ('left', 'AND_S'),
     ('left', 'IGUAL_DP', 'DIF'),
-    ('left', 'MAIOR', 'MENOR', 'MAIOR_IGL', 'LESSEQUAL', 'SMARTMATCH'),
+    ('left', 'MAIOR', 'MENOR', 'MAIOR_IGL','LESSEQUAL', 'SMARTMATCH'),
+    ('right', 'NOT', 'NEGAC'),
 )
 
 def p_exp(p):
@@ -50,7 +51,7 @@ parser = yacc.yacc()
 
 if __name__ == "__main__":
     try:
-        result = parser.parse("1 && 2")
+        result = parser.parse("1 && 2 == aaa == '1' || 2")
         print("Parse ok:", result)
     except Exception as e:
         print("Falha ao fazer parse:", e)

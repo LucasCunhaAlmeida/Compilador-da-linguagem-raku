@@ -26,7 +26,6 @@ id_reservados = {
     'state': 'STATE',
     'constant': 'CONSTANT',
     'let': 'LET',
-    'sub': 'SUB',
     'multi': 'MULTI',
     'only': 'ONLY',
     'Any': 'ANY',
@@ -37,7 +36,6 @@ id_reservados = {
     'Int': 'INT',
     'Str': 'STR',
     'Pair': 'PAIR',
-    'List': 'LIST',
     'Map': 'MAP',
     'Set': 'SET',
     'Bag': 'BAG',
@@ -91,7 +89,7 @@ t_LPAREN = r'\('
 t_RPAR = r'\)'
 t_COMMA = r','
 t_KMARK = r'\?'
-t_ignore = r' \t' # Ignora espaços, tabulações e quebras de linha
+t_ignore = ' \t' # Ignora espaços, tabulações e quebras de linha
 
 def t_UNARYMINUS(t):
   r'-"?\d+"?'
