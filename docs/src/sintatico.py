@@ -77,8 +77,6 @@ def p_funcao(p):
 def p_funcao_sem_parametros(p):
     '''funcao : FUNCTION ID LPAREN RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
 
-
-
 parser = yacc.yacc()
 
 if __name__ == "__main__":
