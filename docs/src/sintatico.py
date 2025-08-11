@@ -47,6 +47,25 @@ def p_exp_tip(p):
 def p_error(p):
     print(f"Erro de Sintaxe: {p}")
 
+
+#parte inicial das estruturas de repetição
+def p_for(p):
+    '''loop : FOR expr SETA ID ABRE_CHAVE comando FECHA_CHAVE''' 
+    
+def p_ponto_times (p):
+    ''' loop : INTEGER PONTO TIMES SETA ID  ABRE_CHAVE comando FECHA_CHAVE '''
+
+def p_while (p):
+    ''' loop : WHILE ID LESSEQUAL INTEGER ABRE_CHAVE comando FECHA_CHAVE '''
+
+def p_loop(p):
+    '''loop : LOOP LPAREN instrucao PV instrucao PV instrucao RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
+    
+def p_loop_sem_condicao(p):
+    '''loop : LOOP ABRE_CHAVE comando FECHA_CHAVE'''
+
+
+
 parser = yacc.yacc()
 
 if __name__ == "__main__":
