@@ -5,7 +5,7 @@ tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','
           'DECREMENTO','POW','MAIOR','KMARK','LPAREN','RPAR','COMMA','STRING','FLOAT',
           'INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC',
           'DIVIDE','LCM','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 'PONTO', 
-          'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PV', 'AND_S', 'OR_S', 'XOR_S', 'FUNCTION']
+          'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PONTO_VIRGULA', 'AND_S', 'OR_S', 'XOR_S', 'FUNCTION']
 
 id_reservados = { 
   'if': 'IF',
@@ -59,7 +59,7 @@ tokens += list(id_reservados.values())
 t_AND_S = r'&&'
 t_OR_S = r'\|\|'
 t_XOR_S = r'\^\^'
-t_PV = r';'
+t_PONTO_VIRGULA = r';'
 t_ABRE_CHAVE = r'\{'
 t_FECHA_CHAVE = r'\}'
 t_SETA = r'->'
