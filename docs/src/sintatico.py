@@ -77,6 +77,55 @@ def p_funcao(p):
 def p_funcao_sem_parametros(p):
     '''funcao : FUNCTION ID LPAREN RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
 
+# Condicionais
+def p_condicional1(p):
+    '''condicional : IF expressao bloco'''
+
+def p_condicional2(p):
+    '''condicional : IF expressao bloco ELSE bloco'''
+
+def p_condicional3(p):
+    '''condicional : IF expressao bloco ELSIF expressao bloco'''
+
+def p_condicional4(p):
+    '''condicional : IF expressao bloco lista_elsif ELSE bloco'''
+
+def p_lista_esif1(p):
+    ''''lista_elsif : ELSIF expressao bloco'''
+
+def p_lista_esif2(p):
+    ''''lista_elsif : lista_elsif ELSIF expressao bloco'''
+
+def p_bloco_if1(p):
+    '''bloco_if : ABRE_CHAVE declaracoes FECHA_CHAVE'''
+
+def p_bloco_if2(p):
+    '''bloco_if : declaracao'''
+
+def p_declaracao1(p):
+    '''declaracoes : declaracao'''
+
+def p_declaracao2(p):
+    '''declaracoes : declaracoes declaracao'''
+
+def p_declaracao1(p):
+    '''declaracao : atribuicao PONTO_VIRGULA'''
+
+def p_declaracao2(p):
+    '''declaracao : chamada_funcao PONTO_VIRGULA'''
+
+def p_declaracao3(p):
+    '''declaracao : condicional'''
+
+def p_declaracao4(p):
+    '''declaracao : loop'''
+
+def p_declaracao5(p):
+    '''declaracao : expressao PONTO_VIRGULA'''
+
+def p_declaracao6(p):
+    '''declaracao : bloco_if'''
+
 parser = yacc.yacc()
 
 if __name__ == "__main__":
