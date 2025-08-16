@@ -55,20 +55,27 @@ def p_error(p):
 
 
 #parte inicial das estruturas de repetição
+#instrucao coloquei essa senquencia, depois vou verificar de novo q my $a = 0
+#id coloquei como a variavel
 def p_for(p):
     '''loop : FOR expr SETA ID ABRE_CHAVE comando FECHA_CHAVE''' 
+     p[0] = loopFor(p[2], p[4], p[6])
     
 def p_ponto_times (p):
     ''' loop : INTEGER PONTO TIMES SETA ID  ABRE_CHAVE comando FECHA_CHAVE '''
+    p[0] = loopTimes(p[1], p[5], p[7])
 
 def p_while (p):
     ''' loop : WHILE ID LESSEQUAL INTEGER ABRE_CHAVE comando FECHA_CHAVE '''
+    p[0] = loopWhile(p[2], p[4], p[6])
 
 def p_loop(p):
     '''loop : LOOP LPAREN instrucao PV instrucao PV instrucao RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
-    
+    p[0] = loopRepeticao(p[3], p[5], p[7], p[9])
+
 def p_loop_sem_condicao(p):
     '''loop : LOOP ABRE_CHAVE comando FECHA_CHAVE'''
+    p[0] =  loopSemCondicao(p[3])
 
 #Estrutura de uma função
 def p_funcao(p):
