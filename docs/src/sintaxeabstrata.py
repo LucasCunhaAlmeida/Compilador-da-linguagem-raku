@@ -26,7 +26,7 @@ class Loop(metaclass=ABCMeta):
     def accept(self):
         pass
 
-class loopFor(Loop):
+class LoopFor(Loop):
     def __init__(self, expr, id, comando):
         self.expr = expr         
         self.id= id           
@@ -36,7 +36,7 @@ class loopFor(Loop):
         pass
 
 
-class loopTimes(Loop):
+class LoopTimes(Loop):
     def __init__(self, integer, id, comando):
         self.integer = integer
         self.id = id
@@ -46,7 +46,7 @@ class loopTimes(Loop):
         pass
 
 
-class loopWhile(Loop):
+class LoopWhile(Loop):
     def __init__(self, id, limite, comando):
         self.id = id         
         self.limite = limite    
@@ -55,7 +55,7 @@ class loopWhile(Loop):
     def accept(self):
         pass
 
-class loopRepeticao(Loop):
+class LoopRepeticao(Loop):
     def __init__(self, instrucao1, instrucao2, instrucao3, comando):
         self.instrucao1 = instrucao1   
         self.instrucao2 = instrucao2   
@@ -65,7 +65,7 @@ class loopRepeticao(Loop):
     def accept(self):
         pass
 
-class loopSemCondicao(Loop):
+class LoopSemCondicao(Loop):
     def __init__(self, comando):
         self.comando = comando
     
