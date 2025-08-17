@@ -5,7 +5,7 @@ tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','
           'DECREMENTO','POW','MAIOR','KMARK','LPAREN','RPAR','COMMA','STRING','FLOAT',
           'INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC',
           'DIVIDE','LCM','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 'PONTO', 
-          'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PONTO_VIRGULA', 'AND_S', 'OR_S', 'XOR_S', 'FUNCTION']
+          'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PONTO_VIRGULA', 'AND_S', 'OR_S', 'XOR_S', 'FUNCTION', 'ESCALAR']
 
 id_reservados = { 
   'if': 'IF',
@@ -123,6 +123,11 @@ def t_COMMENT(t):
 def t_ID(t):
   r'[a-zA-Z_](?:[a-zA-Z0-9_]*([\'-](?!\d|\Z)[a-zA-Z_][a-zA-Z0-9_]*)?)*'
   t.type = id_reservados.get(t.value, 'ID')  # Verifica se é palavra reservada
+  return t
+
+def t_ESCALAR(t):
+  r'\$[a-zA-Z_](?:[a-zA-Z0-9_]*([\'-](?!\d|\Z)[a-zA-Z_][a-zA-Z0-9_]*)?)*'
+  t.type = id_reservados.get(t.value, 'ID')
   return t
 
 def t_LIST(t):
