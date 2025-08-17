@@ -53,6 +53,23 @@ def p_exp_tip(p):
 def p_error(p):
     print(f"Erro de Sintaxe: {p}")
 
+# Declarações de variáveis escalares e listas
+def p_declaracao_escalar(p):
+  'declaracao_escalar : ESCALAR IGUAL valor'
+
+def p_declaracao_lista(p):
+  'declaracao_lista : LIST IGUAL lista_valores'
+
+def p_valor(p):
+  '''valor : INT
+            | FLOAT
+            | STRING
+            | BOOLEAN'''
+
+def p_lista_valores(p):
+  '''lista_valores : lista_valores COMMA valor
+                   | valor'''
+# Talvez seja necessário mais algumas mudanças
 
 #parte inicial das estruturas de repetição
 #instrucao coloquei essa senquencia, depois vou verificar de novo q my $a = 0
