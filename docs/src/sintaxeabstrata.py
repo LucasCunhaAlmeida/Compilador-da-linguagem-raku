@@ -20,6 +20,12 @@ def accept(self):
   pass
 
 # Estruturas de Repetição
+
+class Loop(metaclass=ABCMeta):
+    @abstractmethod
+    def accept(self):
+        pass
+
 class loopFor(Loop):
     def __init__(self, expr, id, comando):
         self.expr = expr         
