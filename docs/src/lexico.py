@@ -2,9 +2,9 @@ import ply.lex as lex     #importa módulo ply.lex e o renomeia para lex
 
 # Definindo Tokens e padroes
 tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','IGUAL',
-          'DECREMENTO','POW','MAIOR','KMARK','LPAREN','RPAR','COMMA','STRING','FLOAT',
+          'DECREMENTO','POW','MAIOR','KMARK','LPAREN','RPAREN','COMMA','STRING','FLOAT',
           'INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC',
-          'DIVIDE','LCM','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 'PONTO', 
+          'DIVIDE','LCM','GCD','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 'PONTO', 
           'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PONTO_VIRGULA', 'AND_S', 'OR_S', 'XOR_S', 'FUNCTION', 'ESCALAR']
 
 id_reservados = { 
@@ -56,6 +56,8 @@ id_reservados = {
 
 tokens += list(id_reservados.values())
 
+t_LCM = r'lcm'
+t_GCD = r'gcd'
 t_AND_S = r'&&'
 t_OR_S = r'\|\|'
 t_XOR_S = r'\^\^'
@@ -86,7 +88,7 @@ t_DECREMENTO = r'\-\-'
 t_POW = r'\*\*'
 t_MAIOR = r'>'
 t_LPAREN = r'\('
-t_RPAR = r'\)'
+t_RPAREN = r'\)'
 t_COMMA = r','
 t_KMARK = r'\?'
 t_ignore = ' \t' # Ignora espaços, tabulações e quebras de linha
@@ -152,7 +154,7 @@ def t_TIMES(t):
     return t
 
 lexer = lex.lex()  # Cria o analisador léxico
-lexer.input("if while str False my our")  # Define a entrada do analisador léxico
+lexer.input("if while str False my our ( )")  # Define a entrada do analisador léxico
 
 # Realizando analise lexica
 print('{:10s}{:10s}{:10s}{:10s}'.format("Token", "Lexema", "Linha", "Coluna"))
