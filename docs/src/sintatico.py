@@ -2,7 +2,6 @@ import ply.yacc as yacc
 import lexico as lex
 tokens = lex.tokens
 
-
 def p_exp(p):
     '''exp : PONTO_VIRGULA
            | exp_2 '''
@@ -204,7 +203,8 @@ def p_tipo(p):
     p[0] = p[1]
 
 def p_inteiro(p):
-   '''inteiro : INT '''
+   '''inteiro : INTEGER
+              | INT '''
    p[0] = p[1]
 
 def p_float(p):

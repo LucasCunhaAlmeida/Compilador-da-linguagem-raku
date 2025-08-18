@@ -20,7 +20,6 @@ Unused terminals:
     IF
     IGUAL
     IMPORT
-    INTEGER
     KMARK
     LAST
     LET
@@ -134,12 +133,13 @@ Rule 72    tipo -> float
 Rule 73    tipo -> string
 Rule 74    tipo -> boolean
 Rule 75    tipo -> id
-Rule 76    inteiro -> INT
-Rule 77    float -> FLOAT
-Rule 78    string -> STRING
-Rule 79    string -> STR
-Rule 80    boolean -> BOOLEAN
-Rule 81    id -> ID
+Rule 76    inteiro -> INTEGER
+Rule 77    inteiro -> INT
+Rule 78    float -> FLOAT
+Rule 79    string -> STRING
+Rule 80    string -> STR
+Rule 81    boolean -> BOOLEAN
+Rule 82    id -> ID
 
 Terminals, with rules where they appear
 
@@ -150,7 +150,7 @@ AND                  :
 AND_S                : 10
 ANY                  : 
 BAG                  : 
-BOOLEAN              : 80
+BOOLEAN              : 81
 BREAK                : 
 COMMA                : 
 COMMENT              : 
@@ -168,17 +168,17 @@ EXIT                 :
 EXPORT               : 
 FALSE                : 
 FECHA_CHAVE          : 70
-FLOAT                : 77
+FLOAT                : 78
 FUNCTION             : 
 GCD                  : 47
 HAS                  : 
-ID                   : 62 63 64 65 81
+ID                   : 62 63 64 65 82
 IF                   : 
 IGUAL                : 
 IGUAL_DP             : 19
 IMPORT               : 
-INT                  : 76
-INTEGER              : 
+INT                  : 77
+INTEGER              : 76
 KMARK                : 
 LAST                 : 
 LCM                  : 46
@@ -220,8 +220,8 @@ SETA                 :
 SMARTMATCH           : 25
 SPLICE               : 
 STATE                : 
-STR                  : 79
-STRING               : 78
+STR                  : 80
+STRING               : 79
 SUB                  : 31
 TIMES                : 
 TRUE                 : 
@@ -363,12 +363,13 @@ state 0
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     PONTO_VIRGULA   shift and go to state 2
     NOT             shift and go to state 34
@@ -378,11 +379,12 @@ state 0
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
     exp                            shift and go to state 1
     exp_2                          shift and go to state 3
@@ -455,8 +457,8 @@ state 3
     $end            reduce using rule 2 (exp -> exp_2 .)
     RPAREN          reduce using rule 2 (exp -> exp_2 .)
     FECHA_CHAVE     reduce using rule 2 (exp -> exp_2 .)
-    OR_S            shift and go to state 60
-    XOR_S           shift and go to state 61
+    OR_S            shift and go to state 61
+    XOR_S           shift and go to state 62
 
 
 state 4
@@ -491,7 +493,7 @@ state 6
     $end            reduce using rule 5 (exp_2 -> exp_3 .)
     RPAREN          reduce using rule 5 (exp_2 -> exp_3 .)
     FECHA_CHAVE     reduce using rule 5 (exp_2 -> exp_3 .)
-    AND_S           shift and go to state 62
+    AND_S           shift and go to state 63
 
 
 state 7
@@ -523,13 +525,13 @@ state 8
     $end            reduce using rule 9 (exp_3 -> exp_4 .)
     RPAREN          reduce using rule 9 (exp_3 -> exp_4 .)
     FECHA_CHAVE     reduce using rule 9 (exp_3 -> exp_4 .)
-    IGUAL_DP        shift and go to state 63
-    DIF             shift and go to state 64
-    MAIOR           shift and go to state 65
-    MENOR           shift and go to state 66
-    MAIOR_IGL       shift and go to state 67
-    LESSEQUAL       shift and go to state 68
-    SMARTMATCH      shift and go to state 69
+    IGUAL_DP        shift and go to state 64
+    DIF             shift and go to state 65
+    MAIOR           shift and go to state 66
+    MENOR           shift and go to state 67
+    MAIOR_IGL       shift and go to state 68
+    LESSEQUAL       shift and go to state 69
+    SMARTMATCH      shift and go to state 70
 
 
 state 9
@@ -685,9 +687,9 @@ state 16
     $end            reduce using rule 18 (exp_4 -> exp_5 .)
     RPAREN          reduce using rule 18 (exp_4 -> exp_5 .)
     FECHA_CHAVE     reduce using rule 18 (exp_4 -> exp_5 .)
-    ADC             shift and go to state 70
-    SUB             shift and go to state 71
-    CONC            shift and go to state 72
+    ADC             shift and go to state 71
+    SUB             shift and go to state 72
+    CONC            shift and go to state 73
 
 
 state 17
@@ -783,13 +785,13 @@ state 20
     $end            reduce using rule 29 (exp_5 -> exp_6 .)
     RPAREN          reduce using rule 29 (exp_5 -> exp_6 .)
     FECHA_CHAVE     reduce using rule 29 (exp_5 -> exp_6 .)
-    MULT            shift and go to state 73
-    DIVIDE          shift and go to state 74
-    DIV             shift and go to state 75
-    DIVI            shift and go to state 76
-    MOD             shift and go to state 77
-    LCM             shift and go to state 78
-    GCD             shift and go to state 79
+    MULT            shift and go to state 74
+    DIVIDE          shift and go to state 75
+    DIV             shift and go to state 76
+    DIVI            shift and go to state 77
+    MOD             shift and go to state 78
+    LCM             shift and go to state 79
+    GCD             shift and go to state 80
 
 
 state 21
@@ -1023,7 +1025,7 @@ state 28
     $end            reduce using rule 40 (exp_6 -> exp_7 .)
     RPAREN          reduce using rule 40 (exp_6 -> exp_7 .)
     FECHA_CHAVE     reduce using rule 40 (exp_6 -> exp_7 .)
-    POW             shift and go to state 80
+    POW             shift and go to state 81
 
 
 state 29
@@ -1204,12 +1206,13 @@ state 34
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -1218,13 +1221,14 @@ state 34
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_8                          shift and go to state 81
+    exp_8                          shift and go to state 82
     not_op                         shift and go to state 31
     not_s                          shift and go to state 32
     exp_9                          shift and go to state 33
@@ -1271,12 +1275,13 @@ state 35
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -1285,13 +1290,14 @@ state 35
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_8                          shift and go to state 82
+    exp_8                          shift and go to state 83
     not_op                         shift and go to state 31
     not_s                          shift and go to state 32
     exp_9                          shift and go to state 33
@@ -1584,48 +1590,48 @@ state 45
 
     (62) prefixo_incremento -> ADC_DP . ID
 
-    ID              shift and go to state 83
+    ID              shift and go to state 84
 
 
 state 46
 
     (63) posfixo_incremento -> ID . ADC_DP
     (65) posfixo_decremento -> ID . DECREMENTO
-    (81) id -> ID .
+    (82) id -> ID .
 
-    ADC_DP          shift and go to state 84
-    DECREMENTO      shift and go to state 85
-    POW             reduce using rule 81 (id -> ID .)
-    MULT            reduce using rule 81 (id -> ID .)
-    DIVIDE          reduce using rule 81 (id -> ID .)
-    DIV             reduce using rule 81 (id -> ID .)
-    DIVI            reduce using rule 81 (id -> ID .)
-    MOD             reduce using rule 81 (id -> ID .)
-    LCM             reduce using rule 81 (id -> ID .)
-    GCD             reduce using rule 81 (id -> ID .)
-    ADC             reduce using rule 81 (id -> ID .)
-    SUB             reduce using rule 81 (id -> ID .)
-    CONC            reduce using rule 81 (id -> ID .)
-    IGUAL_DP        reduce using rule 81 (id -> ID .)
-    DIF             reduce using rule 81 (id -> ID .)
-    MAIOR           reduce using rule 81 (id -> ID .)
-    MENOR           reduce using rule 81 (id -> ID .)
-    MAIOR_IGL       reduce using rule 81 (id -> ID .)
-    LESSEQUAL       reduce using rule 81 (id -> ID .)
-    SMARTMATCH      reduce using rule 81 (id -> ID .)
-    AND_S           reduce using rule 81 (id -> ID .)
-    OR_S            reduce using rule 81 (id -> ID .)
-    XOR_S           reduce using rule 81 (id -> ID .)
-    $end            reduce using rule 81 (id -> ID .)
-    RPAREN          reduce using rule 81 (id -> ID .)
-    FECHA_CHAVE     reduce using rule 81 (id -> ID .)
+    ADC_DP          shift and go to state 85
+    DECREMENTO      shift and go to state 86
+    POW             reduce using rule 82 (id -> ID .)
+    MULT            reduce using rule 82 (id -> ID .)
+    DIVIDE          reduce using rule 82 (id -> ID .)
+    DIV             reduce using rule 82 (id -> ID .)
+    DIVI            reduce using rule 82 (id -> ID .)
+    MOD             reduce using rule 82 (id -> ID .)
+    LCM             reduce using rule 82 (id -> ID .)
+    GCD             reduce using rule 82 (id -> ID .)
+    ADC             reduce using rule 82 (id -> ID .)
+    SUB             reduce using rule 82 (id -> ID .)
+    CONC            reduce using rule 82 (id -> ID .)
+    IGUAL_DP        reduce using rule 82 (id -> ID .)
+    DIF             reduce using rule 82 (id -> ID .)
+    MAIOR           reduce using rule 82 (id -> ID .)
+    MENOR           reduce using rule 82 (id -> ID .)
+    MAIOR_IGL       reduce using rule 82 (id -> ID .)
+    LESSEQUAL       reduce using rule 82 (id -> ID .)
+    SMARTMATCH      reduce using rule 82 (id -> ID .)
+    AND_S           reduce using rule 82 (id -> ID .)
+    OR_S            reduce using rule 82 (id -> ID .)
+    XOR_S           reduce using rule 82 (id -> ID .)
+    $end            reduce using rule 82 (id -> ID .)
+    RPAREN          reduce using rule 82 (id -> ID .)
+    FECHA_CHAVE     reduce using rule 82 (id -> ID .)
 
 
 state 47
 
     (64) prefixo_decremento -> DECREMENTO . ID
 
-    ID              shift and go to state 86
+    ID              shift and go to state 87
 
 
 state 48
@@ -1706,12 +1712,13 @@ state 48
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     PONTO_VIRGULA   shift and go to state 2
     NOT             shift and go to state 34
@@ -1721,13 +1728,14 @@ state 48
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp                            shift and go to state 87
+    exp                            shift and go to state 88
     exp_2                          shift and go to state 3
     or                             shift and go to state 4
     xor                            shift and go to state 5
@@ -1852,12 +1860,13 @@ state 49
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     PONTO_VIRGULA   shift and go to state 2
     NOT             shift and go to state 34
@@ -1867,13 +1876,14 @@ state 49
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp                            shift and go to state 88
+    exp                            shift and go to state 89
     exp_2                          shift and go to state 3
     or                             shift and go to state 4
     xor                            shift and go to state 5
@@ -2072,155 +2082,185 @@ state 54
 
 state 55
 
-    (76) inteiro -> INT .
+    (76) inteiro -> INTEGER .
 
-    POW             reduce using rule 76 (inteiro -> INT .)
-    MULT            reduce using rule 76 (inteiro -> INT .)
-    DIVIDE          reduce using rule 76 (inteiro -> INT .)
-    DIV             reduce using rule 76 (inteiro -> INT .)
-    DIVI            reduce using rule 76 (inteiro -> INT .)
-    MOD             reduce using rule 76 (inteiro -> INT .)
-    LCM             reduce using rule 76 (inteiro -> INT .)
-    GCD             reduce using rule 76 (inteiro -> INT .)
-    ADC             reduce using rule 76 (inteiro -> INT .)
-    SUB             reduce using rule 76 (inteiro -> INT .)
-    CONC            reduce using rule 76 (inteiro -> INT .)
-    IGUAL_DP        reduce using rule 76 (inteiro -> INT .)
-    DIF             reduce using rule 76 (inteiro -> INT .)
-    MAIOR           reduce using rule 76 (inteiro -> INT .)
-    MENOR           reduce using rule 76 (inteiro -> INT .)
-    MAIOR_IGL       reduce using rule 76 (inteiro -> INT .)
-    LESSEQUAL       reduce using rule 76 (inteiro -> INT .)
-    SMARTMATCH      reduce using rule 76 (inteiro -> INT .)
-    AND_S           reduce using rule 76 (inteiro -> INT .)
-    OR_S            reduce using rule 76 (inteiro -> INT .)
-    XOR_S           reduce using rule 76 (inteiro -> INT .)
-    $end            reduce using rule 76 (inteiro -> INT .)
-    RPAREN          reduce using rule 76 (inteiro -> INT .)
-    FECHA_CHAVE     reduce using rule 76 (inteiro -> INT .)
+    POW             reduce using rule 76 (inteiro -> INTEGER .)
+    MULT            reduce using rule 76 (inteiro -> INTEGER .)
+    DIVIDE          reduce using rule 76 (inteiro -> INTEGER .)
+    DIV             reduce using rule 76 (inteiro -> INTEGER .)
+    DIVI            reduce using rule 76 (inteiro -> INTEGER .)
+    MOD             reduce using rule 76 (inteiro -> INTEGER .)
+    LCM             reduce using rule 76 (inteiro -> INTEGER .)
+    GCD             reduce using rule 76 (inteiro -> INTEGER .)
+    ADC             reduce using rule 76 (inteiro -> INTEGER .)
+    SUB             reduce using rule 76 (inteiro -> INTEGER .)
+    CONC            reduce using rule 76 (inteiro -> INTEGER .)
+    IGUAL_DP        reduce using rule 76 (inteiro -> INTEGER .)
+    DIF             reduce using rule 76 (inteiro -> INTEGER .)
+    MAIOR           reduce using rule 76 (inteiro -> INTEGER .)
+    MENOR           reduce using rule 76 (inteiro -> INTEGER .)
+    MAIOR_IGL       reduce using rule 76 (inteiro -> INTEGER .)
+    LESSEQUAL       reduce using rule 76 (inteiro -> INTEGER .)
+    SMARTMATCH      reduce using rule 76 (inteiro -> INTEGER .)
+    AND_S           reduce using rule 76 (inteiro -> INTEGER .)
+    OR_S            reduce using rule 76 (inteiro -> INTEGER .)
+    XOR_S           reduce using rule 76 (inteiro -> INTEGER .)
+    $end            reduce using rule 76 (inteiro -> INTEGER .)
+    RPAREN          reduce using rule 76 (inteiro -> INTEGER .)
+    FECHA_CHAVE     reduce using rule 76 (inteiro -> INTEGER .)
 
 
 state 56
 
-    (77) float -> FLOAT .
+    (77) inteiro -> INT .
 
-    POW             reduce using rule 77 (float -> FLOAT .)
-    MULT            reduce using rule 77 (float -> FLOAT .)
-    DIVIDE          reduce using rule 77 (float -> FLOAT .)
-    DIV             reduce using rule 77 (float -> FLOAT .)
-    DIVI            reduce using rule 77 (float -> FLOAT .)
-    MOD             reduce using rule 77 (float -> FLOAT .)
-    LCM             reduce using rule 77 (float -> FLOAT .)
-    GCD             reduce using rule 77 (float -> FLOAT .)
-    ADC             reduce using rule 77 (float -> FLOAT .)
-    SUB             reduce using rule 77 (float -> FLOAT .)
-    CONC            reduce using rule 77 (float -> FLOAT .)
-    IGUAL_DP        reduce using rule 77 (float -> FLOAT .)
-    DIF             reduce using rule 77 (float -> FLOAT .)
-    MAIOR           reduce using rule 77 (float -> FLOAT .)
-    MENOR           reduce using rule 77 (float -> FLOAT .)
-    MAIOR_IGL       reduce using rule 77 (float -> FLOAT .)
-    LESSEQUAL       reduce using rule 77 (float -> FLOAT .)
-    SMARTMATCH      reduce using rule 77 (float -> FLOAT .)
-    AND_S           reduce using rule 77 (float -> FLOAT .)
-    OR_S            reduce using rule 77 (float -> FLOAT .)
-    XOR_S           reduce using rule 77 (float -> FLOAT .)
-    $end            reduce using rule 77 (float -> FLOAT .)
-    RPAREN          reduce using rule 77 (float -> FLOAT .)
-    FECHA_CHAVE     reduce using rule 77 (float -> FLOAT .)
+    POW             reduce using rule 77 (inteiro -> INT .)
+    MULT            reduce using rule 77 (inteiro -> INT .)
+    DIVIDE          reduce using rule 77 (inteiro -> INT .)
+    DIV             reduce using rule 77 (inteiro -> INT .)
+    DIVI            reduce using rule 77 (inteiro -> INT .)
+    MOD             reduce using rule 77 (inteiro -> INT .)
+    LCM             reduce using rule 77 (inteiro -> INT .)
+    GCD             reduce using rule 77 (inteiro -> INT .)
+    ADC             reduce using rule 77 (inteiro -> INT .)
+    SUB             reduce using rule 77 (inteiro -> INT .)
+    CONC            reduce using rule 77 (inteiro -> INT .)
+    IGUAL_DP        reduce using rule 77 (inteiro -> INT .)
+    DIF             reduce using rule 77 (inteiro -> INT .)
+    MAIOR           reduce using rule 77 (inteiro -> INT .)
+    MENOR           reduce using rule 77 (inteiro -> INT .)
+    MAIOR_IGL       reduce using rule 77 (inteiro -> INT .)
+    LESSEQUAL       reduce using rule 77 (inteiro -> INT .)
+    SMARTMATCH      reduce using rule 77 (inteiro -> INT .)
+    AND_S           reduce using rule 77 (inteiro -> INT .)
+    OR_S            reduce using rule 77 (inteiro -> INT .)
+    XOR_S           reduce using rule 77 (inteiro -> INT .)
+    $end            reduce using rule 77 (inteiro -> INT .)
+    RPAREN          reduce using rule 77 (inteiro -> INT .)
+    FECHA_CHAVE     reduce using rule 77 (inteiro -> INT .)
 
 
 state 57
 
-    (78) string -> STRING .
+    (78) float -> FLOAT .
 
-    POW             reduce using rule 78 (string -> STRING .)
-    MULT            reduce using rule 78 (string -> STRING .)
-    DIVIDE          reduce using rule 78 (string -> STRING .)
-    DIV             reduce using rule 78 (string -> STRING .)
-    DIVI            reduce using rule 78 (string -> STRING .)
-    MOD             reduce using rule 78 (string -> STRING .)
-    LCM             reduce using rule 78 (string -> STRING .)
-    GCD             reduce using rule 78 (string -> STRING .)
-    ADC             reduce using rule 78 (string -> STRING .)
-    SUB             reduce using rule 78 (string -> STRING .)
-    CONC            reduce using rule 78 (string -> STRING .)
-    IGUAL_DP        reduce using rule 78 (string -> STRING .)
-    DIF             reduce using rule 78 (string -> STRING .)
-    MAIOR           reduce using rule 78 (string -> STRING .)
-    MENOR           reduce using rule 78 (string -> STRING .)
-    MAIOR_IGL       reduce using rule 78 (string -> STRING .)
-    LESSEQUAL       reduce using rule 78 (string -> STRING .)
-    SMARTMATCH      reduce using rule 78 (string -> STRING .)
-    AND_S           reduce using rule 78 (string -> STRING .)
-    OR_S            reduce using rule 78 (string -> STRING .)
-    XOR_S           reduce using rule 78 (string -> STRING .)
-    $end            reduce using rule 78 (string -> STRING .)
-    RPAREN          reduce using rule 78 (string -> STRING .)
-    FECHA_CHAVE     reduce using rule 78 (string -> STRING .)
+    POW             reduce using rule 78 (float -> FLOAT .)
+    MULT            reduce using rule 78 (float -> FLOAT .)
+    DIVIDE          reduce using rule 78 (float -> FLOAT .)
+    DIV             reduce using rule 78 (float -> FLOAT .)
+    DIVI            reduce using rule 78 (float -> FLOAT .)
+    MOD             reduce using rule 78 (float -> FLOAT .)
+    LCM             reduce using rule 78 (float -> FLOAT .)
+    GCD             reduce using rule 78 (float -> FLOAT .)
+    ADC             reduce using rule 78 (float -> FLOAT .)
+    SUB             reduce using rule 78 (float -> FLOAT .)
+    CONC            reduce using rule 78 (float -> FLOAT .)
+    IGUAL_DP        reduce using rule 78 (float -> FLOAT .)
+    DIF             reduce using rule 78 (float -> FLOAT .)
+    MAIOR           reduce using rule 78 (float -> FLOAT .)
+    MENOR           reduce using rule 78 (float -> FLOAT .)
+    MAIOR_IGL       reduce using rule 78 (float -> FLOAT .)
+    LESSEQUAL       reduce using rule 78 (float -> FLOAT .)
+    SMARTMATCH      reduce using rule 78 (float -> FLOAT .)
+    AND_S           reduce using rule 78 (float -> FLOAT .)
+    OR_S            reduce using rule 78 (float -> FLOAT .)
+    XOR_S           reduce using rule 78 (float -> FLOAT .)
+    $end            reduce using rule 78 (float -> FLOAT .)
+    RPAREN          reduce using rule 78 (float -> FLOAT .)
+    FECHA_CHAVE     reduce using rule 78 (float -> FLOAT .)
 
 
 state 58
 
-    (79) string -> STR .
+    (79) string -> STRING .
 
-    POW             reduce using rule 79 (string -> STR .)
-    MULT            reduce using rule 79 (string -> STR .)
-    DIVIDE          reduce using rule 79 (string -> STR .)
-    DIV             reduce using rule 79 (string -> STR .)
-    DIVI            reduce using rule 79 (string -> STR .)
-    MOD             reduce using rule 79 (string -> STR .)
-    LCM             reduce using rule 79 (string -> STR .)
-    GCD             reduce using rule 79 (string -> STR .)
-    ADC             reduce using rule 79 (string -> STR .)
-    SUB             reduce using rule 79 (string -> STR .)
-    CONC            reduce using rule 79 (string -> STR .)
-    IGUAL_DP        reduce using rule 79 (string -> STR .)
-    DIF             reduce using rule 79 (string -> STR .)
-    MAIOR           reduce using rule 79 (string -> STR .)
-    MENOR           reduce using rule 79 (string -> STR .)
-    MAIOR_IGL       reduce using rule 79 (string -> STR .)
-    LESSEQUAL       reduce using rule 79 (string -> STR .)
-    SMARTMATCH      reduce using rule 79 (string -> STR .)
-    AND_S           reduce using rule 79 (string -> STR .)
-    OR_S            reduce using rule 79 (string -> STR .)
-    XOR_S           reduce using rule 79 (string -> STR .)
-    $end            reduce using rule 79 (string -> STR .)
-    RPAREN          reduce using rule 79 (string -> STR .)
-    FECHA_CHAVE     reduce using rule 79 (string -> STR .)
+    POW             reduce using rule 79 (string -> STRING .)
+    MULT            reduce using rule 79 (string -> STRING .)
+    DIVIDE          reduce using rule 79 (string -> STRING .)
+    DIV             reduce using rule 79 (string -> STRING .)
+    DIVI            reduce using rule 79 (string -> STRING .)
+    MOD             reduce using rule 79 (string -> STRING .)
+    LCM             reduce using rule 79 (string -> STRING .)
+    GCD             reduce using rule 79 (string -> STRING .)
+    ADC             reduce using rule 79 (string -> STRING .)
+    SUB             reduce using rule 79 (string -> STRING .)
+    CONC            reduce using rule 79 (string -> STRING .)
+    IGUAL_DP        reduce using rule 79 (string -> STRING .)
+    DIF             reduce using rule 79 (string -> STRING .)
+    MAIOR           reduce using rule 79 (string -> STRING .)
+    MENOR           reduce using rule 79 (string -> STRING .)
+    MAIOR_IGL       reduce using rule 79 (string -> STRING .)
+    LESSEQUAL       reduce using rule 79 (string -> STRING .)
+    SMARTMATCH      reduce using rule 79 (string -> STRING .)
+    AND_S           reduce using rule 79 (string -> STRING .)
+    OR_S            reduce using rule 79 (string -> STRING .)
+    XOR_S           reduce using rule 79 (string -> STRING .)
+    $end            reduce using rule 79 (string -> STRING .)
+    RPAREN          reduce using rule 79 (string -> STRING .)
+    FECHA_CHAVE     reduce using rule 79 (string -> STRING .)
 
 
 state 59
 
-    (80) boolean -> BOOLEAN .
+    (80) string -> STR .
 
-    POW             reduce using rule 80 (boolean -> BOOLEAN .)
-    MULT            reduce using rule 80 (boolean -> BOOLEAN .)
-    DIVIDE          reduce using rule 80 (boolean -> BOOLEAN .)
-    DIV             reduce using rule 80 (boolean -> BOOLEAN .)
-    DIVI            reduce using rule 80 (boolean -> BOOLEAN .)
-    MOD             reduce using rule 80 (boolean -> BOOLEAN .)
-    LCM             reduce using rule 80 (boolean -> BOOLEAN .)
-    GCD             reduce using rule 80 (boolean -> BOOLEAN .)
-    ADC             reduce using rule 80 (boolean -> BOOLEAN .)
-    SUB             reduce using rule 80 (boolean -> BOOLEAN .)
-    CONC            reduce using rule 80 (boolean -> BOOLEAN .)
-    IGUAL_DP        reduce using rule 80 (boolean -> BOOLEAN .)
-    DIF             reduce using rule 80 (boolean -> BOOLEAN .)
-    MAIOR           reduce using rule 80 (boolean -> BOOLEAN .)
-    MENOR           reduce using rule 80 (boolean -> BOOLEAN .)
-    MAIOR_IGL       reduce using rule 80 (boolean -> BOOLEAN .)
-    LESSEQUAL       reduce using rule 80 (boolean -> BOOLEAN .)
-    SMARTMATCH      reduce using rule 80 (boolean -> BOOLEAN .)
-    AND_S           reduce using rule 80 (boolean -> BOOLEAN .)
-    OR_S            reduce using rule 80 (boolean -> BOOLEAN .)
-    XOR_S           reduce using rule 80 (boolean -> BOOLEAN .)
-    $end            reduce using rule 80 (boolean -> BOOLEAN .)
-    RPAREN          reduce using rule 80 (boolean -> BOOLEAN .)
-    FECHA_CHAVE     reduce using rule 80 (boolean -> BOOLEAN .)
+    POW             reduce using rule 80 (string -> STR .)
+    MULT            reduce using rule 80 (string -> STR .)
+    DIVIDE          reduce using rule 80 (string -> STR .)
+    DIV             reduce using rule 80 (string -> STR .)
+    DIVI            reduce using rule 80 (string -> STR .)
+    MOD             reduce using rule 80 (string -> STR .)
+    LCM             reduce using rule 80 (string -> STR .)
+    GCD             reduce using rule 80 (string -> STR .)
+    ADC             reduce using rule 80 (string -> STR .)
+    SUB             reduce using rule 80 (string -> STR .)
+    CONC            reduce using rule 80 (string -> STR .)
+    IGUAL_DP        reduce using rule 80 (string -> STR .)
+    DIF             reduce using rule 80 (string -> STR .)
+    MAIOR           reduce using rule 80 (string -> STR .)
+    MENOR           reduce using rule 80 (string -> STR .)
+    MAIOR_IGL       reduce using rule 80 (string -> STR .)
+    LESSEQUAL       reduce using rule 80 (string -> STR .)
+    SMARTMATCH      reduce using rule 80 (string -> STR .)
+    AND_S           reduce using rule 80 (string -> STR .)
+    OR_S            reduce using rule 80 (string -> STR .)
+    XOR_S           reduce using rule 80 (string -> STR .)
+    $end            reduce using rule 80 (string -> STR .)
+    RPAREN          reduce using rule 80 (string -> STR .)
+    FECHA_CHAVE     reduce using rule 80 (string -> STR .)
 
 
 state 60
+
+    (81) boolean -> BOOLEAN .
+
+    POW             reduce using rule 81 (boolean -> BOOLEAN .)
+    MULT            reduce using rule 81 (boolean -> BOOLEAN .)
+    DIVIDE          reduce using rule 81 (boolean -> BOOLEAN .)
+    DIV             reduce using rule 81 (boolean -> BOOLEAN .)
+    DIVI            reduce using rule 81 (boolean -> BOOLEAN .)
+    MOD             reduce using rule 81 (boolean -> BOOLEAN .)
+    LCM             reduce using rule 81 (boolean -> BOOLEAN .)
+    GCD             reduce using rule 81 (boolean -> BOOLEAN .)
+    ADC             reduce using rule 81 (boolean -> BOOLEAN .)
+    SUB             reduce using rule 81 (boolean -> BOOLEAN .)
+    CONC            reduce using rule 81 (boolean -> BOOLEAN .)
+    IGUAL_DP        reduce using rule 81 (boolean -> BOOLEAN .)
+    DIF             reduce using rule 81 (boolean -> BOOLEAN .)
+    MAIOR           reduce using rule 81 (boolean -> BOOLEAN .)
+    MENOR           reduce using rule 81 (boolean -> BOOLEAN .)
+    MAIOR_IGL       reduce using rule 81 (boolean -> BOOLEAN .)
+    LESSEQUAL       reduce using rule 81 (boolean -> BOOLEAN .)
+    SMARTMATCH      reduce using rule 81 (boolean -> BOOLEAN .)
+    AND_S           reduce using rule 81 (boolean -> BOOLEAN .)
+    OR_S            reduce using rule 81 (boolean -> BOOLEAN .)
+    XOR_S           reduce using rule 81 (boolean -> BOOLEAN .)
+    $end            reduce using rule 81 (boolean -> BOOLEAN .)
+    RPAREN          reduce using rule 81 (boolean -> BOOLEAN .)
+    FECHA_CHAVE     reduce using rule 81 (boolean -> BOOLEAN .)
+
+
+state 61
 
     (6) or -> exp_2 OR_S . exp_3
     (8) exp_3 -> . and
@@ -2291,12 +2331,13 @@ state 60
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -2305,13 +2346,14 @@ state 60
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_3                          shift and go to state 89
+    exp_3                          shift and go to state 90
     and                            shift and go to state 7
     exp_4                          shift and go to state 8
     igual_dp                       shift and go to state 9
@@ -2354,7 +2396,7 @@ state 60
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 61
+state 62
 
     (7) xor -> exp_2 XOR_S . exp_3
     (8) exp_3 -> . and
@@ -2425,12 +2467,13 @@ state 61
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -2439,13 +2482,14 @@ state 61
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_3                          shift and go to state 90
+    exp_3                          shift and go to state 91
     and                            shift and go to state 7
     exp_4                          shift and go to state 8
     igual_dp                       shift and go to state 9
@@ -2488,7 +2532,7 @@ state 61
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 62
+state 63
 
     (10) and -> exp_3 AND_S . exp_4
     (11) exp_4 -> . igual_dp
@@ -2556,12 +2600,13 @@ state 62
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -2570,13 +2615,14 @@ state 62
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_4                          shift and go to state 91
+    exp_4                          shift and go to state 92
     igual_dp                       shift and go to state 9
     dif                            shift and go to state 10
     maior                          shift and go to state 11
@@ -2617,7 +2663,7 @@ state 62
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 63
+state 64
 
     (19) igual_dp -> exp_4 IGUAL_DP . exp_5
     (26) exp_5 -> . adicao
@@ -2670,12 +2716,13 @@ state 63
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -2684,13 +2731,14 @@ state 63
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_5                          shift and go to state 92
+    exp_5                          shift and go to state 93
     adicao                         shift and go to state 17
     subtracao                      shift and go to state 18
     conc                           shift and go to state 19
@@ -2723,7 +2771,7 @@ state 63
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 64
+state 65
 
     (20) dif -> exp_4 DIF . exp_5
     (26) exp_5 -> . adicao
@@ -2776,12 +2824,13 @@ state 64
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -2790,13 +2839,14 @@ state 64
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_5                          shift and go to state 93
+    exp_5                          shift and go to state 94
     adicao                         shift and go to state 17
     subtracao                      shift and go to state 18
     conc                           shift and go to state 19
@@ -2829,7 +2879,7 @@ state 64
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 65
+state 66
 
     (21) maior -> exp_4 MAIOR . exp_5
     (26) exp_5 -> . adicao
@@ -2882,12 +2932,13 @@ state 65
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -2896,13 +2947,14 @@ state 65
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_5                          shift and go to state 94
+    exp_5                          shift and go to state 95
     adicao                         shift and go to state 17
     subtracao                      shift and go to state 18
     conc                           shift and go to state 19
@@ -2935,7 +2987,7 @@ state 65
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 66
+state 67
 
     (22) menor -> exp_4 MENOR . exp_5
     (26) exp_5 -> . adicao
@@ -2988,12 +3040,13 @@ state 66
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -3002,13 +3055,14 @@ state 66
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_5                          shift and go to state 95
+    exp_5                          shift and go to state 96
     adicao                         shift and go to state 17
     subtracao                      shift and go to state 18
     conc                           shift and go to state 19
@@ -3041,7 +3095,7 @@ state 66
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 67
+state 68
 
     (23) maior_igual -> exp_4 MAIOR_IGL . exp_5
     (26) exp_5 -> . adicao
@@ -3094,12 +3148,13 @@ state 67
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -3108,13 +3163,14 @@ state 67
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_5                          shift and go to state 96
+    exp_5                          shift and go to state 97
     adicao                         shift and go to state 17
     subtracao                      shift and go to state 18
     conc                           shift and go to state 19
@@ -3147,7 +3203,7 @@ state 67
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 68
+state 69
 
     (24) menor_igual -> exp_4 LESSEQUAL . exp_5
     (26) exp_5 -> . adicao
@@ -3200,12 +3256,13 @@ state 68
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -3214,13 +3271,14 @@ state 68
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_5                          shift and go to state 97
+    exp_5                          shift and go to state 98
     adicao                         shift and go to state 17
     subtracao                      shift and go to state 18
     conc                           shift and go to state 19
@@ -3253,7 +3311,7 @@ state 68
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 69
+state 70
 
     (25) smartmatch -> exp_4 SMARTMATCH . exp_5
     (26) exp_5 -> . adicao
@@ -3306,12 +3364,13 @@ state 69
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -3320,13 +3379,14 @@ state 69
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_5                          shift and go to state 98
+    exp_5                          shift and go to state 99
     adicao                         shift and go to state 17
     subtracao                      shift and go to state 18
     conc                           shift and go to state 19
@@ -3359,7 +3419,7 @@ state 69
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 70
+state 71
 
     (30) adicao -> exp_5 ADC . exp_6
     (33) exp_6 -> . mult
@@ -3405,12 +3465,13 @@ state 70
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -3419,13 +3480,14 @@ state 70
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_6                          shift and go to state 99
+    exp_6                          shift and go to state 100
     mult                           shift and go to state 21
     divide                         shift and go to state 22
     div                            shift and go to state 23
@@ -3454,7 +3516,7 @@ state 70
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 71
+state 72
 
     (31) subtracao -> exp_5 SUB . exp_6
     (33) exp_6 -> . mult
@@ -3500,12 +3562,13 @@ state 71
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -3514,13 +3577,14 @@ state 71
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_6                          shift and go to state 100
+    exp_6                          shift and go to state 101
     mult                           shift and go to state 21
     divide                         shift and go to state 22
     div                            shift and go to state 23
@@ -3549,7 +3613,7 @@ state 71
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 72
+state 73
 
     (32) conc -> exp_5 CONC . exp_6
     (33) exp_6 -> . mult
@@ -3595,12 +3659,13 @@ state 72
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -3609,13 +3674,14 @@ state 72
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_6                          shift and go to state 101
+    exp_6                          shift and go to state 102
     mult                           shift and go to state 21
     divide                         shift and go to state 22
     div                            shift and go to state 23
@@ -3644,7 +3710,7 @@ state 72
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 73
+state 74
 
     (41) mult -> exp_6 MULT . exp_7
     (48) exp_7 -> . pow
@@ -3675,12 +3741,13 @@ state 73
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -3689,13 +3756,14 @@ state 73
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_7                          shift and go to state 102
+    exp_7                          shift and go to state 103
     pow                            shift and go to state 29
     exp_8                          shift and go to state 30
     not_op                         shift and go to state 31
@@ -3716,7 +3784,7 @@ state 73
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 74
+state 75
 
     (42) divide -> exp_6 DIVIDE . exp_7
     (48) exp_7 -> . pow
@@ -3747,12 +3815,13 @@ state 74
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -3761,13 +3830,14 @@ state 74
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_7                          shift and go to state 103
+    exp_7                          shift and go to state 104
     pow                            shift and go to state 29
     exp_8                          shift and go to state 30
     not_op                         shift and go to state 31
@@ -3788,7 +3858,7 @@ state 74
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 75
+state 76
 
     (43) div -> exp_6 DIV . exp_7
     (48) exp_7 -> . pow
@@ -3819,12 +3889,13 @@ state 75
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -3833,13 +3904,14 @@ state 75
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_7                          shift and go to state 104
+    exp_7                          shift and go to state 105
     pow                            shift and go to state 29
     exp_8                          shift and go to state 30
     not_op                         shift and go to state 31
@@ -3860,7 +3932,7 @@ state 75
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 76
+state 77
 
     (44) divi -> exp_6 DIVI . exp_7
     (48) exp_7 -> . pow
@@ -3891,12 +3963,13 @@ state 76
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -3905,13 +3978,14 @@ state 76
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_7                          shift and go to state 105
+    exp_7                          shift and go to state 106
     pow                            shift and go to state 29
     exp_8                          shift and go to state 30
     not_op                         shift and go to state 31
@@ -3932,7 +4006,7 @@ state 76
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 77
+state 78
 
     (45) mod -> exp_6 MOD . exp_7
     (48) exp_7 -> . pow
@@ -3963,12 +4037,13 @@ state 77
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -3977,13 +4052,14 @@ state 77
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_7                          shift and go to state 106
+    exp_7                          shift and go to state 107
     pow                            shift and go to state 29
     exp_8                          shift and go to state 30
     not_op                         shift and go to state 31
@@ -4004,7 +4080,7 @@ state 77
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 78
+state 79
 
     (46) lcm -> exp_6 LCM . exp_7
     (48) exp_7 -> . pow
@@ -4035,12 +4111,13 @@ state 78
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -4049,13 +4126,14 @@ state 78
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_7                          shift and go to state 107
+    exp_7                          shift and go to state 108
     pow                            shift and go to state 29
     exp_8                          shift and go to state 30
     not_op                         shift and go to state 31
@@ -4076,7 +4154,7 @@ state 78
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 79
+state 80
 
     (47) gcd -> exp_6 GCD . exp_7
     (48) exp_7 -> . pow
@@ -4107,12 +4185,13 @@ state 79
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -4121,13 +4200,14 @@ state 79
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_7                          shift and go to state 108
+    exp_7                          shift and go to state 109
     pow                            shift and go to state 29
     exp_8                          shift and go to state 30
     not_op                         shift and go to state 31
@@ -4148,7 +4228,7 @@ state 79
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 80
+state 81
 
     (50) pow -> exp_7 POW . exp_8
     (51) exp_8 -> . not_op
@@ -4176,12 +4256,13 @@ state 80
     (73) tipo -> . string
     (74) tipo -> . boolean
     (75) tipo -> . id
-    (76) inteiro -> . INT
-    (77) float -> . FLOAT
-    (78) string -> . STRING
-    (79) string -> . STR
-    (80) boolean -> . BOOLEAN
-    (81) id -> . ID
+    (76) inteiro -> . INTEGER
+    (77) inteiro -> . INT
+    (78) float -> . FLOAT
+    (79) string -> . STRING
+    (80) string -> . STR
+    (81) boolean -> . BOOLEAN
+    (82) id -> . ID
 
     NOT             shift and go to state 34
     NEGAC           shift and go to state 35
@@ -4190,13 +4271,14 @@ state 80
     DECREMENTO      shift and go to state 47
     LPAREN          shift and go to state 48
     ABRE_CHAVE      shift and go to state 49
-    INT             shift and go to state 55
-    FLOAT           shift and go to state 56
-    STRING          shift and go to state 57
-    STR             shift and go to state 58
-    BOOLEAN         shift and go to state 59
+    INTEGER         shift and go to state 55
+    INT             shift and go to state 56
+    FLOAT           shift and go to state 57
+    STRING          shift and go to state 58
+    STR             shift and go to state 59
+    BOOLEAN         shift and go to state 60
 
-    exp_8                          shift and go to state 109
+    exp_8                          shift and go to state 110
     not_op                         shift and go to state 31
     not_s                          shift and go to state 32
     exp_9                          shift and go to state 33
@@ -4215,7 +4297,7 @@ state 80
     boolean                        shift and go to state 53
     id                             shift and go to state 54
 
-state 81
+state 82
 
     (54) not_op -> NOT exp_8 .
 
@@ -4245,7 +4327,7 @@ state 81
     FECHA_CHAVE     reduce using rule 54 (not_op -> NOT exp_8 .)
 
 
-state 82
+state 83
 
     (55) not_s -> NEGAC exp_8 .
 
@@ -4275,7 +4357,7 @@ state 82
     FECHA_CHAVE     reduce using rule 55 (not_s -> NEGAC exp_8 .)
 
 
-state 83
+state 84
 
     (62) prefixo_incremento -> ADC_DP ID .
 
@@ -4305,7 +4387,7 @@ state 83
     FECHA_CHAVE     reduce using rule 62 (prefixo_incremento -> ADC_DP ID .)
 
 
-state 84
+state 85
 
     (63) posfixo_incremento -> ID ADC_DP .
 
@@ -4335,7 +4417,7 @@ state 84
     FECHA_CHAVE     reduce using rule 63 (posfixo_incremento -> ID ADC_DP .)
 
 
-state 85
+state 86
 
     (65) posfixo_decremento -> ID DECREMENTO .
 
@@ -4365,7 +4447,7 @@ state 85
     FECHA_CHAVE     reduce using rule 65 (posfixo_decremento -> ID DECREMENTO .)
 
 
-state 86
+state 87
 
     (64) prefixo_decremento -> DECREMENTO ID .
 
@@ -4395,21 +4477,21 @@ state 86
     FECHA_CHAVE     reduce using rule 64 (prefixo_decremento -> DECREMENTO ID .)
 
 
-state 87
+state 88
 
     (69) parenteses -> LPAREN exp . RPAREN
 
-    RPAREN          shift and go to state 110
-
-
-state 88
-
-    (70) chaves -> ABRE_CHAVE exp . FECHA_CHAVE
-
-    FECHA_CHAVE     shift and go to state 111
+    RPAREN          shift and go to state 111
 
 
 state 89
+
+    (70) chaves -> ABRE_CHAVE exp . FECHA_CHAVE
+
+    FECHA_CHAVE     shift and go to state 112
+
+
+state 90
 
     (6) or -> exp_2 OR_S exp_3 .
     (10) and -> exp_3 . AND_S exp_4
@@ -4419,10 +4501,10 @@ state 89
     $end            reduce using rule 6 (or -> exp_2 OR_S exp_3 .)
     RPAREN          reduce using rule 6 (or -> exp_2 OR_S exp_3 .)
     FECHA_CHAVE     reduce using rule 6 (or -> exp_2 OR_S exp_3 .)
-    AND_S           shift and go to state 62
+    AND_S           shift and go to state 63
 
 
-state 90
+state 91
 
     (7) xor -> exp_2 XOR_S exp_3 .
     (10) and -> exp_3 . AND_S exp_4
@@ -4432,10 +4514,10 @@ state 90
     $end            reduce using rule 7 (xor -> exp_2 XOR_S exp_3 .)
     RPAREN          reduce using rule 7 (xor -> exp_2 XOR_S exp_3 .)
     FECHA_CHAVE     reduce using rule 7 (xor -> exp_2 XOR_S exp_3 .)
-    AND_S           shift and go to state 62
+    AND_S           shift and go to state 63
 
 
-state 91
+state 92
 
     (10) and -> exp_3 AND_S exp_4 .
     (19) igual_dp -> exp_4 . IGUAL_DP exp_5
@@ -4452,16 +4534,16 @@ state 91
     $end            reduce using rule 10 (and -> exp_3 AND_S exp_4 .)
     RPAREN          reduce using rule 10 (and -> exp_3 AND_S exp_4 .)
     FECHA_CHAVE     reduce using rule 10 (and -> exp_3 AND_S exp_4 .)
-    IGUAL_DP        shift and go to state 63
-    DIF             shift and go to state 64
-    MAIOR           shift and go to state 65
-    MENOR           shift and go to state 66
-    MAIOR_IGL       shift and go to state 67
-    LESSEQUAL       shift and go to state 68
-    SMARTMATCH      shift and go to state 69
+    IGUAL_DP        shift and go to state 64
+    DIF             shift and go to state 65
+    MAIOR           shift and go to state 66
+    MENOR           shift and go to state 67
+    MAIOR_IGL       shift and go to state 68
+    LESSEQUAL       shift and go to state 69
+    SMARTMATCH      shift and go to state 70
 
 
-state 92
+state 93
 
     (19) igual_dp -> exp_4 IGUAL_DP exp_5 .
     (30) adicao -> exp_5 . ADC exp_6
@@ -4481,12 +4563,12 @@ state 92
     $end            reduce using rule 19 (igual_dp -> exp_4 IGUAL_DP exp_5 .)
     RPAREN          reduce using rule 19 (igual_dp -> exp_4 IGUAL_DP exp_5 .)
     FECHA_CHAVE     reduce using rule 19 (igual_dp -> exp_4 IGUAL_DP exp_5 .)
-    ADC             shift and go to state 70
-    SUB             shift and go to state 71
-    CONC            shift and go to state 72
+    ADC             shift and go to state 71
+    SUB             shift and go to state 72
+    CONC            shift and go to state 73
 
 
-state 93
+state 94
 
     (20) dif -> exp_4 DIF exp_5 .
     (30) adicao -> exp_5 . ADC exp_6
@@ -4506,12 +4588,12 @@ state 93
     $end            reduce using rule 20 (dif -> exp_4 DIF exp_5 .)
     RPAREN          reduce using rule 20 (dif -> exp_4 DIF exp_5 .)
     FECHA_CHAVE     reduce using rule 20 (dif -> exp_4 DIF exp_5 .)
-    ADC             shift and go to state 70
-    SUB             shift and go to state 71
-    CONC            shift and go to state 72
+    ADC             shift and go to state 71
+    SUB             shift and go to state 72
+    CONC            shift and go to state 73
 
 
-state 94
+state 95
 
     (21) maior -> exp_4 MAIOR exp_5 .
     (30) adicao -> exp_5 . ADC exp_6
@@ -4531,12 +4613,12 @@ state 94
     $end            reduce using rule 21 (maior -> exp_4 MAIOR exp_5 .)
     RPAREN          reduce using rule 21 (maior -> exp_4 MAIOR exp_5 .)
     FECHA_CHAVE     reduce using rule 21 (maior -> exp_4 MAIOR exp_5 .)
-    ADC             shift and go to state 70
-    SUB             shift and go to state 71
-    CONC            shift and go to state 72
+    ADC             shift and go to state 71
+    SUB             shift and go to state 72
+    CONC            shift and go to state 73
 
 
-state 95
+state 96
 
     (22) menor -> exp_4 MENOR exp_5 .
     (30) adicao -> exp_5 . ADC exp_6
@@ -4556,12 +4638,12 @@ state 95
     $end            reduce using rule 22 (menor -> exp_4 MENOR exp_5 .)
     RPAREN          reduce using rule 22 (menor -> exp_4 MENOR exp_5 .)
     FECHA_CHAVE     reduce using rule 22 (menor -> exp_4 MENOR exp_5 .)
-    ADC             shift and go to state 70
-    SUB             shift and go to state 71
-    CONC            shift and go to state 72
+    ADC             shift and go to state 71
+    SUB             shift and go to state 72
+    CONC            shift and go to state 73
 
 
-state 96
+state 97
 
     (23) maior_igual -> exp_4 MAIOR_IGL exp_5 .
     (30) adicao -> exp_5 . ADC exp_6
@@ -4581,12 +4663,12 @@ state 96
     $end            reduce using rule 23 (maior_igual -> exp_4 MAIOR_IGL exp_5 .)
     RPAREN          reduce using rule 23 (maior_igual -> exp_4 MAIOR_IGL exp_5 .)
     FECHA_CHAVE     reduce using rule 23 (maior_igual -> exp_4 MAIOR_IGL exp_5 .)
-    ADC             shift and go to state 70
-    SUB             shift and go to state 71
-    CONC            shift and go to state 72
+    ADC             shift and go to state 71
+    SUB             shift and go to state 72
+    CONC            shift and go to state 73
 
 
-state 97
+state 98
 
     (24) menor_igual -> exp_4 LESSEQUAL exp_5 .
     (30) adicao -> exp_5 . ADC exp_6
@@ -4606,12 +4688,12 @@ state 97
     $end            reduce using rule 24 (menor_igual -> exp_4 LESSEQUAL exp_5 .)
     RPAREN          reduce using rule 24 (menor_igual -> exp_4 LESSEQUAL exp_5 .)
     FECHA_CHAVE     reduce using rule 24 (menor_igual -> exp_4 LESSEQUAL exp_5 .)
-    ADC             shift and go to state 70
-    SUB             shift and go to state 71
-    CONC            shift and go to state 72
+    ADC             shift and go to state 71
+    SUB             shift and go to state 72
+    CONC            shift and go to state 73
 
 
-state 98
+state 99
 
     (25) smartmatch -> exp_4 SMARTMATCH exp_5 .
     (30) adicao -> exp_5 . ADC exp_6
@@ -4631,12 +4713,12 @@ state 98
     $end            reduce using rule 25 (smartmatch -> exp_4 SMARTMATCH exp_5 .)
     RPAREN          reduce using rule 25 (smartmatch -> exp_4 SMARTMATCH exp_5 .)
     FECHA_CHAVE     reduce using rule 25 (smartmatch -> exp_4 SMARTMATCH exp_5 .)
-    ADC             shift and go to state 70
-    SUB             shift and go to state 71
-    CONC            shift and go to state 72
+    ADC             shift and go to state 71
+    SUB             shift and go to state 72
+    CONC            shift and go to state 73
 
 
-state 99
+state 100
 
     (30) adicao -> exp_5 ADC exp_6 .
     (41) mult -> exp_6 . MULT exp_7
@@ -4663,16 +4745,16 @@ state 99
     $end            reduce using rule 30 (adicao -> exp_5 ADC exp_6 .)
     RPAREN          reduce using rule 30 (adicao -> exp_5 ADC exp_6 .)
     FECHA_CHAVE     reduce using rule 30 (adicao -> exp_5 ADC exp_6 .)
-    MULT            shift and go to state 73
-    DIVIDE          shift and go to state 74
-    DIV             shift and go to state 75
-    DIVI            shift and go to state 76
-    MOD             shift and go to state 77
-    LCM             shift and go to state 78
-    GCD             shift and go to state 79
+    MULT            shift and go to state 74
+    DIVIDE          shift and go to state 75
+    DIV             shift and go to state 76
+    DIVI            shift and go to state 77
+    MOD             shift and go to state 78
+    LCM             shift and go to state 79
+    GCD             shift and go to state 80
 
 
-state 100
+state 101
 
     (31) subtracao -> exp_5 SUB exp_6 .
     (41) mult -> exp_6 . MULT exp_7
@@ -4699,16 +4781,16 @@ state 100
     $end            reduce using rule 31 (subtracao -> exp_5 SUB exp_6 .)
     RPAREN          reduce using rule 31 (subtracao -> exp_5 SUB exp_6 .)
     FECHA_CHAVE     reduce using rule 31 (subtracao -> exp_5 SUB exp_6 .)
-    MULT            shift and go to state 73
-    DIVIDE          shift and go to state 74
-    DIV             shift and go to state 75
-    DIVI            shift and go to state 76
-    MOD             shift and go to state 77
-    LCM             shift and go to state 78
-    GCD             shift and go to state 79
+    MULT            shift and go to state 74
+    DIVIDE          shift and go to state 75
+    DIV             shift and go to state 76
+    DIVI            shift and go to state 77
+    MOD             shift and go to state 78
+    LCM             shift and go to state 79
+    GCD             shift and go to state 80
 
 
-state 101
+state 102
 
     (32) conc -> exp_5 CONC exp_6 .
     (41) mult -> exp_6 . MULT exp_7
@@ -4735,16 +4817,16 @@ state 101
     $end            reduce using rule 32 (conc -> exp_5 CONC exp_6 .)
     RPAREN          reduce using rule 32 (conc -> exp_5 CONC exp_6 .)
     FECHA_CHAVE     reduce using rule 32 (conc -> exp_5 CONC exp_6 .)
-    MULT            shift and go to state 73
-    DIVIDE          shift and go to state 74
-    DIV             shift and go to state 75
-    DIVI            shift and go to state 76
-    MOD             shift and go to state 77
-    LCM             shift and go to state 78
-    GCD             shift and go to state 79
+    MULT            shift and go to state 74
+    DIVIDE          shift and go to state 75
+    DIV             shift and go to state 76
+    DIVI            shift and go to state 77
+    MOD             shift and go to state 78
+    LCM             shift and go to state 79
+    GCD             shift and go to state 80
 
 
-state 102
+state 103
 
     (41) mult -> exp_6 MULT exp_7 .
     (50) pow -> exp_7 . POW exp_8
@@ -4772,10 +4854,10 @@ state 102
     $end            reduce using rule 41 (mult -> exp_6 MULT exp_7 .)
     RPAREN          reduce using rule 41 (mult -> exp_6 MULT exp_7 .)
     FECHA_CHAVE     reduce using rule 41 (mult -> exp_6 MULT exp_7 .)
-    POW             shift and go to state 80
+    POW             shift and go to state 81
 
 
-state 103
+state 104
 
     (42) divide -> exp_6 DIVIDE exp_7 .
     (50) pow -> exp_7 . POW exp_8
@@ -4803,10 +4885,10 @@ state 103
     $end            reduce using rule 42 (divide -> exp_6 DIVIDE exp_7 .)
     RPAREN          reduce using rule 42 (divide -> exp_6 DIVIDE exp_7 .)
     FECHA_CHAVE     reduce using rule 42 (divide -> exp_6 DIVIDE exp_7 .)
-    POW             shift and go to state 80
+    POW             shift and go to state 81
 
 
-state 104
+state 105
 
     (43) div -> exp_6 DIV exp_7 .
     (50) pow -> exp_7 . POW exp_8
@@ -4834,10 +4916,10 @@ state 104
     $end            reduce using rule 43 (div -> exp_6 DIV exp_7 .)
     RPAREN          reduce using rule 43 (div -> exp_6 DIV exp_7 .)
     FECHA_CHAVE     reduce using rule 43 (div -> exp_6 DIV exp_7 .)
-    POW             shift and go to state 80
+    POW             shift and go to state 81
 
 
-state 105
+state 106
 
     (44) divi -> exp_6 DIVI exp_7 .
     (50) pow -> exp_7 . POW exp_8
@@ -4865,10 +4947,10 @@ state 105
     $end            reduce using rule 44 (divi -> exp_6 DIVI exp_7 .)
     RPAREN          reduce using rule 44 (divi -> exp_6 DIVI exp_7 .)
     FECHA_CHAVE     reduce using rule 44 (divi -> exp_6 DIVI exp_7 .)
-    POW             shift and go to state 80
+    POW             shift and go to state 81
 
 
-state 106
+state 107
 
     (45) mod -> exp_6 MOD exp_7 .
     (50) pow -> exp_7 . POW exp_8
@@ -4896,10 +4978,10 @@ state 106
     $end            reduce using rule 45 (mod -> exp_6 MOD exp_7 .)
     RPAREN          reduce using rule 45 (mod -> exp_6 MOD exp_7 .)
     FECHA_CHAVE     reduce using rule 45 (mod -> exp_6 MOD exp_7 .)
-    POW             shift and go to state 80
+    POW             shift and go to state 81
 
 
-state 107
+state 108
 
     (46) lcm -> exp_6 LCM exp_7 .
     (50) pow -> exp_7 . POW exp_8
@@ -4927,10 +5009,10 @@ state 107
     $end            reduce using rule 46 (lcm -> exp_6 LCM exp_7 .)
     RPAREN          reduce using rule 46 (lcm -> exp_6 LCM exp_7 .)
     FECHA_CHAVE     reduce using rule 46 (lcm -> exp_6 LCM exp_7 .)
-    POW             shift and go to state 80
+    POW             shift and go to state 81
 
 
-state 108
+state 109
 
     (47) gcd -> exp_6 GCD exp_7 .
     (50) pow -> exp_7 . POW exp_8
@@ -4958,10 +5040,10 @@ state 108
     $end            reduce using rule 47 (gcd -> exp_6 GCD exp_7 .)
     RPAREN          reduce using rule 47 (gcd -> exp_6 GCD exp_7 .)
     FECHA_CHAVE     reduce using rule 47 (gcd -> exp_6 GCD exp_7 .)
-    POW             shift and go to state 80
+    POW             shift and go to state 81
 
 
-state 109
+state 110
 
     (50) pow -> exp_7 POW exp_8 .
 
@@ -4991,7 +5073,7 @@ state 109
     FECHA_CHAVE     reduce using rule 50 (pow -> exp_7 POW exp_8 .)
 
 
-state 110
+state 111
 
     (69) parenteses -> LPAREN exp RPAREN .
 
@@ -5021,7 +5103,7 @@ state 110
     FECHA_CHAVE     reduce using rule 69 (parenteses -> LPAREN exp RPAREN .)
 
 
-state 111
+state 112
 
     (70) chaves -> ABRE_CHAVE exp FECHA_CHAVE .
 
