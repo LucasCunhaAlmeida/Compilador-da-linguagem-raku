@@ -184,9 +184,9 @@ def p_operando(p):
                 | tipo '''
     p[0] = p[1]
 
-def p_parentese(p):
+def p_parenteses(p):
    '''parenteses : LPAREN exp RPAREN'''
-   p[0] = sa.Expressao_PARENTESES(p[2]) 
+   p[0] = sa.Expressao_PARENTESES(p[2]) # PRO QUE ESTÁ DANDO ERRO DE SINTAXE
 
 # Tipo 
 
@@ -326,7 +326,7 @@ parser = yacc.yacc()
 
 if __name__ == "__main__":
     try:
-        result = parser.parse("1 && 2 == aaa == '1' || 2")
+        result = parser.parse("1 && 2 == aaa == '1' (1231)")
         print("Parse ok:", result)
     except Exception as e:
         print("Falha ao fazer parse:", e)
