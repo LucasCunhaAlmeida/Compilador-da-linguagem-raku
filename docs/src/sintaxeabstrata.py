@@ -1,20 +1,24 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
+#Funções
+
 class Funcao(metaclass=ABCMeta):
     @abstractmethod
     def accept(self):
         pass
 
 class CompoundFuncao(Funcao):
-    def __init__(self, parametros, comando):
+    def __init__(self, id, parametros, comando):
+        self.id= id
         self.parametros = parametros
         self.comando = comando
     def accept(self):
         pass
 
 class CompoundFuncaoSemParametros(Funcao):
-    def __init__(self, comando):
+    def __init__(self, id, comando):
+        self.id= id
         self.comando = comando
     def accept(self):
         pass
