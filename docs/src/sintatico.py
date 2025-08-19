@@ -245,15 +245,15 @@ def p_lista_valores(p):
 #instrucao coloquei essa senquencia, depois vou verificar de novo q my $a = 0
 #id coloquei como a variavel
 def p_for(p):
-    '''loop : FOR expr SETA ID ABRE_CHAVE comando FECHA_CHAVE''' 
+    '''for : FOR expr SETA ID ABRE_CHAVE comando FECHA_CHAVE''' 
     p[0] = sa.loopFor(p[2], p[4], p[6])
     
 def p_ponto_times (p):
-    ''' loop : INTEGER PONTO TIMES SETA ID  ABRE_CHAVE comando FECHA_CHAVE '''
+    ''' ponto_times : INTEGER PONTO TIMES SETA ID  ABRE_CHAVE comando FECHA_CHAVE '''
     p[0] = sa.loopTimes(p[1], p[5], p[7])
 
 def p_while (p):
-    ''' loop : WHILE ID LESSEQUAL INTEGER ABRE_CHAVE comando FECHA_CHAVE '''
+    '''while : WHILE ID LESSEQUAL INTEGER ABRE_CHAVE comando FECHA_CHAVE '''
     p[0] = sa.loopWhile(p[2], p[4], p[6])
 
 def p_loop(p):
@@ -261,7 +261,7 @@ def p_loop(p):
     p[0] = sa.loopRepeticao(p[3], p[5], p[7], p[9])
 
 def p_loop_sem_condicao(p):
-    '''loop : LOOP ABRE_CHAVE comando FECHA_CHAVE'''
+    '''loop_sem_condicao : LOOP ABRE_CHAVE comando FECHA_CHAVE'''
     p[0] =  sa.loopSemCondicao(p[3])
 
 #Estrutura de uma função
