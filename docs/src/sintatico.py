@@ -220,113 +220,168 @@ def p_id(p):
    '''id : ID'''
    p[0] = sa.Expressao_VALOR(p[1], 'ID')
 
-def p_error(p):
-    print(f"Erro de Sintaxe: {p}")
+# ... (toda a sua gramática de expressões de p_exp até p_id está ótima) ...
 
-# Declarações de variáveis escalares e listas
+def p_error(p):
+    if p:
+        print(f"Erro de Sintaxe no token '{p.value}' (tipo: {p.type}) na linha {p.lineno}")
+    else:
+        print("Erro de Sintaxe: Fim inesperado do arquivo.")
+
+# --- DECLARAÇÕES DE VARIÁVEIS ---
 def p_declaracao_escalar(p):
-  'declaracao_escalar : ESCALAR IGUAL valor'
+  '''declaracao : ESCALAR IGUAL valor PONTO_VIRGULA''' # Adicionado PONTO_VIRGULA e movido para 'declaracao'
+  # Aqui você criaria um nó na AST para a declaração
 
 def p_declaracao_lista(p):
-  'declaracao_lista : LIST IGUAL lista_valores'
+  '''declaracao : LIST IGUAL lista_valores PONTO_VIRGULA''' # Adicionado PONTO_VIRGULA e movido para 'declaracao'
+  # Aqui você criaria um nó na AST para a declaração
 
-def p_valor(p):
-  '''valor : INT
-            | FLOAT
-            | STRING
-            | BOOLEAN'''
+def p_valor_numerico(p):
+  '''valor : INTEGER
+           | FLOAT'''
+  p[0] = p[1]
 
-def p_lista_valores(p):
-  '''lista_valores : lista_valores COMMA valor
-                   | valor'''
-# Talvez seja necessário mais algumas mudanças
+def p_valor_texto(p):
+  '''valor : STRING
+           | BOOLEAN'''
+  p[0] = p[1]
 
-#parte inicial das estruturas de repetição
-#instrucao coloquei essa senquencia, depois vou verificar de novo q my $a = 0
-#id coloquei como a variavel
-def p_for(p):
-    '''loop : FOR expr SETA ID ABRE_CHAVE comando FECHA_CHAVE''' 
-    p[0] = sa.loopFor(p[2], p[4], p[6])
+def p_lista_valores_recursiva(p):
+  '''lista_valores : lista_valores COMMA valor'''
+
+def p_lista_valores_base(p):
+  '''lista_valores : valor'''
+
+# --- ESTRUTURAS DE REPETIÇÃO ---
+def p_loop_for(p):
+    '''loop : FOR exp_2 SETA ID ABRE_CHAVE comando FECHA_CHAVE''' 
+    p[0] = sa.LoopFor(p[2], p[4], p[6])
     
-def p_ponto_times (p):
-    ''' loop : INTEGER PONTO TIMES SETA ID  ABRE_CHAVE comando FECHA_CHAVE '''
-    p[0] = sa.loopTimes(p[1], p[5], p[7])
+def p_loop_times(p):
+    # O nome da função não pode ter espaço. Usei 'loop_times'.
+    '''loop : INTEGER PONTO TIMES SETA ID ABRE_CHAVE comando FECHA_CHAVE'''
+    p[0] = sa.LoopTimes(p[1], p[5], p[7])
 
-def p_while (p):
-    ''' loop : WHILE ID LESSEQUAL INTEGER ABRE_CHAVE comando FECHA_CHAVE '''
-    p[0] = sa.loopWhile(p[2], p[4], p[6])
+def p_loop_while(p):
+    # Alterei para usar exp_2 para consistência
+    '''loop : WHILE exp_2 ABRE_CHAVE comando FECHA_CHAVE'''
+    p[0] = sa.LoopWhile(p[2], None, p[4])
 
-def p_loop(p):
-    '''loop : LOOP LPAREN instrucao PV instrucao PV instrucao RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
-    p[0] = sa.loopRepeticao(p[3], p[5], p[7], p[9])
+def p_loop_c_style(p):
+    # Renomeei para evitar conflito com p_loop_for, etc.
+    '''loop : LOOP LPAREN instrucao PONTO_VIRGULA instrucao PONTO_VIRGULA instrucao RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
+    p[0] = sa.LoopRepeticao(p[3], p[5], p[7], p[10])
 
 def p_loop_sem_condicao(p):
     '''loop : LOOP ABRE_CHAVE comando FECHA_CHAVE'''
-    p[0] =  sa.loopSemCondicao(p[3])
+    p[0] = sa.LoopSemCondicao(p[3])
 
-#Estrutura de uma função
-def p_funcao(p):
+# --- FUNÇÕES ---
+def p_funcao_com_params(p):
     '''funcao : FUNCTION ID LPAREN parametros RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
-    p[0] = sa.CompoundFuncao(p[2], p[4],p[7])
+    p[0] = sa.CompoundFuncao(p[2], p[4], p[7])
 
-def p_funcao_sem_parametros(p):
+def p_funcao_sem_params(p):
     '''funcao : FUNCTION ID LPAREN RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
     p[0] = sa.CompoundFuncaoSemParametros(p[2], p[6])
 
-# Condicionais
-def p_condicional1(p):
-    '''condicional : IF expressao bloco'''
+# --- REGRAS QUE FALTAVAM ---
+# Definição de 'parametros'
+def p_parametros_recursivo(p):
+    '''parametros : parametros COMMA ID'''
+def p_parametros_base(p):
+    '''parametros : ID'''
 
-def p_condicional2(p):
-    '''condicional : IF expressao bloco ELSE bloco'''
+# Definição de 'comando' como uma ou mais declarações
+def p_comando(p):
+    '''comando : declaracoes'''
+    p[0] = p[1]
 
-def p_condicional3(p):
-    '''condicional : IF expressao bloco ELSIF expressao bloco'''
+# Definição de 'instrucao' (usada no loop estilo C)
+def p_instrucao_atribuicao(p):
+    '''instrucao : atribuicao'''
+    p[0] = p[1]
+def p_instrucao_expressao(p):
+    '''instrucao : exp_2'''
+    p[0] = p[1]
 
-def p_condicional4(p):
-    '''condicional : IF expressao bloco lista_elsif ELSE bloco'''
+# Definição de 'atribuicao'
+def p_atribuicao(p):
+    '''atribuicao : ID IGUAL exp_2'''
 
-def p_lista_esif1(p):
-    ''''lista_elsif : ELSIF expressao bloco'''
+# Definição de 'chamada_funcao'
+def p_chamada_funcao(p):
+    # Adicione regras para parâmetros se necessário
+    '''chamada_funcao : ID LPAREN RPAREN'''
 
-def p_lista_esif2(p):
-    ''''lista_elsif : lista_elsif ELSIF expressao bloco'''
+# --- CONDICIONAIS (COM NOMES ÚNICOS) ---
+def p_condicional_if(p):
+    '''condicional : IF exp_2 bloco'''
 
-def p_bloco_if1(p):
-    '''bloco_if : ABRE_CHAVE declaracoes FECHA_CHAVE'''
+def p_condicional_if_else(p):
+    '''condicional : IF exp_2 bloco ELSE bloco'''
 
-def p_bloco_if2(p):
-    '''bloco_if : declaracao'''
+def p_condicional_if_elsif(p):
+    '''condicional : IF exp_2 bloco lista_elsif'''
 
-def p_declaracao1(p):
+def p_condicional_if_elsif_else(p):
+    '''condicional : IF exp_2 bloco lista_elsif ELSE bloco'''
+
+def p_lista_elsif_base(p):
+    '''lista_elsif : ELSIF exp_2 bloco'''
+
+def p_lista_elsif_recursiva(p):
+    '''lista_elsif : lista_elsif ELSIF exp_2 bloco'''
+
+# --- ESTRUTURA DE BLOCOS E DECLARAÇÕES (COM NOMES ÚNICOS) ---
+def p_bloco_chaves(p):
+    '''bloco : ABRE_CHAVE declaracoes FECHA_CHAVE'''
+    p[0] = p[2]
+
+def p_bloco_declaracao_unica(p):
+   '''bloco : declaracao'''
+   p[0] = p[1]
+
+def p_declaracoes_base(p):
     '''declaracoes : declaracao'''
 
-def p_declaracao2(p):
+def p_declaracoes_recursiva(p):
     '''declaracoes : declaracoes declaracao'''
 
-def p_declaracao1(p):
+def p_declaracao_de_atribuicao(p):
     '''declaracao : atribuicao PONTO_VIRGULA'''
 
-def p_declaracao2(p):
+def p_declaracao_de_chamada_funcao(p):
     '''declaracao : chamada_funcao PONTO_VIRGULA'''
 
-def p_declaracao3(p):
-    '''declaracao : condicional'''
+def p_declaracao_de_condicional(p):
+   '''declaracao : condicional'''
 
-def p_declaracao4(p):
+def p_declaracao_de_loop(p):
     '''declaracao : loop'''
 
-def p_declaracao5(p):
-    '''declaracao : expressao PONTO_VIRGULA'''
+def p_declaracao_de_expressao(p):
+    '''declaracao : exp_2 PONTO_VIRGULA'''
 
-def p_declaracao6(p):
-    '''declaracao : bloco_if'''
+def p_declaracao_de_bloco(p):
+    '''declaracao : bloco'''
 
+# CONSTRUÇÃO DO PARSER
 parser = yacc.yacc()
 
 if __name__ == "__main__":
+    # Teste com uma string que usa a sua gramática
+    # Exemplo: my $var = 10;
+    # Exemplo: for 1..10 -> $i { }
+    # A string que você estava usando para testar não parece ser válida para a gramática
+    # data = "my $var = 10;"#
+    data = "1 + 2 * (3 - 1)"
+    print(f"Analisando a entrada: {data}")
     try:
-        result = parser.parse("1 && 2 == aaa == '1' (1231)")
-        print("Parse ok:", result)
+        # É crucial passar o lexer para o parser
+        result = parser.parse(data, lexer=lex.lexer)
+        print("Análise sintática bem-sucedida!")
+        print("Resultado (Árvore Sintática Abstrata):", result)
     except Exception as e:
-        print("Falha ao fazer parse:", e)
+        print("Falha ao fazer a análise sintática:", e)

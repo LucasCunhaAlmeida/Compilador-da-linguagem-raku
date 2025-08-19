@@ -14,6 +14,7 @@ id_reservados = {
     'elsif': 'ELSIF',
     'while': 'WHILE',
     'loop': 'LOOP',
+    'for': 'FOR',
     'next': 'NEXT',
     'last': 'LAST',
     'redo': 'REDO',
