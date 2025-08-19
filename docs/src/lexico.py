@@ -5,7 +5,8 @@ tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','
           'DECREMENTO','POW','MAIOR','KMARK','LPAREN','RPAREN','COMMA','STRING','FLOAT',
           'INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC',
           'DIVIDE','LCM','GCD','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 'PONTO', 
-          'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PONTO_VIRGULA', 'AND_S', 'OR_S', 'XOR_S', 'FUNCTION', 'ESCALAR']
+          'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PONTO_VIRGULA', 'AND_S', 'OR_S', 'XOR_S', 'FUNCTION',
+           'ESCALAR', 'MAIN' ]
 
 id_reservados = { 
   'if': 'IF',
@@ -57,6 +58,7 @@ id_reservados = {
 
 tokens += list(id_reservados.values())
 
+t_MAIN = r'main'
 t_LCM = r'lcm'
 t_GCD = r'gcd'
 t_AND_S = r'&&'
@@ -139,7 +141,7 @@ def t_LIST(t):
   return t
 
 def t_FUNCTION(t):
-    r'function'
+    r'sub'
     return t 
   
 def t_newline(t):

@@ -3,6 +3,24 @@ import lexico as lex
 import sintaxeabstrata as sa
 tokens = lex.tokens
 
+def p_programa(p):
+    '''programa : comando_com_main'''
+    p[0] = p[1]
+
+def p_comando_com_main(p):
+    '''comando_com_main : funcao_main declaracoes_main
+                        | declaracoes comando_com_main
+                        | comando '''
+    p[0] = p[1]
+    
+def p_comando(p):
+   ''' comando : declaracoes'''
+   p[0] = p[1]
+
+def p_funcao_main(p):
+    '''funcao_main : FUNCTION MAIN LPAREN RPAREN ABRE_CHAVE declaracoes_main FECHA_CHAVE'''
+    pass
+
 def p_exp(p):
     '''exp : PONTO_VIRGULA
            | exp_2 '''
@@ -181,7 +199,7 @@ def p_posfixo_decremento(p):
 
 def p_operando(p):
     '''operando : parenteses
-                | tipo '''
+                | completo '''
     p[0] = p[1]
 
 def p_parenteses(p):
@@ -189,39 +207,43 @@ def p_parenteses(p):
    p[0] = sa.Expressao_PARENTESES(p[2]) # PRO QUE ESTÁ DANDO ERRO DE SINTAXE
 
 # Tipo 
+def p_completo(p):
+   '''completo : variaveis 
+               | tipo'''
+   p[0] = p[1]
 
-def p_tipo(p):          # TEM QUE SER VALORES CONSTANTES
+def p_variaveis(p):          
+    '''variaveis : escalar'''
+    p[0] = p[1]
+
+def p_tipo(p):
     '''tipo : inteiro
-           | float
-           | string
-           | boolean
-           | id'''
+             | float
+             | string
+             | boolean'''
     p[0] = p[1]
 
 def p_inteiro(p):
-   '''inteiro : INTEGER
-              | INT '''
+   '''inteiro : INTEGER '''
    p[0] = sa.Expressao_VALOR(p[1], 'int')
 
 def p_float(p):
-   '''float : FLOAT'''
+   '''float : FLOAT '''
    p[0] = sa.Expressao_VALOR(p[1], 'float')
 
 def p_string(p):
-    '''string : STRING
-              | STR'''
+    '''string : STRING '''
     p[0] = sa.Expressao_VALOR(p[1], 'str')
 
 def p_boolean(p):
    '''boolean : BOOLEAN'''
    p[0] = sa.Expressao_VALOR(p[1], 'boolean')
 
-def p_id(p):
-   '''id : ID'''
-   p[0] = sa.Expressao_VALOR(p[1], 'ID')
+def p_escalar(p):
+   '''escalar : ESCALAR'''
+   p[0] = sa.Expressao_VALOR(p[1], 'ESCALAR')
 
 # ... (toda a sua gramática de expressões de p_exp até p_id está ótima) ...
-
 
 def p_error(p):
     if p:
@@ -231,28 +253,25 @@ def p_error(p):
 
 # --- DECLARAÇÕES DE VARIÁVEIS ---
 def p_declaracao_escalar(p):
-  '''declaracao : ESCALAR IGUAL valor PONTO_VIRGULA''' # Adicionado PONTO_VIRGULA e movido para 'declaracao'
+  '''declaracao_escalar : ESCALAR IGUAL tipo PONTO_VIRGULA''' # Adicionado PONTO_VIRGULA e movido para 'declaracao'
   # Aqui você criaria um nó na AST para a declaração
 
 def p_declaracao_lista(p):
-  '''declaracao : LIST IGUAL lista_valores PONTO_VIRGULA''' # Adicionado PONTO_VIRGULA e movido para 'declaracao'
+  '''declaracao_lista : LIST IGUAL lista_valores PONTO_VIRGULA''' # Adicionado PONTO_VIRGULA e movido para 'declaracao'
+  pass
   # Aqui você criaria um nó na AST para a declaração
 
-def p_valor_numerico(p):
-  '''valor : INTEGER
-           | FLOAT'''
-  p[0] = p[1]
-
-def p_valor_texto(p):
-  '''valor : STRING
-           | BOOLEAN'''
-  p[0] = p[1]
+def p_lista_valores(p):
+   '''lista_valores : lista_valores_recursiva 
+                    | lista_valores_base '''
 
 def p_lista_valores_recursiva(p):
-  '''lista_valores : lista_valores COMMA valor'''
+  '''lista_valores_recursiva : lista_valores tipo'''
+  pass
 
 def p_lista_valores_base(p):
-  '''lista_valores : valor'''
+  '''lista_valores_base : tipo'''
+  pass
 
 # --- ESTRUTURAS DE REPETIÇÃO ---
 def p_loop_for(p):
@@ -271,7 +290,7 @@ def p_loop_while(p):
 
 def p_loop_c_style(p):
     # Renomeei para evitar conflito com p_loop_for, etc.
-    '''loop : LOOP LPAREN instrucao PONTO_VIRGULA instrucao PONTO_VIRGULA instrucao RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
+    '''loop : LOOP LPAREN atribuicao PONTO_VIRGULA exp_2 PONTO_VIRGULA exp_2 RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
     p[0] = sa.LoopRepeticao(p[3], p[5], p[7], p[10])
 
 def p_loop_sem_condicao(p):
@@ -279,42 +298,45 @@ def p_loop_sem_condicao(p):
     p[0] = sa.LoopSemCondicao(p[3])
 
 # --- FUNÇÕES ---
+
 def p_funcao_com_params(p):
-    '''funcao : FUNCTION ID LPAREN parametros RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
-    p[0] = sa.CompoundFuncao(p[2], p[4], p[7])
+    '''funcao_com_params : FUNCTION ID LPAREN parametros RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
+    p[0] = sa.CompoundFuncao(p[2], p[4], p[6])
 
 def p_funcao_sem_params(p):
-    '''funcao : FUNCTION ID LPAREN RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
+    '''funcao_sem_params : FUNCTION ID LPAREN RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
     p[0] = sa.CompoundFuncaoSemParametros(p[2], p[6])
 
 # --- REGRAS QUE FALTAVAM ---
 # Definição de 'parametros'
-def p_parametros_recursivo(p):
-    '''parametros : parametros COMMA ID'''
-def p_parametros_base(p):
-    '''parametros : ID'''
-
-# Definição de 'comando' como uma ou mais declarações
-def p_comando(p):
-    '''comando : declaracoes'''
+def p_parametros(p):
+    '''parametros : funcao_com_um_paramentro
+                  | funcao_com_varios_paramentro '''
     p[0] = p[1]
 
-# Definição de 'instrucao' (usada no loop estilo C)
-def p_instrucao_atribuicao(p):
-    '''instrucao : atribuicao'''
-    p[0] = p[1]
-def p_instrucao_expressao(p):
-    '''instrucao : exp_2'''
-    p[0] = p[1]
+def p_funcao_com_um_paramentro(p):
+   '''funcao_com_um_paramentro : ESCALAR '''
+   pass
+
+def p_funcao_com_varios_paramentros(p):
+   '''funcao_com_varios_paramentro : COMMA ESCALAR parametros '''
+   pass
 
 # Definição de 'atribuicao'
 def p_atribuicao(p):
-    '''atribuicao : ID IGUAL exp_2'''
+    '''atribuicao : ESCALAR IGUAL exp_2'''
+    pass
 
 # Definição de 'chamada_funcao'
+
 def p_chamada_funcao(p):
     # Adicione regras para parâmetros se necessário
-    '''chamada_funcao : ID LPAREN RPAREN'''
+    '''chamada_funcao : ID LPAREN chamada_funcao_auxiliar'''
+    pass
+
+def p_chamada_funcao_auxiliar(p):
+    '''chamada_funcao_auxiliar : parametros RPAREN
+                               | RPAREN ''' 
 
 # --- CONDICIONAIS (COM NOMES ÚNICOS) ---
 def p_condicional_if(p):
@@ -341,48 +363,61 @@ def p_bloco_chaves(p):
     p[0] = p[2]
 
 def p_bloco_declaracao_unica(p):
-   '''bloco : declaracao'''
+   '''bloco : declaracoes'''
    p[0] = p[1]
 
-def p_declaracoes_base(p):
-    '''declaracoes : declaracao'''
+def p_delaracoes(p):
+    '''declaracoes : declaracao_de_funcao
+                   | declaracoes_main '''
+    p[0] = p[1]
 
-def p_declaracoes_recursiva(p):
-    '''declaracoes : declaracoes declaracao'''
+def p_delaracoes_main(p):
+    '''declaracoes_main : declaracao_de_atribuicao
+                        | declaracao_de_chamada_funcao
+                        | declaracao_de_condicional
+                        | declaracao_loop
+                        | declaracao_de_expressao 
+                        | declaracao_bloco
+                        | declaracao_escalar 
+                        | declaracao_lista '''
+    p[0] = p[1]
 
+    
 def p_declaracao_de_atribuicao(p):
-    '''declaracao : atribuicao PONTO_VIRGULA'''
+    '''declaracao_de_atribuicao : atribuicao PONTO_VIRGULA'''
+
+def p_declaracao_de_funcao(p):
+    '''declaracao_de_funcao : funcao_com_params 
+                            | funcao_sem_params '''
+    p[0] = p[1]
 
 def p_declaracao_de_chamada_funcao(p):
-    '''declaracao : chamada_funcao PONTO_VIRGULA'''
+    '''declaracao_de_chamada_funcao : chamada_funcao PONTO_VIRGULA'''
 
 def p_declaracao_de_condicional(p):
-   '''declaracao : condicional'''
+   '''declaracao_de_condicional : condicional'''
 
 def p_declaracao_de_loop(p):
-    '''declaracao : loop'''
+    '''declaracao_loop : loop'''
 
 def p_declaracao_de_expressao(p):
-    '''declaracao : exp_2 PONTO_VIRGULA'''
+    '''declaracao_de_expressao : exp_2 PONTO_VIRGULA'''
 
 def p_declaracao_de_bloco(p):
-    '''declaracao : bloco'''
+    '''declaracao_bloco : bloco'''
 
 # CONSTRUÇÃO DO PARSER
-parser = yacc.yacc()
 
-if __name__ == "__main__":
     # Teste com uma string que usa a sua gramática
     # Exemplo: my $var = 10;
     # Exemplo: for 1..10 -> $i { }
     # A string que você estava usando para testar não parece ser válida para a gramática
     # data = "my $var = 10;"#
-    data = "1 + 2 * (3 - 1)"
-    print(f"Analisando a entrada: {data}")
+parser = yacc.yacc()
+
+if __name__ == "__main__":
     try:
-        # É crucial passar o lexer para o parser
-        result = parser.parse(data, lexer=lex.lexer, debug = True)
-        print("Análise sintática bem-sucedida!")
-        print("Resultado (Árvore Sintática Abstrata):", result)
+        result = parser.parse("$soma = '1';", debug = True)
+        print("Parse ok:", result)
     except Exception as e:
-        print("Falha ao fazer a análise sintática:", e)
+        print("Falha ao fazer parse:", e)
