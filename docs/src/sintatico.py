@@ -253,7 +253,7 @@ def p_error(p):
 
 # --- DECLARAÇÕES DE VARIÁVEIS ---
 def p_declaracao_escalar(p):
-  '''declaracao_escalar : ESCALAR IGUAL tipo PONTO_VIRGULA''' # Adicionado PONTO_VIRGULA e movido para 'declaracao'
+  '''declaracao_escalar : ESCALAR IGUAL completo PONTO_VIRGULA''' # Aterei de tipo para completo
   # Aqui você criaria um nó na AST para a declaração
 
 def p_declaracao_lista(p):
@@ -362,9 +362,11 @@ def p_bloco_chaves(p):
     '''bloco : ABRE_CHAVE declaracoes FECHA_CHAVE'''
     p[0] = p[2]
 
-def p_bloco_declaracao_unica(p):
-   '''bloco : declaracoes'''
-   p[0] = p[1]
+# Se pensar em mecher nessa função vai arrumar muito problema
+
+# def p_bloco_declaracao_unica(p): 
+#    '''bloco : declaracoes'''
+#    p[0] = p[1]
 
 def p_delaracoes(p):
     '''declaracoes : declaracao_de_funcao
@@ -417,7 +419,7 @@ parser = yacc.yacc()
 
 if __name__ == "__main__":
     try:
-        result = parser.parse("$soma = '1';", debug = True)
+        result = parser.parse("$soma = '1';")
         print("Parse ok:", result)
     except Exception as e:
         print("Falha ao fazer parse:", e)
