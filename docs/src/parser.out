@@ -10,6 +10,12 @@ Unused terminals:
     COMMA
     COMMENT
     CONSTANT
+<<<<<<< Updated upstream
+=======
+    DECREMENTO
+    DIVI
+    DIVIDE
+>>>>>>> Stashed changes
     ELSE
     ELSIF
     ESCALAR
@@ -60,6 +66,7 @@ Unused terminals:
 Grammar
 
 Rule 0     S' -> exp
+<<<<<<< Updated upstream
 Rule 1     exp -> PONTO_VIRGULA
 Rule 2     exp -> exp_2
 Rule 3     exp_2 -> or
@@ -140,6 +147,39 @@ Rule 77    string -> STRING
 Rule 78    string -> STR
 Rule 79    boolean -> BOOLEAN
 Rule 80    id -> ID
+=======
+Rule 1     exp -> exp_tip
+Rule 2     exp -> exp_logic
+Rule 3     exp -> exp_comp
+Rule 4     exp -> exp_metic
+Rule 5     exp_metic -> exp PLUS exp
+Rule 6     exp_metic -> exp MINUS exp
+Rule 7     exp_metic -> exp MULT exp
+Rule 8     exp_metic -> exp DIV exp
+Rule 9     exp_metic -> exp MOD exp
+Rule 10    exp_metic -> exp EXP exp
+Rule 11    exp_metic -> exp DIV_INT exp
+Rule 12    exp_metic -> INC ID
+Rule 13    exp_metic -> DEC ID
+Rule 14    exp_metic -> ID INC
+Rule 15    exp_metic -> ID DEC
+Rule 16    exp_logic -> exp AND_S exp
+Rule 17    exp_logic -> exp OR_S exp
+Rule 18    exp_logic -> exp XOR_S exp
+Rule 19    exp_logic -> NOT exp
+Rule 20    exp_logic -> NEGAC exp
+Rule 21    exp_comp -> exp IGUAL_DP exp
+Rule 22    exp_comp -> exp DIF exp
+Rule 23    exp_comp -> exp MAIOR exp
+Rule 24    exp_comp -> exp MENOR exp
+Rule 25    exp_comp -> exp MAIOR_IGL exp
+Rule 26    exp_comp -> exp LESSEQUAL exp
+Rule 27    exp_comp -> exp SMARTMATCH exp
+Rule 28    exp_tip -> INTEGER
+Rule 29    exp_tip -> FLOAT
+Rule 30    exp_tip -> STRING
+Rule 31    exp_tip -> ID
+>>>>>>> Stashed changes
 
 Terminals, with rules where they appear
 
@@ -147,7 +187,11 @@ ABRE_CHAVE           :
 ADC                  : 30
 ADC_DP               : 62 63
 AND                  : 
+<<<<<<< Updated upstream
 AND_S                : 10
+=======
+AND_S                : 16
+>>>>>>> Stashed changes
 ANY                  : 
 BAG                  : 
 BOOLEAN              : 79
@@ -156,11 +200,19 @@ COMMA                :
 COMMENT              : 
 CONC                 : 32
 CONSTANT             : 
+<<<<<<< Updated upstream
 DECREMENTO           : 64 65
 DIF                  : 20
 DIV                  : 43
 DIVI                 : 44
 DIVIDE               : 42
+=======
+DECREMENTO           : 
+DIF                  : 22
+DIV                  : 8
+DIVI                 : 
+DIVIDE               : 
+>>>>>>> Stashed changes
 ELSE                 : 
 ELSIF                : 
 ESCALAR              : 
@@ -168,6 +220,7 @@ EXIT                 :
 EXPORT               : 
 FALSE                : 
 FECHA_CHAVE          : 
+<<<<<<< Updated upstream
 FLOAT                : 76
 FUNCTION             : 
 GCD                  : 47
@@ -204,6 +257,42 @@ NOT                  : 54
 ONLY                 : 
 OR                   : 
 OR_S                 : 6
+=======
+FLOAT                : 29
+HAS                  : 
+ID                   : 12 13 14 15 31
+IF                   : 
+IGUAL                : 
+IGUAL_DP             : 21
+IMPORT               : 
+INT                  : 
+INTEGER              : 28
+KMARK                : 
+LAST                 : 
+LCM                  : 
+LESSEQUAL            : 26
+LET                  : 
+LIST                 : 
+LOOP                 : 
+LPAREN               : 
+MAIOR                : 23
+MAIOR_IGL            : 25
+MAP                  : 
+MENOR                : 24
+MOD                  : 9
+MU                   : 
+MULT                 : 7
+MULTI                : 
+MY                   : 
+NEED                 : 
+NEGAC                : 20
+NEXT                 : 
+NIL                  : 
+NOT                  : 19
+ONLY                 : 
+OR                   : 
+OR_S                 : 17
+>>>>>>> Stashed changes
 OUR                  : 
 PAIR                 : 
 PONTO                : 
@@ -217,12 +306,21 @@ RETURN               :
 RPAREN               : 68
 SET                  : 
 SETA                 : 
+<<<<<<< Updated upstream
 SMARTMATCH           : 25
 SPLICE               : 
 STATE                : 
 STR                  : 78
 STRING               : 77
 SUB                  : 31
+=======
+SMARTMATCH           : 27
+SPLICE               : 
+STATE                : 
+STR                  : 
+STRING               : 30
+SUB                  : 
+>>>>>>> Stashed changes
 TIMES                : 
 TRUE                 : 
 UNARYMINUS           : 
@@ -231,11 +329,16 @@ UNSHIFT              :
 USE                  : 
 WHILE                : 
 XOR                  : 
+<<<<<<< Updated upstream
 XOR_S                : 7
+=======
+XOR_S                : 18
+>>>>>>> Stashed changes
 error                : 
 
 Nonterminals, with rules where they appear
 
+<<<<<<< Updated upstream
 adicao               : 26
 and                  : 8
 boolean              : 72
@@ -4734,3 +4837,17 @@ state 108
     $end            reduce using rule 68 (parenteses -> LPAREN exp_2 RPAREN .)
     RPAREN          reduce using rule 68 (parenteses -> LPAREN exp_2 RPAREN .)
 
+=======
+DEC                  : 13 15
+DIV_INT              : 11
+EXP                  : 10
+INC                  : 12 14
+MINUS                : 6
+PLUS                 : 5
+exp                  : 5 5 6 6 7 7 8 8 9 9 10 10 11 11 16 16 17 17 18 18 19 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27 0
+exp_comp             : 3
+exp_logic            : 2
+exp_metic            : 4
+exp_tip              : 1
+
+>>>>>>> Stashed changes

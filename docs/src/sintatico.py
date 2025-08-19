@@ -3,10 +3,51 @@ import lexico as lex
 import sintaxeabstrata as sa
 tokens = lex.tokens
 
+<<<<<<< Updated upstream
 def p_exp(p):
     '''exp : PONTO_VIRGULA
            | exp_2 '''
     p[0] = p[1]
+=======
+precedence = ( ## Adicionar as regras da operação aritimetica // Isso é muito importante
+    ('left', 'OR_S', 'XOR_S'),
+    ('left', 'AND_S'),
+    ('left', 'IGUAL_DP', 'DIF'),
+    ('left', 'MAIOR', 'MENOR', 'MAIOR_IGL','LESSEQUAL', 'SMARTMATCH'),
+    ('right', 'NOT', 'NEGAC'),
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'MULT', 'DIV', 'MOD'),
+    ('right', 'EXP'),
+    ('right', 'INC', 'DEC'),
+)
+
+def p_exp(p):
+    '''exp : exp_tip
+           | exp_logic
+           | exp_comp
+           | exp_metic'''
+    '''Expressão geral que pode ser um valor simples (tipado), uma expressão lógica, comparação ou aritmética.'''
+    pass
+
+def p_exp_metic_binop(p):
+    '''exp_metic : exp PLUS exp
+                 | exp MINUS exp
+                 | exp MULT exp
+                 | exp DIV exp
+                 | exp MOD exp
+                 | exp EXP exp
+                 | exp DIV_INT exp'''
+    '''Expressões aritméticas binárias: soma, subtração, multiplicação, divisão (real e inteira), módulo e exponenciação.'''
+    pass
+
+def p_exp_metic_unop(p):
+    '''exp_metic : INC ID
+                 | DEC ID
+                 | ID INC
+                 | ID DEC'''
+    '''Operadores unários de incremento e decremento, prefixo ou sufixo em variáveis.'''
+    pass
+>>>>>>> Stashed changes
 
 def p_exp_2(p):
    '''exp_2 : or
@@ -222,6 +263,7 @@ def p_id(p):
 
 # ... (toda a sua gramática de expressões de p_exp até p_id está ótima) ...
 
+
 def p_error(p):
     if p:
         print(f"Erro de Sintaxe no token '{p.value}' (tipo: {p.type}) na linha {p.lineno}")
@@ -379,9 +421,14 @@ if __name__ == "__main__":
     data = "1 + 2 * (3 - 1)"
     print(f"Analisando a entrada: {data}")
     try:
+<<<<<<< Updated upstream
         # É crucial passar o lexer para o parser
         result = parser.parse(data, lexer=lex.lexer)
         print("Análise sintática bem-sucedida!")
         print("Resultado (Árvore Sintática Abstrata):", result)
+=======
+        result = parser.parse("1 && 2 == aaa == '1' || 2 ")
+        print("Parse ok:", result)
+>>>>>>> Stashed changes
     except Exception as e:
         print("Falha ao fazer a análise sintática:", e)
