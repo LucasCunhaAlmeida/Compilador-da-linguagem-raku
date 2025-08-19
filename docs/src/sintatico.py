@@ -267,11 +267,11 @@ def p_loop_sem_condicao(p):
 #Estrutura de uma função
 def p_funcao(p):
     '''funcao : FUNCTION ID LPAREN parametros RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
-    p[0] = sa.CompoundFuncao(p[4],p[7])
+    p[0] = sa.CompoundFuncao(p[2], p[4],p[7])
 
 def p_funcao_sem_parametros(p):
     '''funcao : FUNCTION ID LPAREN RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
-    p[0] = sa.CompoundFuncaoSemParametros(p[6])
+    p[0] = sa.CompoundFuncaoSemParametros(p[2], p[6])
 
 # Condicionais
 def p_condicional1(p):
