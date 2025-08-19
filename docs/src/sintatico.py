@@ -256,12 +256,12 @@ def p_lista_valores_base(p):
 
 # --- ESTRUTURAS DE REPETIÇÃO ---
 def p_loop_for(p):
-    '''loop : FOR exp_2 SETA ID ABRE_CHAVE comando FECHA_CHAVE''' 
+    '''loop : FOR exp_2 SETA ESCALAR ABRE_CHAVE comando FECHA_CHAVE''' 
     p[0] = sa.LoopFor(p[2], p[4], p[6])
     
 def p_loop_times(p):
     # O nome da função não pode ter espaço. Usei 'loop_times'.
-    '''loop : INTEGER PONTO TIMES SETA ID ABRE_CHAVE comando FECHA_CHAVE'''
+    '''loop : INTEGER PONTO TIMES SETA ESCALAR ABRE_CHAVE comando FECHA_CHAVE'''
     p[0] = sa.LoopTimes(p[1], p[5], p[7])
 
 def p_loop_while(p):
@@ -269,8 +269,7 @@ def p_loop_while(p):
     '''loop : WHILE exp_2 ABRE_CHAVE comando FECHA_CHAVE'''
     p[0] = sa.LoopWhile(p[2], None, p[4])
 
-def p_loop_c_style(p):
-    # Renomeei para evitar conflito com p_loop_for, etc.
+def p_loop_loop(p):
     '''loop : LOOP LPAREN instrucao PONTO_VIRGULA instrucao PONTO_VIRGULA instrucao RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
     p[0] = sa.LoopRepeticao(p[3], p[5], p[7], p[10])
 
