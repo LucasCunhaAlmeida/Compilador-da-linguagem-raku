@@ -208,19 +208,15 @@ def p_parenteses(p):
 
 # Tipo 
 def p_completo(p):
-   '''completo : variaveis 
-               | tipo'''
-   p[0] = p[1]
-
-def p_variaveis(p):          
-    '''variaveis : escalar'''
-    p[0] = p[1]
+   '''completo : tipo
+               | escalar '''
+   pass
 
 def p_tipo(p):
     '''tipo : inteiro
              | float
              | string
-             | boolean'''
+             | boolean  '''
     p[0] = p[1]
 
 def p_inteiro(p):
@@ -252,12 +248,16 @@ def p_error(p):
         print("Erro de Sintaxe: Fim inesperado do arquivo.")
 
 # --- DECLARAÇÕES DE VARIÁVEIS ---
-def p_declaracao_escalar(p):
-  '''declaracao_escalar : ESCALAR IGUAL completo PONTO_VIRGULA''' # Aterei de tipo para completo
-  # Aqui você criaria um nó na AST para a declaração
+def p_declaracao_escalar_MY(p):
+  '''declaracao_escalar_MY : MY ESCALAR IGUAL tipo PONTO_VIRGULA''' # Problema com o ponto e virgula
+  pass
+
+def p_declaracao_escalar_OUR(p):
+  '''declaracao_escalar_OUR : OUR ESCALAR IGUAL tipo PONTO_VIRGULA''' # Problema com o ponto e virgula
+  pass
 
 def p_declaracao_lista(p):
-  '''declaracao_lista : LIST IGUAL lista_valores PONTO_VIRGULA''' # Adicionado PONTO_VIRGULA e movido para 'declaracao'
+  '''declaracao_lista : LIST IGUAL lista_valores PONTO_VIRGULA''' # Adicionado PONTO_VIRGULA e movido para 'declaracao
   pass
   # Aqui você criaria um nó na AST para a declaração
 
@@ -266,7 +266,7 @@ def p_lista_valores(p):
                     | lista_valores_base '''
 
 def p_lista_valores_recursiva(p):
-  '''lista_valores_recursiva : lista_valores tipo'''
+  '''lista_valores_recursiva : lista_valores COMMA tipo'''
   pass
 
 def p_lista_valores_base(p):
@@ -288,7 +288,7 @@ def p_loop_while(p):
     '''loop : WHILE exp_2 ABRE_CHAVE comando FECHA_CHAVE'''
     p[0] = sa.LoopWhile(p[2], None, p[4])
 
-def p_loop_c_style(p):
+def p_loop(p):
     # Renomeei para evitar conflito com p_loop_for, etc.
     '''loop : LOOP LPAREN atribuicao PONTO_VIRGULA exp_2 PONTO_VIRGULA exp_2 RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
     p[0] = sa.LoopRepeticao(p[3], p[5], p[7], p[10])
@@ -380,7 +380,8 @@ def p_delaracoes_main(p):
                         | declaracao_loop
                         | declaracao_de_expressao 
                         | declaracao_bloco
-                        | declaracao_escalar 
+                        | declaracao_escalar_MY
+                        | declaracao_escalar_OUR
                         | declaracao_lista '''
     p[0] = p[1]
 
@@ -419,7 +420,7 @@ parser = yacc.yacc()
 
 if __name__ == "__main__":
     try:
-        result = parser.parse("$soma = '1';")
+        result = parser.parse("@multilingual = 'Alô','Hello','Salut','Hallo','您好','안녕하세요','こんにちは';")
         print("Parse ok:", result)
     except Exception as e:
         print("Falha ao fazer parse:", e)
