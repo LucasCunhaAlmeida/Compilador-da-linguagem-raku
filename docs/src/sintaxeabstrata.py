@@ -285,6 +285,13 @@ class Expressao_PREFIXO_DECREMENTO(Expressao):
 
     def accept(self, visitor):
         return visitor.visitor_PREFIXO_DECREMENTO(self)
+    
+class Expressao_POSFIXO_DECREMENTO(Expressao):
+    def __init__(self, operando):
+        self.operando = operando
+
+    def accept(self, visitor):
+        return visitor.visitor_POSFIXO_INCREMENTO(self)
 
 class Expressao_PARENTESES(Expressao):
     def __init__(self, expressao):
@@ -300,3 +307,47 @@ class Expressao_VALOR(Expressao):
 
     def accept(self, visitor):
         return visitor.visitor_VALOR(self)
+
+class Expressao_TIPO(Expressao):
+    def __init__(self, tipo):
+        self.tipo = tipo
+
+    def accept(self, visitor):
+        return visitor.visitor_TIPO(self)
+
+class SAY(Expressao):
+    def __init__(self, exp):
+        self.exp = exp
+
+    def accept(self, visitor):
+        return visitor.visitor_SAY(self)
+
+class PARAMETROS(Expressao):
+    def __init__(self, escalar):
+        self.escalar = escalar
+    
+    def accept(self, visitor):
+        return visitor.visitor_PARAMETROS(self)
+
+class PARAMETROSMULT(Expressao):
+    def __init__(self, escalar, outros_parametros):
+        self.escalar = escalar
+        self.outros_parametros = outros_parametros
+
+    def accept(self, visitor):
+        return visitor.visitor_PARAMETROSMULT(self)
+
+class CHAMADA_FUNCAO(Expressao):
+    def __init__(self, id, valor):
+        self.id = id
+        self.valor = valor
+
+    def accept(self, visitor):
+        return visitor.visitor_CHAMADA_FUNCAO(self)
+        
+class CHAMADA_FUNCAO_SEM_PARAMETRO(Expressao):
+    def __init__(self, id):
+        self.id = id
+        
+    def accept(self, visitor):
+        return visitor.visitor_CHAMADA_FUNCAO_SEM_PARAMETRO(self)

@@ -4,26 +4,7 @@ import sintaxeabstrata as sa
 tokens = lex.tokens
 
 def p_programa(p):
-    '''programa : comando_com_main'''
-    p[0] = p[1]
-
-def p_comando_com_main(p):
-    '''comando_com_main : funcao_main declaracoes_main
-                        | declaracoes comando_com_main
-                        | comando '''
-    p[0] = p[1]
-    
-def p_comando(p):
-   ''' comando : declaracoes'''
-   p[0] = p[1]
-
-def p_funcao_main(p):
-    '''funcao_main : FUNCTION MAIN LPAREN RPAREN ABRE_CHAVE declaracoes_main FECHA_CHAVE'''
-    pass
-
-def p_exp(p):
-    '''exp : PONTO_VIRGULA
-           | exp_2 '''
+    '''programa : declaracoes'''
     p[0] = p[1]
 
 def p_exp_2(p):
@@ -203,14 +184,14 @@ def p_operando(p):
     p[0] = p[1]
 
 def p_parenteses(p):
-   '''parenteses : LPAREN exp RPAREN'''
+   '''parenteses : LPAREN exp_2 RPAREN'''
    p[0] = sa.Expressao_PARENTESES(p[2]) # PRO QUE ESTÁ DANDO ERRO DE SINTAXE
 
 # Tipo 
 def p_completo(p):
    '''completo : tipo
                | escalar '''
-   pass
+   p[0] = p[1]
 
 def p_tipo(p):
     '''tipo : inteiro
@@ -218,6 +199,20 @@ def p_tipo(p):
              | string
              | boolean  '''
     p[0] = p[1]
+
+def p_tipo_opicional(p):
+   '''tipo_opicional : tipo_opicional_int
+                     | STR 
+                     | empty'''
+   p[0] = p[1]
+
+def p_tipo_opicional_int(p):
+   '''tipo_opicional_int : INT '''
+   p[0] = sa.Expressao_TIPO('int')
+
+def p_empty(p):
+   '''empty : '''
+   p[0] = []
 
 def p_inteiro(p):
    '''inteiro : INTEGER '''
@@ -249,25 +244,30 @@ def p_error(p):
 
 # --- DECLARAÇÕES DE VARIÁVEIS ---
 def p_declaracao_escalar_MY(p):
-  '''declaracao_escalar_MY : MY ESCALAR IGUAL tipo PONTO_VIRGULA''' # Problema com o ponto e virgula
+  '''declaracao_escalar_MY : MY tipo_opicional ESCALAR IGUAL tipo PONTO_VIRGULA declaracoes_para_funcoes''' # Problema com o ponto e virgula
   pass
 
 def p_declaracao_escalar_OUR(p):
-  '''declaracao_escalar_OUR : OUR ESCALAR IGUAL tipo PONTO_VIRGULA''' # Problema com o ponto e virgula
+  '''declaracao_escalar_OUR : OUR tipo_opicional ESCALAR IGUAL tipo PONTO_VIRGULA declaracoes_para_funcoes''' # Problema com o ponto e virgula
   pass
 
 def p_declaracao_lista(p):
-  '''declaracao_lista : LIST IGUAL lista_valores PONTO_VIRGULA''' # Adicionado PONTO_VIRGULA e movido para 'declaracao
+  '''declaracao_lista : LIST IGUAL lista_valores PONTO_VIRGULA declaracoes_para_funcoes'''
   pass
+
+def p_declaracao_lista_my(p):
+  '''declaracao_lista_MY : MY LIST IGUAL lista_valores PONTO_VIRGULA declaracoes_para_funcoes''' 
+  pass
+
+def p_declaracao_lista_our(p):
+  '''declaracao_lista_OUR : OUR LIST IGUAL lista_valores PONTO_VIRGULA declaracoes_para_funcoes'''
+  pass
+
   # Aqui você criaria um nó na AST para a declaração
 
 def p_lista_valores(p):
-   '''lista_valores : lista_valores_recursiva 
+   '''lista_valores : lista_valores COMMA tipo 
                     | lista_valores_base '''
-
-def p_lista_valores_recursiva(p):
-  '''lista_valores_recursiva : lista_valores COMMA tipo'''
-  pass
 
 def p_lista_valores_base(p):
   '''lista_valores_base : tipo'''
@@ -275,52 +275,54 @@ def p_lista_valores_base(p):
 
 # --- ESTRUTURAS DE REPETIÇÃO ---
 def p_loop_for(p):
-    '''loop : FOR exp_2 SETA ID ABRE_CHAVE comando FECHA_CHAVE''' 
+    '''loop_for : FOR inteiro INTERPOLACAO inteiro SETA ESCALAR ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes''' 
     p[0] = sa.LoopFor(p[2], p[4], p[6])
     
 def p_loop_times(p):
     # O nome da função não pode ter espaço. Usei 'loop_times'.
-    '''loop : INTEGER PONTO TIMES SETA ID ABRE_CHAVE comando FECHA_CHAVE'''
+    '''loop_times : INTEGER TIMES SETA ESCALAR ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes'''
     p[0] = sa.LoopTimes(p[1], p[5], p[7])
 
 def p_loop_while(p):
     # Alterei para usar exp_2 para consistência
-    '''loop : WHILE exp_2 ABRE_CHAVE comando FECHA_CHAVE'''
-    p[0] = sa.LoopWhile(p[2], None, p[4])
+    '''loop_while : WHILE exp_2 ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes'''
+    p[0] = sa.LoopWhile(p[2], p[4])
 
 def p_loop(p):
     # Renomeei para evitar conflito com p_loop_for, etc.
-    '''loop : LOOP LPAREN atribuicao PONTO_VIRGULA exp_2 PONTO_VIRGULA exp_2 RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
+    '''loop : LOOP LPAREN atribuicao PONTO_VIRGULA exp_2 PONTO_VIRGULA exp_2 RPAREN ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes'''
     p[0] = sa.LoopRepeticao(p[3], p[5], p[7], p[10])
 
 def p_loop_sem_condicao(p):
-    '''loop : LOOP ABRE_CHAVE comando FECHA_CHAVE'''
+    '''loop_sem_condicao : LOOP ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes'''
     p[0] = sa.LoopSemCondicao(p[3])
+
+# --- SAY ---
+
+def p_say(p):
+    '''say : SAY exp_2 PONTO_VIRGULA declaracoes_para_funcoes'''
+    p[0] = p[2]  # ✅ Usar 'sa.SAY' em vez de 'sa.Say'
 
 # --- FUNÇÕES ---
 
 def p_funcao_com_params(p):
-    '''funcao_com_params : FUNCTION ID LPAREN parametros RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
+    '''funcao_com_params : FUNCTION ID LPAREN parametros RPAREN ABRE_CHAVE declaracoes_para_funcoes FECHA_CHAVE declaracoes'''
     p[0] = sa.CompoundFuncao(p[2], p[4], p[6])
 
 def p_funcao_sem_params(p):
-    '''funcao_sem_params : FUNCTION ID LPAREN RPAREN ABRE_CHAVE comando FECHA_CHAVE'''
+    '''funcao_sem_params : FUNCTION ID LPAREN RPAREN ABRE_CHAVE declaracoes_para_funcoes FECHA_CHAVE declaracoes'''
     p[0] = sa.CompoundFuncaoSemParametros(p[2], p[6])
 
 # --- REGRAS QUE FALTAVAM ---
 # Definição de 'parametros'
+
 def p_parametros(p):
-    '''parametros : funcao_com_um_paramentro
-                  | funcao_com_varios_paramentro '''
-    p[0] = p[1]
-
-def p_funcao_com_um_paramentro(p):
-   '''funcao_com_um_paramentro : ESCALAR '''
-   pass
-
-def p_funcao_com_varios_paramentros(p):
-   '''funcao_com_varios_paramentro : COMMA ESCALAR parametros '''
-   pass
+    '''parametros : ESCALAR
+                  | parametros COMMA ESCALAR '''
+    if len(p) == 2:
+        p[0] = [p[1]] # -> Com um unico parametro
+    else:
+        p[0] = p[1] + [p[3]] # -> Com varios parametros
 
 # Definição de 'atribuicao'
 def p_atribuicao(p):
@@ -331,25 +333,33 @@ def p_atribuicao(p):
 
 def p_chamada_funcao(p):
     # Adicione regras para parâmetros se necessário
-    '''chamada_funcao : ID LPAREN chamada_funcao_auxiliar'''
-    pass
+    '''chamada_funcao : ID LPAREN chamada_funcao_auxiliar RPAREN declaracoes'''
+    p[0] = sa.CHAMADA_FUNCAO(p[1], p[3])
+
+def p_chamada_funcao_sem_parametro(p):
+    '''chamada_funcao_sem_parametro : ID LPAREN RPAREN declaracoes'''
+    p[0] = sa.CHAMADA_FUNCAO_SEM_PARAMETRO(p[1])
 
 def p_chamada_funcao_auxiliar(p):
-    '''chamada_funcao_auxiliar : parametros RPAREN
-                               | RPAREN ''' 
+    '''chamada_funcao_auxiliar : chamada_funcao_auxiliar COMMA completo
+                               | completo ''' 
+    if len(p) == 2:
+        p[0] = [p[1]] # -> Com um unico parametro
+    else:
+        p[0] = p[1] + [p[3]] # -> Com varios parametros
 
 # --- CONDICIONAIS (COM NOMES ÚNICOS) ---
 def p_condicional_if(p):
-    '''condicional : IF exp_2 bloco'''
+    '''condicional : IF exp_2 bloco declaracoes'''
 
 def p_condicional_if_else(p):
-    '''condicional : IF exp_2 bloco ELSE bloco'''
+    '''condicional : IF exp_2 bloco ELSE bloco declaracoes'''
 
 def p_condicional_if_elsif(p):
-    '''condicional : IF exp_2 bloco lista_elsif'''
+    '''condicional : IF exp_2 bloco lista_elsif declaracoes'''
 
 def p_condicional_if_elsif_else(p):
-    '''condicional : IF exp_2 bloco lista_elsif ELSE bloco'''
+    '''condicional : IF exp_2 bloco lista_elsif ELSE bloco declaracoes'''
 
 def p_lista_elsif_base(p):
     '''lista_elsif : ELSIF exp_2 bloco'''
@@ -370,11 +380,12 @@ def p_bloco_chaves(p):
 
 def p_delaracoes(p):
     '''declaracoes : declaracao_de_funcao
-                   | declaracoes_main '''
+                   | declaracoes_para_funcoes '''
     p[0] = p[1]
 
-def p_delaracoes_main(p):
-    '''declaracoes_main : declaracao_de_atribuicao
+def p_declaracoes_para_funcoes(p):
+    '''declaracoes_para_funcoes : declaracao_de_atribuicao
+                        | say
                         | declaracao_de_chamada_funcao
                         | declaracao_de_condicional
                         | declaracao_loop
@@ -382,9 +393,11 @@ def p_delaracoes_main(p):
                         | declaracao_bloco
                         | declaracao_escalar_MY
                         | declaracao_escalar_OUR
-                        | declaracao_lista '''
+                        | declaracao_lista
+                        | declaracao_lista_MY
+                        | declaracao_lista_OUR
+                        | empty '''
     p[0] = p[1]
-
     
 def p_declaracao_de_atribuicao(p):
     '''declaracao_de_atribuicao : atribuicao PONTO_VIRGULA'''
@@ -395,13 +408,19 @@ def p_declaracao_de_funcao(p):
     p[0] = p[1]
 
 def p_declaracao_de_chamada_funcao(p):
-    '''declaracao_de_chamada_funcao : chamada_funcao PONTO_VIRGULA'''
+    '''declaracao_de_chamada_funcao : chamada_funcao PONTO_VIRGULA
+                                    | chamada_funcao_sem_parametro PONTO_VIRGULA'''
+    p[0] = p[1]
 
 def p_declaracao_de_condicional(p):
    '''declaracao_de_condicional : condicional'''
 
 def p_declaracao_de_loop(p):
-    '''declaracao_loop : loop'''
+    '''declaracao_loop : loop
+                       | loop_for
+                       | loop_times 
+                       | loop_while
+                       | loop_sem_condicao '''
 
 def p_declaracao_de_expressao(p):
     '''declaracao_de_expressao : exp_2 PONTO_VIRGULA'''
@@ -416,11 +435,37 @@ def p_declaracao_de_bloco(p):
     # Exemplo: for 1..10 -> $i { }
     # A string que você estava usando para testar não parece ser válida para a gramática
     # data = "my $var = 10;"#
-parser = yacc.yacc()
+
+# Teste nos outros computadores 
+
+# parser = yacc.yacc()
+
+# if __name__ == "__main__":
+#     try:
+#         result = parser.parse("my Int $var = 10; my Str $var = 10;")
+#         print("Parse ok:", result)
+#     except Exception as e:
+#         print("Falha ao fazer parse:", e)
+
+# Utilizando caminhos no linux
+
+def main():
+
+    caminho = "./main.raku"
+
+    try:
+        with open(caminho, "r", encoding="utf-8") as f:
+            codigo = f.read()
+    except FileNotFoundError:
+        print(f"Erro: Arquivo '{caminho}' não encontrado.")
+        sys.exit(1)
+
+    # Cria o parser
+    parser = yacc.yacc()  # parser já construído no sintaxe.py
+    result = parser.parse(codigo, lexer=lex.lexer)
+
+    print("\n=== Resultado do Parser ===")
+    print(result)  # aqui você vai ver a AST retornada
 
 if __name__ == "__main__":
-    try:
-        result = parser.parse("@multilingual = 'Alô','Hello','Salut','Hallo','您好','안녕하세요','こんにちは';")
-        print("Parse ok:", result)
-    except Exception as e:
-        print("Falha ao fazer parse:", e)
+    main()
