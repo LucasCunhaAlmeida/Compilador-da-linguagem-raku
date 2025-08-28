@@ -276,11 +276,13 @@ def p_lista_valores_base(p):
 # --- ESTRUTURAS DE REPETIÇÃO ---
 def p_loop_for(p):
     '''loop_for : FOR inteiro INTERPOLACAO inteiro SETA ESCALAR ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes''' 
+
     p[0] = sa.LoopFor(p[2], p[4], p[6])
     
 def p_loop_times(p):
     # O nome da função não pode ter espaço. Usei 'loop_times'.
     '''loop_times : INTEGER TIMES SETA ESCALAR ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes'''
+
     p[0] = sa.LoopTimes(p[1], p[5], p[7])
 
 def p_loop_while(p):
