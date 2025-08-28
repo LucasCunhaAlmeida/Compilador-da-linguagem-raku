@@ -5,7 +5,8 @@ tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','
           'DECREMENTO','POW','MAIOR','KMARK','LPAREN','RPAREN','COMMA','STRING','FLOAT',
           'INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC',
           'DIVIDE','LCM','GCD','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 'PONTO', 
-          'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PONTO_VIRGULA', 'AND_S', 'OR_S', 'XOR_S', 'FUNCTION', 'ESCALAR']
+          'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PONTO_VIRGULA', 'AND_S', 'OR_S', 'XOR_S',
+           'ESCALAR', 'INTERPOLACAO']
 
 id_reservados = { 
   'if': 'IF',
@@ -23,7 +24,6 @@ id_reservados = {
     'break': 'BREAK',
     'my': 'MY',
     'our': 'OUR',
-    'has': 'HAS',
     'state': 'STATE',
     'constant': 'CONSTANT',
     'let': 'LET',
@@ -34,16 +34,13 @@ id_reservados = {
     'Nil': 'NIL',
     'True': 'TRUE',
     'False': 'FALSE',
-    'Int': 'INT',
-    'Str': 'STR',
+    'int': 'INT',
+    'str': 'STR',
     'Pair': 'PAIR',
     'Map': 'MAP',
     'Set': 'SET',
     'Bag': 'BAG',
-    'and': 'AND',   # Tem que retirar?
-    'or': 'OR',     # Tem que retirar?
     'not': 'NOT',   
-    'xor': 'XOR',   # Tem que retirar?
     'require': 'REQUIRE',
     'need': 'NEED',
     'use': 'USE',
@@ -53,10 +50,13 @@ id_reservados = {
     'push': 'PUSH',
     'unshift': 'UNSHIFT',
     'splice': 'SPLICE',
+    'say': 'SAY',
+    'sub': 'FUNCTION',
 }
 
 tokens += list(id_reservados.values())
 
+t_INTERPOLACAO = r'\.\.'
 t_LCM = r'lcm'
 t_GCD = r'gcd'
 t_AND_S = r'&&'
@@ -125,7 +125,7 @@ def t_COMMENT(t):
 
 def t_ID(t):
   r'[a-zA-Z_](?:[a-zA-Z0-9_]*([\'-](?!\d|\Z)[a-zA-Z_][a-zA-Z0-9_]*)?)*'
-  t.type = id_reservados.get(t.value, 'ID')  # Verifica se é palavra reservada
+  t.type = id_reservados.get(t.value.lower(), 'ID')  # Verifica se é palavra reservada
   return t
 
 def t_ESCALAR(t):
@@ -137,10 +137,6 @@ def t_LIST(t):
   r'@[a-zA-Z_](?:[a-zA-Z0-9_]*([\'-](?!\d|\Z)[a-zA-Z_][a-zA-Z0-9_]*)?)*'
   t.type = id_reservados.get(t.value, 'LIST')
   return t
-
-def t_FUNCTION(t):
-    r'function'
-    return t 
   
 def t_newline(t):
   r'\n+'
