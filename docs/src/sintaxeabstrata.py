@@ -155,13 +155,6 @@ class ExpressaoMENOR_IGUAL(Expressao):
     def accept(self, visitor):
         return visitor.visitorExpressaoMAIOR(self)
 
-class ExpressaoSMARTMATCH(Expressao):
-    def __init__(self, esquerda, direita):
-        self.esquerda = esquerda
-        self.direita = direita
-
-    def accept(self, visitor):
-        return visitor.visitorExpressaoSMARTMATCH(self)
     
 class ExpressaoADICAO(Expressao):
     def __init__(self, esquerda, direita):
@@ -351,3 +344,200 @@ class CHAMADA_FUNCAO_SEM_PARAMETRO(Expressao):
         
     def accept(self, visitor):
         return visitor.visitor_CHAMADA_FUNCAO_SEM_PARAMETRO(self)
+
+ # --- CONTROLE DE FLUXO ---
+
+ class Break(Expressao):
+    def accept(self, visitor):
+        return visitor.visitorBreak(self)
+
+ class Exit(Expressao):
+    def __init__(self, exp):
+        self.exp = exp
+    def accept(self, visitor):
+        return visitor.visitorExit(self)
+
+ class Last(Expressao):
+    def accept(self, visitor):
+        return visitor.visitorLast(self)
+
+ class Next(Expressao):
+    def accept(self, visitor):
+        return visitor.visitorNext(self)
+
+ class Redo(Expressao):
+    def accept(self, visitor):
+        return visitor.visitorRedo(self)
+
+ class Return(Expressao):
+    def __init__(self, exp):
+        self.exp = exp
+    def accept(self, visitor):
+        return visitor.visitorReturn(self)
+
+  # --- DECLARAÇÕES E ESCOPO ---
+
+ class Constant(Expressao):
+    def __init__(self, id, valor):
+        self.id = id
+        self.valor = valor
+    def accept(self, visitor):
+        return visitor.visitorConstant(self)
+
+ class State(Expressao):
+    def __init__(self, id, valor):
+        self.id = id
+        self.valor = valor
+    def accept(self, visitor):
+        return visitor.visitorState(self)
+
+ class Let(Expressao):
+    def __init__(self, id, valor):
+        self.id = id
+        self.valor = valor
+    def accept(self, visitor):
+        return visitor.visitorLet(self)
+
+ class Multi(Expressao):
+    def __init__(self, id, parametros, comando):
+        self.id = id
+        self.parametros = parametros
+        self.comando = comando
+    def accept(self, visitor):
+        return visitor.visitorMulti(self)
+
+ class Only(Expressao):
+    def __init__(self, id, comando):
+        self.id = id
+        self.comando = comando
+    def accept(self, visitor):
+        return visitor.visitorOnly(self)
+
+ class Unit(Expressao):
+    def accept(self, visitor):
+        return visitor.visitorUnit(self)
+
+ # --- ESTRUTURAS DE DADOS ---
+
+class Any(Expressao):
+    def __init__(self, valores):
+        self.valores = valores
+    def accept(self, visitor):
+        return visitor.visitorAny(self)
+
+class Bag(Expressao):
+    def __init__(self, valores):
+        self.valores = valores
+    def accept(self, visitor):
+        return visitor.visitorBag(self)
+
+class Map(Expressao):
+    def __init__(self, pares):
+        self.pares = pares
+    def accept(self, visitor):
+        return visitor.visitorMap(self)
+
+class Pair(Expressao):
+    def __init__(self, tipo1, tipo2):
+        self.tipo1 = tipo1
+        self.tipo2 = tipo2
+    def accept(self, visitor):
+        return visitor.visitorPair(self)
+
+class Set(Expressao):
+    def __init__(self, valores):
+        self.valores = valores
+    def accept(self, visitor):
+        return visitor.visitorSet(self)
+
+# --- EXPRESSÕES E OPERADORES ESPECIAIS ---
+
+class KMark(Expressao):
+    def __init__(self, exp):
+        self.exp = exp
+    def accept(self, visitor):
+        return visitor.visitorKMark(self)
+
+class Ponto(Expressao):
+    def __init__(self, esquerda, direita):
+        self.esquerda = esquerda
+        self.direita = direita
+    def accept(self, visitor):
+        return visitor.visitorPonto(self)
+
+class ReplicarString(Expressao):
+    def __init__(self, string, vezes):
+        self.string = string
+        self.vezes = vezes
+    def accept(self, visitor):
+        return visitor.visitorReplicarString(self)
+
+class UnaryMinus(Expressao):
+    def __init__(self, exp):
+        self.exp = exp
+    def accept(self, visitor):
+        return visitor.visitorUnaryMinus(self)
+        
+class ExpressaoSMARTMATCH(Expressao):
+    def __init__(self, esquerda, direita):
+        self.esquerda = esquerda
+        self.direita = direita
+
+    def accept(self, visitor):
+        return visitor.visitorExpressaoSMARTMATCH(self)
+
+# --- IMPORTAÇÃO E MODULARIZAÇÃO ---
+
+class Export(Expressao):
+    def __init__(self, id):
+        self.id = id
+    def accept(self, visitor):
+        return visitor.visitorExport(self)
+
+class Import(Expressao):
+    def __init__(self, id):
+        self.id = id
+    def accept(self, visitor):
+        return visitor.visitorImport(self)
+
+class Need(Expressao):
+    def __init__(self, id):
+        self.id = id
+    def accept(self, visitor):
+        return visitor.visitorNeed(self)
+
+class Require(Expressao):
+    def __init__(self, id):
+        self.id = id
+    def accept(self, visitor):
+        return visitor.visitorRequire(self)
+
+class Use(Expressao):
+    def __init__(self, id):
+        self.id = id
+    def accept(self, visitor):
+        return visitor.visitorUse(self)
+        
+# --- OPERAÇÕES EM LISTAS ---
+
+class Push(Expressao):
+    def __init__(self, escalar, valores):
+        self.escalar = escalar
+        self.valores = valores
+    def accept(self, visitor):
+        return visitor.visitorPush(self)
+
+class Unshift(Expressao):
+    def __init__(self, escalar, valores):
+        self.escalar = escalar
+        self.valores = valores
+    def accept(self, visitor):
+        return visitor.visitorUnshift(self)
+
+class Splice(Expressao):
+    def __init__(self, escalar, inicio, quantidade):
+        self.escalar = escalar
+        self.inicio = inicio
+        self.quantidade = quantidade
+    def accept(self, visitor):
+        return visitor.visitorSplice(self)
