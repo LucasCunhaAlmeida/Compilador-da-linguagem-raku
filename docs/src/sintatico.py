@@ -509,7 +509,7 @@ def p_set(p):
 # --- EXPRESSÕES E OPERADORES ESPECIAIS ---
 
 def p_kmark(p):
-    '''kmark : QMARK exp_2'''
+    '''kmark : KMARK exp_2'''
     p[0] = sa.KMark(p[2])
 
 def p_ponto(p):
