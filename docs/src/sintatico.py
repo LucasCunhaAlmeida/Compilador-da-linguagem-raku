@@ -437,7 +437,7 @@ def p_declaracao_de_bloco(p):
 
 def p_break(p):
     '''declaracao_break : BREAK PONTO_VIRGULA declaracoes_para_funcoes'''
-   [0] = sa.Break p()
+    p[0] = sa.Break()
 
 def p_exit(p):
     '''declaracao_exit : EXIT exp_2 PONTO_VIRGULA declaracoes_para_funcoes'''
