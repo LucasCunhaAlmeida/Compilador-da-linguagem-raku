@@ -69,6 +69,7 @@ def p_exp_5(p):
     '''exp_5 : adicao
              | subtracao
              | conc
+             | kmark
              | exp_6 '''
     p[0] = p[1]
 
