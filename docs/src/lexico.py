@@ -94,6 +94,8 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_COMMA = r','
 t_KMARK = r'\?'
+t_TRUE = r'True'
+t_FALSE = r'False'
 t_ignore = ' \t' # Ignora espaços, tabulações e quebras de linha
 
 def t_UNARYMINUS(t):
