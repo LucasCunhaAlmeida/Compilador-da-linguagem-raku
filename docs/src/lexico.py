@@ -109,10 +109,15 @@ def t_STRING(t):
   # t.value = t.value[1:-1] # Retira as aspas da palavras
   return t
 
-def t_BOOLEAN(t):
-    r'true|True|false|False'
-    t.value = t.value.lower() == 'true'
-    return t
+def p_boolean(p):
+    '''boolean : TRUE
+               | FALSE'''
+    p[0] = sa.Expressao_VALOR(True if p[1] == 'True' else False, 'boolean')
+
+#def t_BOOLEAN(t):
+    #r'true|True|false|False'
+   # t.value = t.value.lower() == 'true'
+   # return t
           
 #def t_BOOLEAN(t):
   #r'true|false'
@@ -174,7 +179,10 @@ def t_TIMES(t):
     return t
 
 lexer = lex.lex()
-lexer.input("if while str False my our ( ) ?")
+lexer.input("my $x = False; if $x ? { say ( True )")
+
+#lexer = lex.lex()
+#lexer.input("if while str False my our ( ) ?")
 
 #lexer = lex.lex()  # Cria o analisador léxico
 #lexer.input("if while str False my our ( )")  # Define a entrada do analisador léxico
