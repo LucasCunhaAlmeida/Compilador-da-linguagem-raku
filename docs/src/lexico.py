@@ -4,7 +4,7 @@ import ply.lex as lex     #importa módulo ply.lex e o renomeia para lex
 tokens = [
     'ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','IGUAL',
     'DECREMENTO','POW','MAIOR','KMARK','LPAREN','RPAREN','COMMA','STRING','FLOAT',
-    'INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC',
+    'INTEGER', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC',
     'DIVIDE','LCM','GCD','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 
     'PONTO','SETA','ABRE_CHAVE','FECHA_CHAVE','PONTO_VIRGULA','AND_S','OR_S','XOR_S',
     'ESCALAR', 'INTERPOLACAO']
