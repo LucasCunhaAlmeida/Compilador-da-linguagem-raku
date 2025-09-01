@@ -1,11 +1,14 @@
 import ply.lex as lex     #importa módulo ply.lex e o renomeia para lex
 
 # Definindo Tokens e padroes
-tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','IGUAL',
-          'DECREMENTO','POW','MAIOR','KMARK','LPAREN','RPAREN','COMMA','STRING','FLOAT',
-          'INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC',
-          'DIVIDE','LCM','GCD','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 'PONTO', 
-          'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PONTO_VIRGULA', 'AND_S', 'OR_S', 'XOR_S', 'FUNCTION', 'ESCALAR']
+tokens = [
+    'ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','IGUAL',
+    'DECREMENTO','POW','MAIOR','KMARK','LPAREN','RPAREN','COMMA','STRING','FLOAT',
+    'INTEGER', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC',
+    'DIVIDE','LCM','GCD','LESSEQUAL', 'REPLICARSTRING','UNARYMINUS','SMARTMATCH', 
+    'PONTO','SETA','ABRE_CHAVE','FECHA_CHAVE','PONTO_VIRGULA','AND_S','OR_S','XOR_S',
+    'ESCALAR', 'INTERPOLACAO']
+
 
 id_reservados = { 
   'if': 'IF',
@@ -23,7 +26,6 @@ id_reservados = {
     'break': 'BREAK',
     'my': 'MY',
     'our': 'OUR',
-    'has': 'HAS',
     'state': 'STATE',
     'constant': 'CONSTANT',
     'let': 'LET',
@@ -34,16 +36,13 @@ id_reservados = {
     'Nil': 'NIL',
     'True': 'TRUE',
     'False': 'FALSE',
-    'Int': 'INT',
-    'Str': 'STR',
+    'int': 'INT',
+    'str': 'STR',
     'Pair': 'PAIR',
     'Map': 'MAP',
     'Set': 'SET',
     'Bag': 'BAG',
-    'and': 'AND',   # Tem que retirar?
-    'or': 'OR',     # Tem que retirar?
     'not': 'NOT',   
-    'xor': 'XOR',   # Tem que retirar?
     'require': 'REQUIRE',
     'need': 'NEED',
     'use': 'USE',
@@ -53,10 +52,13 @@ id_reservados = {
     'push': 'PUSH',
     'unshift': 'UNSHIFT',
     'splice': 'SPLICE',
+    'say': 'SAY',
+    'sub': 'FUNCTION',
 }
 
 tokens += list(id_reservados.values())
 
+t_INTERPOLACAO = r'\.\.'
 t_LCM = r'lcm'
 t_GCD = r'gcd'
 t_AND_S = r'&&'
@@ -92,22 +94,35 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_COMMA = r','
 t_KMARK = r'\?'
+t_TRUE = r'True'
+t_FALSE = r'False'
 t_ignore = ' \t' # Ignora espaços, tabulações e quebras de linha
 
 def t_UNARYMINUS(t):
-  r'-"?\d+"?'
-  return t
-
+    r'-?\d+(\.\d+)?'
+    t.value = float(t.value) if '.' in t.value else int(t.value)
+    return t
+          
 def t_STRING(t):
   r'\'[^\']*\'|\"[^\"]*\"'
   #r'\'[a-z0-9A-Z_]*\'|"[a-zA-Z0-9_]*"' # | -> pipe = ou
   # t.value = t.value[1:-1] # Retira as aspas da palavras
   return t
 
-def t_BOOLEAN(t):
-  r'true|false'
-  t.value = t.value.lower() == 'true'
-  return t
+def p_boolean(p):
+    '''boolean : TRUE
+               | FALSE'''
+    p[0] = sa.Expressao_VALOR(True if p[1] == 'True' else False, 'boolean')
+
+#def t_BOOLEAN(t):
+    #r'true|True|false|False'
+   # t.value = t.value.lower() == 'true'
+   # return t
+          
+#def t_BOOLEAN(t):
+  #r'true|false'
+  #t.value = t.value.lower() == 'true'
+  #return t
 
 def t_FLOAT(t):
   r'[0-9]+\.[0-9]+'
@@ -124,23 +139,32 @@ def t_COMMENT(t):
   return None  # Ignora comentários
 
 def t_ID(t):
-  r'[a-zA-Z_](?:[a-zA-Z0-9_]*([\'-](?!\d|\Z)[a-zA-Z_][a-zA-Z0-9_]*)?)*'
-  t.type = id_reservados.get(t.value, 'ID')  # Verifica se é palavra reservada
-  return t
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    t.type = id_reservados.get(t.value, 'ID')
+    return t
 
 def t_ESCALAR(t):
-  r'\$[a-zA-Z_](?:[a-zA-Z0-9_]*([\'-](?!\d|\Z)[a-zA-Z_][a-zA-Z0-9_]*)?)*'
-  t.type = id_reservados.get(t.value, 'ESCALAR')
-  return t
+    r'\$[a-zA-Z_][a-zA-Z0-9_]*'
+    return t
 
 def t_LIST(t):
-  r'@[a-zA-Z_](?:[a-zA-Z0-9_]*([\'-](?!\d|\Z)[a-zA-Z_][a-zA-Z0-9_]*)?)*'
-  t.type = id_reservados.get(t.value, 'LIST')
-  return t
+    r'@[a-zA-Z_][a-zA-Z0-9_]*'
+    return t
+          
+#def t_ID(t):
+ # r'[a-zA-Z_](?:[a-zA-Z0-9_]*([\'-](?!\d|\Z)[a-zA-Z_][a-zA-Z0-9_]*)?)*'
+ # t.type = id_reservados.get(t.value.lower(), 'ID')  # Verifica se é palavra reservada
+  #return t
 
-def t_FUNCTION(t):
-    r'function'
-    return t 
+#def t_ESCALAR(t):
+ # r'\$[a-zA-Z_](?:[a-zA-Z0-9_]*([\'-](?!\d|\Z)[a-zA-Z_][a-zA-Z0-9_]*)?)*'
+ # t.type = id_reservados.get(t.value, 'ESCALAR')
+ # return t
+
+#def t_LIST(t):
+ # r'@[a-zA-Z_](?:[a-zA-Z0-9_]*([\'-](?!\d|\Z)[a-zA-Z_][a-zA-Z0-9_]*)?)*'
+  #t.type = id_reservados.get(t.value, 'LIST')
+  #return t
   
 def t_newline(t):
   r'\n+'
@@ -154,12 +178,19 @@ def t_TIMES(t):
     r'\.times'
     return t
 
-lexer = lex.lex()  # Cria o analisador léxico
-lexer.input("if while str False my our ( )")  # Define a entrada do analisador léxico
+lexer = lex.lex()
+lexer.input("my $x = False; if $x ? { say ( True )")
+
+#lexer = lex.lex()
+#lexer.input("if while str False my our ( ) ?")
+
+#lexer = lex.lex()  # Cria o analisador léxico
+#lexer.input("if while str False my our ( )")  # Define a entrada do analisador léxico
 
 # Realizando analise lexica
 print('{:10s}{:10s}{:10s}{:10s}'.format("Token", "Lexema", "Linha", "Coluna"))
 for tok in lexer:
-  print('{:10s}{:10s}{:10s}{:10s}'.format(tok.type, tok.value, str(tok.lineno), str(tok.lexpos))) 
+  print('{:10s}{:10s}{:10s}{:10s}'.format(tok.type, str(tok.value), str(tok.lineno), str(tok.lexpos))) 
+
 
 # def ID ( ){
