@@ -1,6 +1,8 @@
 import ply.yacc as yacc
 import lexico as lex
 import sintaxeabstrata as sa
+import sys
+import os
 tokens = lex.tokens
 
 def p_programa(p):
@@ -401,6 +403,12 @@ def p_declaracoes_para_funcoes(p):
                         | declaracao_lista
                         | declaracao_lista_MY
                         | declaracao_lista_OUR
+                        | declaracao_constant
+                        | declaracao_state
+                        | declaracao_let
+                        | declaracao_multi
+                        | declaracao_only
+                        | declaracao_unit
                         | empty '''
     p[0] = p[1]
     
@@ -590,7 +598,7 @@ def p_splice(p):
 
 def main():
 
-    caminho = "./main.raku"
+    caminho = os.path.join(os.path.dirname(__file__), "main.raku")
 
     try:
         with open(caminho, "r", encoding="utf-8") as f:
