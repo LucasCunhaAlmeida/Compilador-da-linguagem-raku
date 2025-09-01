@@ -3,10 +3,10 @@ from AbstractVisitor import abstractVisitor
 class Visitor (abstractVisitor):
 
 #for 1..5 -> $x { ... }
-  #comentei pq estou vendo como irá ficar esse ainda
-    #def visitLoopFor(self, loop_for):
-       # print(f"for {loop_for.interger.interpolacao.interger} -> {loop_for.escalar}: ", end="")
-        #loop_for.comando.accept(self)
+    def visitLoopFor(self, loop_for):
+        print(f"for {loop_for.interger} .. {loop_for.interger} -> {loop_for.escalar} {{")
+        loop_for.comando.accept(self)
+        print("}")
     
 #5.times -> $teste { ... }
     def visitLoopTimes(self, loop_times):
