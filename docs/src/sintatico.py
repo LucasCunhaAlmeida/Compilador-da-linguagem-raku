@@ -418,7 +418,11 @@ def p_declaracoes_para_funcoes(p):
                         | declaracao_escalar_OUR
                         | declaracao_lista
                         | declaracao_lista_MY
-                        | declaracao_lista_OUR '''
+                        | declaracao_lista_OUR 
+                        | declaracao_de_controle_de_fluxo
+                        | declaracao_de_controle_de_escopo
+                        | declaracao_de_controle_de_modularizacao
+                        | declaracao_de_controle_de_lista'''
     p[0] = p[1]
     
 def p_declaracao_de_atribuicao(p):
@@ -451,26 +455,127 @@ def p_declaracao_de_expressao(p):
 def p_declaracao_de_bloco(p):
     '''declaracao_bloco : bloco'''
 
-# CONSTRUÇÃO DO PARSER
+def p_declaracao_de_controle_de_fluxo(p):
+    '''declaracao_de_controle_de_fluxo : declaracao_break 
+                                       | declaracao_exit
+                                       | declaracao_last
+                                       | declaracao_next
+                                       | declaracao_redo
+                                       | declaracao_return '''
+    p[0] = p[1]
 
-    # Teste com uma string que usa a sua gramática
-    # Exemplo: my $var = 10;
-    # Exemplo: for 1..10 -> $i { }
-    # A string que você estava usando para testar não parece ser válida para a gramática
-    # data = "my $var = 10;"#
+def p_declaracao_de_controle_de_escopo(p):
+    '''declaracao_de_controle_de_escopo : declaracao_constant 
+                                        | declaracao_state
+                                        | declaracao_let
+                                        | declaracao_multi
+                                        | declaracao_only
+                                        | declaracao_unit '''
+    p[0] = p[1]
 
-# Teste nos outros computadores 
+def p_declaracao_de_controle_de_modularizacao(p):
+    '''declaracao_de_controle_de_modularizacao : export 
+                                               | import
+                                               | need
+                                               | require
+                                               | use '''
+    p[0] = p[1]
 
-# parser = yacc.yacc()
+def p_declaracao_de_controle_de_lista(p):
+    '''declaracao_de_controle_de_lista : push 
+                                       | unshift
+                                       | splice '''
+    p[0] = p[1]
 
-# if __name__ == "__main__":
-#     try:
-#         result = parser.parse("my Int $var = 10; my Str $var = 10;")
-#         print("Parse ok:", result)
-#     except Exception as e:
-#         print("Falha ao fazer parse:", e)
+# --- CONTROLE DE FLUXO ---
 
-# Utilizando caminhos no linux
+def p_break(p):
+    '''declaracao_break : BREAK PONTO_VIRGULA'''
+    p[0] = sa.Break()
+
+def p_exit(p):
+    '''declaracao_exit : EXIT exp_2 PONTO_VIRGULA'''
+    p[0] = sa.Exit(p[2])
+
+def p_last(p):
+    '''declaracao_last : LAST PONTO_VIRGULA'''
+    p[0] = sa.Last()
+
+def p_next(p):
+    '''declaracao_next : NEXT PONTO_VIRGULA'''
+    p[0] = sa.Next()
+
+def p_redo(p):
+    '''declaracao_redo : REDO PONTO_VIRGULA'''
+    p[0] = sa.Redo()
+
+def p_return(p):
+    '''declaracao_return : RETURN exp_2 PONTO_VIRGULA'''
+    p[0] = sa.Return(p[2])
+
+
+ # --- DECLARAÇÕES E ESCOPO ---
+
+def p_declaracao_constant(p):
+    '''declaracao_constant : CONSTANT ESCALAR IGUAL exp_2 PONTO_VIRGULA'''
+    p[0] = sa.Constant(p[2], p[4])
+
+def p_declaracao_state(p):
+    '''declaracao_state : STATE ESCALAR IGUAL exp_2 PONTO_VIRGULA'''
+    p[0] = sa.State(p[2], p[4])
+
+def p_declaracao_let(p):
+    '''declaracao_let : LET ESCALAR IGUAL exp_2 PONTO_VIRGULA'''
+    p[0] = sa.Let(p[2], p[4])
+
+def p_declaracao_multi(p):
+    '''declaracao_multi : MULTI FUNCTION ID LPAREN parametros RPAREN ABRE_CHAVE declaracoes_para_funcoes FECHA_CHAVE'''
+    p[0] = sa.Multi(p[3], p[5], p[7])
+
+def p_declaracao_only(p):
+    '''declaracao_only : ONLY FUNCTION ID ABRE_CHAVE declaracoes_para_funcoes FECHA_CHAVE'''
+    p[0] = sa.Only(p[3], p[5])
+
+def p_declaracao_unit(p):
+    '''declaracao_unit : UNIT PONTO_VIRGULA'''
+    p[0] = sa.Unit()
+
+
+# --- IMPORTAÇÃO E MODULARIZAÇÃO ---
+
+def p_export(p):
+    '''export : EXPORT ID PONTO_VIRGULA'''
+    p[0] = sa.Export(p[2])
+
+def p_import(p):
+    '''import : IMPORT ID PONTO_VIRGULA'''
+    p[0] = sa.Import(p[2])
+
+def p_need(p):
+    '''need : NEED ID PONTO_VIRGULA'''
+    p[0] = sa.Need(p[2])
+
+def p_require(p):
+    '''require : REQUIRE ID PONTO_VIRGULA'''
+    p[0] = sa.Require(p[2])
+
+def p_use(p):
+    '''use : USE ID PONTO_VIRGULA'''
+    p[0] = sa.Use(p[2])
+
+# --- OPERAÇÕES EM LISTAS ---
+
+def p_push(p):
+    '''push : PUSH LPAREN ESCALAR COMMA lista_valores RPAREN PONTO_VIRGULA'''
+    p[0] = sa.Push(p[3], p[5])
+
+def p_unshift(p):
+    '''unshift : UNSHIFT LPAREN ESCALAR COMMA lista_valores RPAREN PONTO_VIRGULA'''
+    p[0] = sa.Unshift(p[3], p[5])
+
+def p_splice(p):
+    '''splice : SPLICE LPAREN ESCALAR COMMA INTEGER COMMA INTEGER RPAREN PONTO_VIRGULA'''
+    p[0] = sa.Splice(p[3], p[5], p[7])
 
 def main():
 
