@@ -2,7 +2,8 @@ import ply.yacc as yacc
 import lexico as lex
 import sintaxeabstrata as sa
 import sys
-import os
+#from visitor import Visitor
+
 tokens = lex.tokens
 
 def p_programa(p):
@@ -67,11 +68,14 @@ def p_menor_igual(p):
    '''menor_igual : exp_4 LESSEQUAL exp_5'''
    p[0] = sa.ExpressaoMENOR_IGUAL(p[1], p[3])
 
+def p_smartmatch(p):
+   '''smartmatch : exp_4 SMARTMATCH exp_5'''
+   p[0] = sa.ExpressaoSMARTMATCH(p[1], p[3])
+
 def p_exp_5(p):
     '''exp_5 : adicao
              | subtracao
              | conc
-             | kmark
              | exp_6 '''
     p[0] = p[1]
 
@@ -224,16 +228,10 @@ def p_float(p):
 def p_string(p):
     '''string : STRING '''
     p[0] = sa.Expressao_VALOR(p[1], 'str')
-    
-#Para tratar o problema com FALSE e TRUE
-def p_boolean(p):
-   '''boolean : TRUE
-              | FALSE'''
-   p[0] = sa.Expressao_VALOR(p[1], 'boolean')
 
-#def p_boolean(p):
-  # '''boolean : BOOLEAN'''
-   #p[0] = sa.Expressao_VALOR(p[1], 'boolean')
+def p_boolean(p):
+   '''boolean : BOOLEAN'''
+   p[0] = sa.Expressao_VALOR(p[1], 'boolean')
 
 def p_escalar(p):
    '''escalar : ESCALAR'''
@@ -308,7 +306,7 @@ def p_loop_sem_condicao(p):
 
 def p_say(p):
     '''say : SAY exp_2 PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = p[2]  # ✅ Usar 'sa.SAY' em vez de 'sa.Say'
+    p[0] = p[2]
 
 # --- FUNÇÕES ---
 
@@ -403,12 +401,6 @@ def p_declaracoes_para_funcoes(p):
                         | declaracao_lista
                         | declaracao_lista_MY
                         | declaracao_lista_OUR
-                        | declaracao_constant
-                        | declaracao_state
-                        | declaracao_let
-                        | declaracao_multi
-                        | declaracao_only
-                        | declaracao_unit
                         | empty '''
     p[0] = p[1]
     
@@ -441,140 +433,6 @@ def p_declaracao_de_expressao(p):
 def p_declaracao_de_bloco(p):
     '''declaracao_bloco : bloco'''
 
-# --- CONTROLE DE FLUXO ---
-
-def p_break(p):
-    '''declaracao_break : BREAK PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Break()
-
-def p_exit(p):
-    '''declaracao_exit : EXIT exp_2 PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Exit(p[2])
-
-def p_last(p):
-    '''declaracao_last : LAST PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Last()
-
-def p_next(p):
-    '''declaracao_next : NEXT PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Next()
-
-def p_redo(p):
-    '''declaracao_redo : REDO PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Redo()
-
-def p_return(p):
-    '''declaracao_return : RETURN exp_2 PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Return(p[2])
-
-# --- DECLARAÇÕES E ESCOPO ---
-
-def p_declaracao_constant(p):
-    '''declaracao_constant : CONSTANT ESCALAR IGUAL exp_2 PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Constant(p[2], p[4])
-
-def p_declaracao_state(p):
-    '''declaracao_state : STATE ESCALAR IGUAL exp_2 PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.State(p[2], p[4])
-
-def p_declaracao_let(p):
-    '''declaracao_let : LET ESCALAR IGUAL exp_2 PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Let(p[2], p[4])
-
-def p_declaracao_multi(p):
-    '''declaracao_multi : MULTI FUNCTION ID LPAREN parametros RPAREN ABRE_CHAVE declaracoes_para_funcoes FECHA_CHAVE declaracoes'''
-    p[0] = sa.Multi(p[3], p[5], p[7])
-
-def p_declaracao_only(p):
-    '''declaracao_only : ONLY FUNCTION ID ABRE_CHAVE declaracoes_para_funcoes FECHA_CHAVE declaracoes'''
-    p[0] = sa.Only(p[3], p[5])
-
-def p_declaracao_unit(p):
-    '''declaracao_unit : UNIT PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Unit()
-
-# --- ESTRUTURAS DE DADOS ---
-
-def p_any(p):
-    '''any : ANY LPAREN lista_valores RPAREN'''
-    p[0] = sa.Any(p[3])
-
-def p_bag(p):
-    '''bag : BAG LPAREN lista_valores RPAREN'''
-    p[0] = sa.Bag(p[3])
-
-def p_map(p):
-    '''map : MAP LPAREN lista_valores RPAREN'''
-    p[0] = sa.Map(p[3])
-
-def p_pair(p):
-    '''pair : PAIR LPAREN tipo COMMA tipo RPAREN'''
-    p[0] = sa.Pair(p[3], p[5])
-
-def p_set(p):
-    '''set : SET LPAREN lista_valores RPAREN'''
-    p[0] = sa.Set(p[3])
-
-# --- EXPRESSÕES E OPERADORES ESPECIAIS ---
-
-def p_kmark(p):
-    '''kmark : KMARK exp_2'''
-    p[0] = sa.KMark(p[2])
-
-def p_ponto(p):
-    '''ponto : exp_2 PONTO exp_2'''
-    p[0] = sa.Ponto(p[1], p[3])
-
-def p_replicarstring(p):
-    '''replicarstring : STRING MULT exp_2'''
-    p[0] = sa.ReplicarString(p[1], p[3])
-
-def p_unaryminus(p):
-    '''unaryminus : SUB exp_2'''
-    p[0] = sa.UnaryMinus(p[2])
-
-def p_smartmatch(p):
-   '''smartmatch : exp_4 SMARTMATCH exp_5'''
-   p[0] = sa.ExpressaoSMARTMATCH(p[1], p[3])
-    
-# --- IMPORTAÇÃO E MODULARIZAÇÃO ---
-
-def p_export(p):
-    '''export : EXPORT ID PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Export(p[2])
-
-def p_import(p):
-    '''import : IMPORT ID PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Import(p[2])
-
-def p_need(p):
-    '''need : NEED ID PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Need(p[2])
-
-def p_require(p):
-    '''require : REQUIRE ID PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Require(p[2])
-
-def p_use(p):
-    '''use : USE ID PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Use(p[2])
-
-# --- OPERAÇÕES EM LISTAS ---
-
-def p_push(p):
-    '''push : PUSH LPAREN ESCALAR COMMA lista_valores RPAREN PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Push(p[3], p[5])
-
-def p_unshift(p):
-    '''unshift : UNSHIFT LPAREN ESCALAR COMMA lista_valores RPAREN PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Unshift(p[3], p[5])
-
-def p_splice(p):
-    '''splice : SPLICE LPAREN ESCALAR COMMA INTEGER COMMA INTEGER RPAREN PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = sa.Splice(p[3], p[5], p[7])
-
-
-
 # CONSTRUÇÃO DO PARSER
 
     # Teste com uma string que usa a sua gramática
@@ -598,7 +456,7 @@ def p_splice(p):
 
 def main():
 
-    caminho = os.path.join(os.path.dirname(__file__), "main.raku")
+    caminho = "./main.raku"
 
     try:
         with open(caminho, "r", encoding="utf-8") as f:
@@ -613,6 +471,13 @@ def main():
 
     print("\n=== Resultado do Parser ===")
     print(result)  # aqui você vai ver a AST retornada
+
+
+'''
+    print("\n=== Visitando com Visitor ===")
+    visitor = Visitor()
+    result.accept(visitor)   # testando o visitor
+'''
 
 if __name__ == "__main__":
     main()
