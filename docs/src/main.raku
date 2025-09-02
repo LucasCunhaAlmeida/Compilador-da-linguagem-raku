@@ -3,10 +3,13 @@ my Int $a = 20;
 my Int $b = 20;
 our Str $nome = "Felipe";
 
-# Lista
+# Lista;
+
+
 my @lista = 1, 2, 3, 4, 5;
 
 # Condicional simples
+
 if $a < $b {
     say 'a é menor que b';
 }
@@ -18,6 +21,8 @@ else {
 }
 
 # Estrutura de repetição for
+say "Iteração: " 
+
 for 1..5 -> $i {
     say "Iteração: " ~ $i;
 }
@@ -29,9 +34,10 @@ for 1..5 -> $i {
 
 # Estrutura de repetição while
 while $a < 50 {
-    $a = $a + 5;
-    say "Novo valor de a: " ~ $a;
+   $a = $a + 5;
+  say "Novo valor de a: " ~ $a;
 }
+
 
 # # Função com parâmetros
 sub soma($x, $y) {
@@ -42,6 +48,7 @@ sub soma($x, $y) {
 sub saudacao() {
     say "Olá, " ~ $nome ~ "!";
 }
+
 
 # # # Chamadas de função
 # saudacao();
