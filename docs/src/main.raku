@@ -3,6 +3,11 @@ my Int $a = -20;
 my Int $b = 20;
 our Str $nome = "Felipe";
 
+# Variáveis para o loop
+my Int $d = 0;
+my Int $v = 0;
+my Int $k = 0;
+
 # Lista;
 
 my @lista = 1, 2, 3, 4, 5;
@@ -19,7 +24,40 @@ else {
     3 - 4;
 }
 
+# Condicional Complexa
+
+if $a < $b {
+    if $b < 100 {
+        say "b é menor que 100";
+    }
+    else {
+        say "b é maior ou igual a 100";
+    }
+}
+elsif $a == $b {
+    say "a é igual a b";
+}
+else {
+    say "a é maior que b";
+}
+
+# Expressões com operadores lógicos
+
+if ($a < $b) && ($b < 50) {
+    say "a é menor que b e b < 50";
+}
+
+if ($a < $b) || ($b > 100) {
+    say "a < b ou b > 100";
+}
+
 say "123"; 
+
+# Loop for com listas
+
+for @lista -> $elem {
+    say "Elemento da lista: " ~ $elem;
+}
 
 # Estrutura de repetição for
 say "Iteração: " ~ $i;
@@ -61,5 +99,6 @@ say "Valor de c: " ~ $c;
 
 # Loop estilo C
 loop (my Int $a = 0; $d < 3; $v = $v + 1) {
-    say "Loop estilo C, k = " ~ $k;
+     say "Loop estilo C, k = " ~ $k;
+     $k = $k + 1;
 }

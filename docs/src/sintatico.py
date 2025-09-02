@@ -293,10 +293,15 @@ def p_lista_valores_base(p):
   pass
 
 # --- ESTRUTURAS DE REPETIÇÃO ---
+
 def p_loop_for(p):
     '''loop_for : FOR inteiro INTERPOLACAO inteiro SETA ESCALAR ABRE_CHAVE lista_declaracoes FECHA_CHAVE''' 
-
     p[0] = sa.LoopFor(p[2], p[4], p[6])
+
+def p_loop_for_com_lista(p):
+    '''loop_for_com_lista : FOR LIST SETA ESCALAR ABRE_CHAVE lista_declaracoes FECHA_CHAVE''' 
+   # p[0] = sa.LoopFor(p[2], p[4])
+    pass
     
 def p_loop_times(p):
     # O nome da função não pode ter espaço. Usei 'loop_times'.
@@ -311,7 +316,9 @@ def p_loop_while(p):
 
 def p_loop(p):
     # Renomeei para evitar conflito com p_loop_for, etc.
-    '''loop : LOOP LPAREN declaracao_escalar_MY PONTO_VIRGULA exp_2 PONTO_VIRGULA exp_2 RPAREN ABRE_CHAVE lista_declaracoes FECHA_CHAVE '''
+    # Tive que tirar o ponto e virgula para voltar a funcionar
+   #'''loop : LOOP LPAREN declaracao_escalar_MY **PONTO_VIRGULA** exp_2 PONTO_VIRGULA atribuicao RPAREN ABRE_CHAVE lista_declaracoes FECHA_CHAVE '''
+    '''loop : LOOP LPAREN declaracao_escalar_MY exp_2 PONTO_VIRGULA atribuicao RPAREN ABRE_CHAVE lista_declaracoes FECHA_CHAVE '''
     p[0] = sa.LoopRepeticao(p[3], p[5], p[7], p[10])
 
 def p_loop_sem_condicao(p):
@@ -433,6 +440,7 @@ def p_declaracao_de_condicional(p):
 def p_declaracao_de_loop(p):
     '''declaracao_loop : loop
                        | loop_for
+                       | loop_for_com_lista
                        | loop_times 
                        | loop_while
                        | loop_sem_condicao '''
