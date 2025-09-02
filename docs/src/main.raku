@@ -28,20 +28,20 @@ for 1..5 -> $i {
 }
 
 # Estrutura de repetição while
-while $a < 50 {
-    $a = $a + 5;
-    say "Novo valor de a: " ~ $a;
-}
+# while $a < 50 {
+#     $a = $a + 5;
+#     say "Novo valor de a: " ~ $a;
+# }
 
 # # Função com parâmetros
 sub soma($x, $y) {
     say "Resultado da soma: " ~ ($x + $y);
 }
 
-# # Função sem parâmetros
-sub saudacao() {
-    say "Olá, " ~ $nome ~ "!";
-}
+# # # Função sem parâmetros
+# sub saudacao() {
+#     say "Olá, " ~ $nome ~ "!";
+# }
 
 # # # Chamadas de função
 # saudacao();
