@@ -7,8 +7,24 @@ import sys
 tokens = lex.tokens
 
 def p_programa(p):
-    '''programa : declaracoes'''
+    '''programa : lista_declaracoes'''
     p[0] = p[1]
+
+def p_lista_declaracoes(p): 
+    '''lista_declaracoes : lista_declaracoes declaracoes
+                         | declaracoes'''
+    if len(p) == 3:
+        p[0] = p[1] + [p[2]]
+    else:
+        p[0] = [p[1]]
+
+def p_lista_declaracoes_para_funcoes(p): 
+    '''lista_declaracoes_para_funcoes : lista_declaracoes declaracoes_para_funcoes
+                                      | declaracoes_para_funcoes'''
+    if len(p) == 3:
+        p[0] = p[1] + [p[2]]
+    else:
+        p[0] = [p[1]]
 
 def p_exp_2(p):
    '''exp_2 : or
@@ -215,7 +231,7 @@ def p_tipo_opicional_int(p):
 
 def p_empty(p):
    '''empty : '''
-   p[0] = []
+   p[0] = None
 
 def p_inteiro(p):
    '''inteiro : INTEGER '''
@@ -247,23 +263,23 @@ def p_error(p):
 
 # --- DECLARAÇÕES DE VARIÁVEIS ---
 def p_declaracao_escalar_MY(p):
-  '''declaracao_escalar_MY : MY tipo_opicional ESCALAR IGUAL tipo PONTO_VIRGULA declaracoes_para_funcoes''' # Problema com o ponto e virgula
+  '''declaracao_escalar_MY : MY tipo_opicional ESCALAR IGUAL exp_2 PONTO_VIRGULA''' # Problema com o ponto e virgula
   pass
 
 def p_declaracao_escalar_OUR(p):
-  '''declaracao_escalar_OUR : OUR tipo_opicional ESCALAR IGUAL tipo PONTO_VIRGULA declaracoes_para_funcoes''' # Problema com o ponto e virgula
+  '''declaracao_escalar_OUR : OUR tipo_opicional ESCALAR IGUAL exp_2 PONTO_VIRGULA''' # Problema com o ponto e virgula
   pass
 
 def p_declaracao_lista(p):
-  '''declaracao_lista : LIST IGUAL lista_valores PONTO_VIRGULA declaracoes_para_funcoes'''
+  '''declaracao_lista : LIST IGUAL lista_valores PONTO_VIRGULA'''
   pass
 
 def p_declaracao_lista_my(p):
-  '''declaracao_lista_MY : MY LIST IGUAL lista_valores PONTO_VIRGULA declaracoes_para_funcoes''' 
+  '''declaracao_lista_MY : MY LIST IGUAL lista_valores PONTO_VIRGULA''' 
   pass
 
 def p_declaracao_lista_our(p):
-  '''declaracao_lista_OUR : OUR LIST IGUAL lista_valores PONTO_VIRGULA declaracoes_para_funcoes'''
+  '''declaracao_lista_OUR : OUR LIST IGUAL lista_valores PONTO_VIRGULA'''
   pass
 
   # Aqui você criaria um nó na AST para a declaração
@@ -278,44 +294,44 @@ def p_lista_valores_base(p):
 
 # --- ESTRUTURAS DE REPETIÇÃO ---
 def p_loop_for(p):
-    '''loop_for : FOR inteiro INTERPOLACAO inteiro SETA ESCALAR ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes''' 
+    '''loop_for : FOR inteiro INTERPOLACAO inteiro SETA ESCALAR ABRE_CHAVE lista_declaracoes FECHA_CHAVE''' 
 
     p[0] = sa.LoopFor(p[2], p[4], p[6])
     
 def p_loop_times(p):
     # O nome da função não pode ter espaço. Usei 'loop_times'.
-    '''loop_times : INTEGER TIMES SETA ESCALAR ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes'''
+    '''loop_times : INTEGER TIMES SETA ESCALAR ABRE_CHAVE lista_declaracoes FECHA_CHAVE'''
 
     p[0] = sa.LoopTimes(p[1], p[5], p[7])
 
 def p_loop_while(p):
     # Alterei para usar exp_2 para consistência
-    '''loop_while : WHILE exp_2 ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes'''
+    '''loop_while : WHILE exp_2 ABRE_CHAVE lista_declaracoes FECHA_CHAVE'''
     p[0] = sa.LoopWhile(p[2], p[4])
 
 def p_loop(p):
     # Renomeei para evitar conflito com p_loop_for, etc.
-    '''loop : LOOP LPAREN atribuicao PONTO_VIRGULA exp_2 PONTO_VIRGULA exp_2 RPAREN ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes'''
+    '''loop : LOOP LPAREN declaracao_escalar_MY PONTO_VIRGULA exp_2 PONTO_VIRGULA exp_2 RPAREN ABRE_CHAVE lista_declaracoes FECHA_CHAVE '''
     p[0] = sa.LoopRepeticao(p[3], p[5], p[7], p[10])
 
 def p_loop_sem_condicao(p):
-    '''loop_sem_condicao : LOOP ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes'''
+    '''loop_sem_condicao : LOOP ABRE_CHAVE lista_declaracoes FECHA_CHAVE'''
     p[0] = sa.LoopSemCondicao(p[3])
 
 # --- SAY ---
 
 def p_say(p):
-    '''say : SAY exp_2 PONTO_VIRGULA declaracoes_para_funcoes'''
+    '''say : SAY exp_2 PONTO_VIRGULA '''
     p[0] = p[2]
 
 # --- FUNÇÕES ---
 
 def p_funcao_com_params(p):
-    '''funcao_com_params : FUNCTION ID LPAREN parametros RPAREN ABRE_CHAVE declaracoes_para_funcoes FECHA_CHAVE declaracoes'''
+    '''funcao_com_params : FUNCTION ID LPAREN parametros RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
     p[0] = sa.CompoundFuncao(p[2], p[4], p[6])
 
 def p_funcao_sem_params(p):
-    '''funcao_sem_params : FUNCTION ID LPAREN RPAREN ABRE_CHAVE declaracoes_para_funcoes FECHA_CHAVE declaracoes'''
+    '''funcao_sem_params : FUNCTION ID LPAREN RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
     p[0] = sa.CompoundFuncaoSemParametros(p[2], p[6])
 
 # --- REGRAS QUE FALTAVAM ---
@@ -338,11 +354,11 @@ def p_atribuicao(p):
 
 def p_chamada_funcao(p):
     # Adicione regras para parâmetros se necessário
-    '''chamada_funcao : ID LPAREN chamada_funcao_auxiliar RPAREN declaracoes'''
+    '''chamada_funcao : ID LPAREN chamada_funcao_auxiliar RPAREN'''
     p[0] = sa.CHAMADA_FUNCAO(p[1], p[3])
 
 def p_chamada_funcao_sem_parametro(p):
-    '''chamada_funcao_sem_parametro : ID LPAREN RPAREN declaracoes'''
+    '''chamada_funcao_sem_parametro : ID LPAREN RPAREN'''
     p[0] = sa.CHAMADA_FUNCAO_SEM_PARAMETRO(p[1])
 
 def p_chamada_funcao_auxiliar(p):
@@ -355,16 +371,16 @@ def p_chamada_funcao_auxiliar(p):
 
 # --- CONDICIONAIS (COM NOMES ÚNICOS) ---
 def p_condicional_if(p):
-    '''condicional : IF exp_2 bloco declaracoes'''
+    '''condicional : IF exp_2 bloco'''
 
 def p_condicional_if_else(p):
-    '''condicional : IF exp_2 bloco ELSE bloco declaracoes'''
+    '''condicional : IF exp_2 bloco ELSE bloco'''
 
 def p_condicional_if_elsif(p):
-    '''condicional : IF exp_2 bloco lista_elsif declaracoes'''
+    '''condicional : IF exp_2 bloco lista_elsif'''
 
 def p_condicional_if_elsif_else(p):
-    '''condicional : IF exp_2 bloco lista_elsif ELSE bloco declaracoes'''
+    '''condicional : IF exp_2 bloco lista_elsif ELSE bloco'''
 
 def p_lista_elsif_base(p):
     '''lista_elsif : ELSIF exp_2 bloco'''
@@ -374,18 +390,13 @@ def p_lista_elsif_recursiva(p):
 
 # --- ESTRUTURA DE BLOCOS E DECLARAÇÕES (COM NOMES ÚNICOS) ---
 def p_bloco_chaves(p):
-    '''bloco : ABRE_CHAVE declaracoes FECHA_CHAVE'''
+    '''bloco : ABRE_CHAVE lista_declaracoes FECHA_CHAVE'''
     p[0] = p[2]
 
-# Se pensar em mecher nessa função vai arrumar muito problema
 
-# def p_bloco_declaracao_unica(p): 
-#    '''bloco : declaracoes'''
-#    p[0] = p[1]
-
-def p_delaracoes(p):
-    '''declaracoes : declaracao_de_funcao
-                   | declaracoes_para_funcoes '''
+def p_declaracoes(p):
+    '''declaracoes : declaracoes_para_funcoes
+                   | declaracao_de_funcao'''
     p[0] = p[1]
 
 def p_declaracoes_para_funcoes(p):
@@ -400,8 +411,7 @@ def p_declaracoes_para_funcoes(p):
                         | declaracao_escalar_OUR
                         | declaracao_lista
                         | declaracao_lista_MY
-                        | declaracao_lista_OUR
-                        | empty '''
+                        | declaracao_lista_OUR '''
     p[0] = p[1]
     
 def p_declaracao_de_atribuicao(p):

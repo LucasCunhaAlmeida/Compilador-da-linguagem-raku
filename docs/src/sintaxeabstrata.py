@@ -51,8 +51,7 @@ class LoopTimes(Loop):
         return visitor.visitLoopTimes(self)
 
 class LoopWhile(Loop):
-    def __init__(self, id, limite, comando):
-        self.id = id         
+    def __init__(self, limite, comando):      
         self.limite = limite    
         self.comando = comando  
     
