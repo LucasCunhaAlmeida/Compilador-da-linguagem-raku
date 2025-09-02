@@ -1,6 +1,9 @@
 import ply.yacc as yacc
 import lexico as lex
 import sintaxeabstrata as sa
+import sys
+#from visitor import Visitor
+
 tokens = lex.tokens
 
 def p_programa(p):
@@ -276,11 +279,13 @@ def p_lista_valores_base(p):
 # --- ESTRUTURAS DE REPETIÇÃO ---
 def p_loop_for(p):
     '''loop_for : FOR inteiro INTERPOLACAO inteiro SETA ESCALAR ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes''' 
+
     p[0] = sa.LoopFor(p[2], p[4], p[6])
     
 def p_loop_times(p):
     # O nome da função não pode ter espaço. Usei 'loop_times'.
     '''loop_times : INTEGER TIMES SETA ESCALAR ABRE_CHAVE declaracoes FECHA_CHAVE declaracoes_para_funcoes'''
+
     p[0] = sa.LoopTimes(p[1], p[5], p[7])
 
 def p_loop_while(p):
@@ -301,7 +306,7 @@ def p_loop_sem_condicao(p):
 
 def p_say(p):
     '''say : SAY exp_2 PONTO_VIRGULA declaracoes_para_funcoes'''
-    p[0] = p[2]  # ✅ Usar 'sa.SAY' em vez de 'sa.Say'
+    p[0] = p[2]
 
 # --- FUNÇÕES ---
 
@@ -466,6 +471,13 @@ def main():
 
     print("\n=== Resultado do Parser ===")
     print(result)  # aqui você vai ver a AST retornada
+
+
+'''
+    print("\n=== Visitando com Visitor ===")
+    visitor = Visitor()
+    result.accept(visitor)   # testando o visitor
+'''
 
 if __name__ == "__main__":
     main()

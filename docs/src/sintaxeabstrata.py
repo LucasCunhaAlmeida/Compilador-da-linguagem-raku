@@ -13,21 +13,22 @@ class CompoundFuncao(Funcao):
         self.id= id
         self.parametros = parametros
         self.comando = comando
-    def accept(self):
-        pass
+    def accept(self, visitor):
+        return visitor.visitCompoundFuncao(self)
 
 class CompoundFuncaoSemParametros(Funcao):
     def __init__(self, id, comando):
         self.id= id
         self.comando = comando
-    def accept(self):
-        pass
+    def accept(self, visitor):
+        return visitor.visitCompoundFuncaoSemParametros(self)
 
-# Estruturas de Repetição
+
+    
 
 class Loop(metaclass=ABCMeta):
     @abstractmethod
-    def accept(self):
+    def accept(self, visitor):
         pass
 
 class LoopFor(Loop):
@@ -36,8 +37,8 @@ class LoopFor(Loop):
         self.id= id           
         self.comando = comando    
     
-    def accept(self):
-        pass
+    def accept(self, visitor):
+        return visitor.visitLoopFor(self)
 
 
 class LoopTimes(Loop):
@@ -46,9 +47,8 @@ class LoopTimes(Loop):
         self.id = id
         self.comando = comando
     
-    def accept(self):
-        pass
-
+    def accept(self, visitor):
+        return visitor.visitLoopTimes(self)
 
 class LoopWhile(Loop):
     def __init__(self, id, limite, comando):
@@ -56,8 +56,8 @@ class LoopWhile(Loop):
         self.limite = limite    
         self.comando = comando  
     
-    def accept(self):
-        pass
+    def accept(self, visitor):
+        return visitor.visitLoopWhile(self)
 
 class LoopRepeticao(Loop):
     def __init__(self, instrucao1, instrucao2, instrucao3, comando):
@@ -66,15 +66,15 @@ class LoopRepeticao(Loop):
         self.instrucao3 = instrucao3   
         self.comando = comando
     
-    def accept(self):
-        pass
+    def accept(self, visitor):
+        return visitor.visitLoopRepeticao(self)
 
 class LoopSemCondicao(Loop):
     def __init__(self, comando):
         self.comando = comando
     
-    def accept(self):
-        pass
+    def accept(self, visitor):
+        return visitor.visitLoopSemCondicao(self)
 
 # Operações
 

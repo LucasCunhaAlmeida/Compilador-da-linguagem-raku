@@ -1,3 +1,4 @@
+Lorena
 WARNING: No t_error rule is defined
 Token     Lexema    Linha     Coluna    
 PLUS      +         1         0         
