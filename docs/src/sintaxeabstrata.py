@@ -350,3 +350,132 @@ class CHAMADA_FUNCAO_SEM_PARAMETRO(Expressao):
         
     def accept(self, visitor):
         return visitor.visitor_CHAMADA_FUNCAO_SEM_PARAMETRO(self)
+
+# --- CONTROLE DE FLUXO ---
+
+class Break(Expressao):
+    def accept(self, visitor):
+        return visitor.visitorBreak(self)
+
+class Exit(Expressao):
+    def __init__(self, exp):
+        self.exp = exp
+    def accept(self, visitor):
+        return visitor.visitorExit(self)
+
+class Last(Expressao):
+    def accept(self, visitor):
+        return visitor.visitorLast(self)
+
+class Next(Expressao):
+    def accept(self, visitor):
+        return visitor.visitorNext(self)
+
+class Redo(Expressao):
+    def accept(self, visitor):
+        return visitor.visitorRedo(self)
+
+class Return(Expressao):
+    def __init__(self, exp):
+        self.exp = exp
+    def accept(self, visitor):
+        return visitor.visitorReturn(self)
+
+
+ # --- DECLARAÇÕES E ESCOPO ---
+
+class Constant(Expressao):
+    def __init__(self, id, valor):
+        self.id = id
+        self.valor = valor
+    def accept(self, visitor):
+        return visitor.visitorConstant(self)
+
+class State(Expressao):
+    def __init__(self, id, valor):
+        self.id = id
+        self.valor = valor
+    def accept(self, visitor):
+        return visitor.visitorState(self)
+
+class Let(Expressao):
+    def __init__(self, id, valor):
+        self.id = id
+        self.valor = valor
+    def accept(self, visitor):
+        return visitor.visitorLet(self)
+
+class Multi(Expressao):
+    def __init__(self, id, parametros, comando):
+        self.id = id
+        self.parametros = parametros
+        self.comando = comando
+    def accept(self, visitor):
+        return visitor.visitorMulti(self)
+
+class Only(Expressao):
+    def __init__(self, id, comando):
+        self.id = id
+        self.comando = comando
+    def accept(self, visitor):
+        return visitor.visitorOnly(self)
+
+class Unit(Expressao):
+    def accept(self, visitor):
+        return visitor.visitorUnit(self)
+    
+# --- IMPORTAÇÃO E MODULARIZAÇÃO ---
+
+class Export(Expressao):
+    def __init__(self, id):
+        self.id = id
+    def accept(self, visitor):
+        return visitor.visitorExport(self)
+
+class Import(Expressao):
+    def __init__(self, id):
+        self.id = id
+    def accept(self, visitor):
+        return visitor.visitorImport(self)
+
+class Need(Expressao):
+    def __init__(self, id):
+        self.id = id
+    def accept(self, visitor):
+        return visitor.visitorNeed(self)
+
+class Require(Expressao):
+    def __init__(self, id):
+        self.id = id
+    def accept(self, visitor):
+        return visitor.visitorRequire(self)
+
+class Use(Expressao):
+    def __init__(self, id):
+        self.id = id
+    def accept(self, visitor):
+        return visitor.visitorUse(self)
+        
+# --- OPERAÇÕES EM LISTAS ---
+
+class Push(Expressao):
+    def __init__(self, escalar, valores):
+        self.escalar = escalar
+        self.valores = valores
+    def accept(self, visitor):
+        return visitor.visitorPush(self)
+
+class Unshift(Expressao):
+    def __init__(self, escalar, valores):
+        self.escalar = escalar
+        self.valores = valores
+    def accept(self, visitor):
+        return visitor.visitorUnshift(self)
+
+class Splice(Expressao):
+    def __init__(self, escalar, inicio, quantidade):
+        self.escalar = escalar
+        self.inicio = inicio
+        self.quantidade = quantidade
+    def accept(self, visitor):
+        return visitor.visitorSplice(self)
