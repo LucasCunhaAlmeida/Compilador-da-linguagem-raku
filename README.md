@@ -24,6 +24,10 @@ Este projeto foi desenvolvido por:
 - 🏛️ **Paradigma:** Análise e construção de compiladores  
 - 🔧 **Ferramentas:** Bibliotecas e frameworks para análise léxica e sintática  
 
+## 🎬 Link do Seminário
+
+🔗 [Apresentação no Canva](https://www.canva.com/design/DAGwcdRl0UY/uEVJOioKLAemQ63ieqyRmg/edit)
+
 ## 📂 Estrutura do Projeto  
 
 
@@ -34,7 +38,4 @@ Este projeto foi desenvolvido por:
  ├── 📁 markdowns (Documentação da linguagem)  
  ├── 📜 README.md (Este documento)  
 
-
-## 🎬 Link do Seminário
-
-🔗 [Apresentação no Canva](https://www.canva.com/design/DAGwcdRl0UY/uEVJOioKLAemQ63ieqyRmg/edit)
+```
