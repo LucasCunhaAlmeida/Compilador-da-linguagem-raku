@@ -35,3 +35,6 @@ Este projeto foi desenvolvido por:
  ├── 📜 README.md (Este documento)  
 
 
+## 🎬 Link do Seminário
+
+🔗 [Apresentação no Canva](https://www.canva.com/design/DAGwcdRl0UY/uEVJOioKLAemQ63ieqyRmg/edit)
