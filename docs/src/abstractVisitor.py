@@ -2,14 +2,13 @@ from abc import abstractmethod, ABCMeta
 
 class abstractVisitor(metaclass=ABCMeta):
 
-    #Visitor para cada nó da AST
 
     @abstractmethod
     def visitCompoundFuncao(self, compoundFuncao):
         pass
 
     @abstractmethod
-    def CompoundFuncaoSemParametros(self, CompoundFuncaoSemParametros):
+    def visitCompoundFuncaoSemParametros(self, CompoundFuncaoSemParametros):
         pass
 
     @abstractmethod
@@ -121,7 +120,7 @@ class abstractVisitor(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def visitExpressao_NOT_SIMBULO(self, Expressao_NOT_SIMBULO):
+    def visitExpressaoNOT_SIMBULO(self, Expressao_NOT_SIMBULO):
         pass
 
     @abstractmethod
