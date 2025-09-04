@@ -40,16 +40,6 @@ class LoopFor(Loop):
     def accept(self, visitor):
         return visitor.visitLoopFor(self)
 
-
-class LoopTimes(Loop):
-    def __init__(self, integer, id, comando):
-        self.integer = integer
-        self.id = id
-        self.comando = comando
-    
-    def accept(self, visitor):
-        return visitor.visitLoopTimes(self)
-
 class LoopWhile(Loop):
     def __init__(self, limite, comando):      
         self.limite = limite    
