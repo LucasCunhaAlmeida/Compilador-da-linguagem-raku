@@ -351,6 +351,22 @@ class CHAMADA_FUNCAO_SEM_PARAMETRO(Expressao):
     def accept(self, visitor):
         return visitor.visitor_CHAMADA_FUNCAO_SEM_PARAMETRO(self)
 
+class Atribuicao(Expressao):
+    def __init__(self, variavel, valor):
+        self.variavel = variavel
+        self.valor = valor
+        
+    def accept(self, visitor):
+        return visitor.visitorAtribuicao(self)
+# --- Comentario --- 
+
+class Comentario():
+    def __init__(self, comentario) -> None:
+        self.comentario = comentario
+
+    def accept(self, visitor):
+        return visitor.visitorComentario(self)
+    
 # --- CONTROLE DE FLUXO ---
 
 class Break(Expressao):
@@ -398,24 +414,14 @@ class State(Expressao):
     def accept(self, visitor):
         return visitor.visitorState(self)
 
-class Let(Expressao):
-    def __init__(self, id, valor):
-        self.id = id
-        self.valor = valor
-    def accept(self, visitor):
-        return visitor.visitorLet(self)
-
 class Multi(Expressao):
-    def __init__(self, id, parametros, comando):
-        self.id = id
-        self.parametros = parametros
+    def __init__(self, comando):
         self.comando = comando
     def accept(self, visitor):
         return visitor.visitorMulti(self)
 
 class Only(Expressao):
-    def __init__(self, id, comando):
-        self.id = id
+    def __init__(self, comando):
         self.comando = comando
     def accept(self, visitor):
         return visitor.visitorOnly(self)
@@ -473,9 +479,8 @@ class Unshift(Expressao):
         return visitor.visitorUnshift(self)
 
 class Splice(Expressao):
-    def __init__(self, escalar, inicio, quantidade):
+    def __init__(self, escalar, quantidade):
         self.escalar = escalar
-        self.inicio = inicio
         self.quantidade = quantidade
     def accept(self, visitor):
         return visitor.visitorSplice(self)

@@ -4,249 +4,253 @@ class abstractVisitor(metaclass=ABCMeta):
 
 
     @abstractmethod
-    def visitCompoundFuncao(self, compoundFuncao):
+    def visitorCompoundFuncao(self, compoundFuncao):
         pass
 
     @abstractmethod
-    def visitCompoundFuncaoSemParametros(self, CompoundFuncaoSemParametros):
+    def visitorCompoundFuncaoSemParametros(self, CompoundFuncaoSemParametros):
         pass
 
     @abstractmethod
-    def visitLoopFor(self, loopFor):
+    def visitorLoopFor(self, loopFor):
         pass
 
     @abstractmethod
-    def visitLoopTimes(self, loopTimes):
+    def visitorLoopTimes(self, loopTimes):
         pass
 
     @abstractmethod
-    def visitLoopWhile(self, loopWhile):
+    def visitorLoopWhile(self, loopWhile):
         pass
 
     @abstractmethod
-    def visitLoopRepeticao(self, loopRepeticao):
+    def visitorLoopRepeticao(self, loopRepeticao):
         pass
 
     @abstractmethod
-    def visitLoopSemCondicao(self, loopSemCondicao):
+    def visitorLoopSemCondicao(self, loopSemCondicao):
         pass
 
     @abstractmethod
-    def visitExpressaoOR(self, ExpressaoOR):
+    def visitorExpressaoOR(self, ExpressaoOR):
         pass
     
     @abstractmethod
-    def visitExpressaoXOR(self, ExpressaoXOR):
+    def visitorExpressaoXOR(self, ExpressaoXOR):
         pass
 
     @abstractmethod
-    def visitExpressaoAND(self, ExpressaoAND):
+    def visitorExpressaoAND(self, ExpressaoAND):
         pass
 
     @abstractmethod
-    def visitExpressaoIGUAL_DP(self, ExpressaoIGUAL_DP):
+    def visitorExpressaoIGUAL_DP(self, ExpressaoIGUAL_DP):
         pass
     
     @abstractmethod
-    def visitExpressaoDIF(self, ExpressaoDIF):
+    def visitorExpressaoDIF(self, ExpressaoDIF):
         pass
 
     @abstractmethod
-    def visitExpressaoMAIOR(self, ExpressaoMAIOR):
+    def visitorExpressaoMAIOR(self, ExpressaoMAIOR):
         pass
 
     @abstractmethod
-    def visitExpressaoMENOR(self, ExpressaoMENOR):
+    def visitorExpressaoMENOR(self, ExpressaoMENOR):
         pass
 
     @abstractmethod
-    def visitExpressaoMAIOR_IGUAL(self, ExpressaoMAIOR_IGUAL):
+    def visitorExpressaoMAIOR_IGUAL(self, ExpressaoMAIOR_IGUAL):
         pass
 
     @abstractmethod
-    def visitExpressaoMENOR_IGUAL(self, ExpressaoMENOR_IGUAL):
+    def visitorExpressaoMENOR_IGUAL(self, ExpressaoMENOR_IGUAL):
         pass
 
     @abstractmethod
-    def visitExpressaoSMARTMATCH(self, ExpressaoSMARTMATCH):
+    def visitorExpressaoSMARTMATCH(self, ExpressaoSMARTMATCH):
         pass
 
     @abstractmethod
-    def visitExpressaoADICAO(self, ExpressaoADICAO):
+    def visitorExpressaoADICAO(self, ExpressaoADICAO):
         pass
     
     @abstractmethod
-    def visitExpressaoSUBTRACAO(self, ExpressaoSUBTRACAO):
+    def visitorExpressaoSUBTRACAO(self, ExpressaoSUBTRACAO):
         pass
 
     @abstractmethod
-    def visitExpressaoCONCATENACAO(self, ExpressaoCONCATENACAO):
+    def visitorExpressaoCONCATENACAO(self, ExpressaoCONCATENACAO):
         pass
 
     @abstractmethod
-    def visitExpressaoMULTIPLICACAO(self, ExpressaoMULTIPLICACAO):
+    def visitorExpressaoMULTIPLICACAO(self, ExpressaoMULTIPLICACAO):
         pass
 
     @abstractmethod
-    def visitExpressaoDIVISAO(self, ExpressaoDIVISAO):
+    def visitorExpressaoDIVISAO(self, ExpressaoDIVISAO):
         pass
 
     @abstractmethod
-    def visitExpressaoDIVISAO_INTEIRA(self, ExpressaoDIVISAO_INTEIRA):
+    def visitorExpressaoDIVISAO_INTEIRA(self, ExpressaoDIVISAO_INTEIRA):
         pass
 
     @abstractmethod
-    def visitExpressaoDIVISIBILIDADE(self, ExpressaoDIVISIBILIDADE):
+    def visitorExpressaoDIVISIBILIDADE(self, ExpressaoDIVISIBILIDADE):
         pass
 
     @abstractmethod
-    def visitExpressaoMOD(self, ExpressaoMOD):
+    def visitorExpressaoMOD(self, ExpressaoMOD):
         pass
 
     @abstractmethod
-    def visitExpressaoLCM(self, ExpressaoLCM):
+    def visitorExpressaoLCM(self, ExpressaoLCM):
         pass
 
     @abstractmethod
-    def visitExpressaoGCD(self, ExpressaoGCD):
+    def visitorExpressaoGCD(self, ExpressaoGCD):
         pass
 
     @abstractmethod
-    def visitExpressaoPOW(self, ExpressaoPOW):
+    def visitorExpressaoPOW(self, ExpressaoPOW):
         pass
 
     @abstractmethod
-    def visitExpressaoNOT_OPERADOR(self, ExpressaoNOT_OPERADOR):
+    def visitorExpressaoNOT_OPERADOR(self, ExpressaoNOT_OPERADOR):
         pass
 
     @abstractmethod
-    def visitExpressaoNOT_SIMBULO(self, Expressao_NOT_SIMBULO):
+    def visitorExpressaoNOT_SIMBULO(self, Expressao_NOT_SIMBULO):
         pass
 
     @abstractmethod
-    def visitExpressao_PREFIXO_INCREMENTO(self, Expressao_PREFIXO_INCREMENTO):
+    def visitorExpressao_PREFIXO_INCREMENTO(self, Expressao_PREFIXO_INCREMENTO):
         pass
     
     @abstractmethod
-    def visitExpressao_POSFIXO_INCREMENTO(self, Expressao_POSFIXO_INCREMENTO):
+    def visitorExpressao_POSFIXO_INCREMENTO(self, Expressao_POSFIXO_INCREMENTO):
         pass
 
     @abstractmethod
-    def visitExpressao_PREFIXO_DECREMENTO(self, Expressao_PREFIXO_DECREMENTO):
+    def visitorExpressao_PREFIXO_DECREMENTO(self, Expressao_PREFIXO_DECREMENTO):
         pass
 
     @abstractmethod
-    def visitExpressao_POSFIXO_DECREMENTO(self, Expressao_POSFIXO_DECREMENTO):
+    def visitorExpressao_POSFIXO_DECREMENTO(self, Expressao_POSFIXO_DECREMENTO):
         pass
 
     @abstractmethod
-    def visitExpressao_PARENTESES(self, Expressao_PARENTESES):
+    def visitorExpressao_PARENTESES(self, Expressao_PARENTESES):
         pass
 
     @abstractmethod
-    def visitExpressao_VALOR(self, Expressao_VALOR):
+    def visitorExpressao_VALOR(self, Expressao_VALOR):
         pass
 
     @abstractmethod
-    def visitExpressao_TIPO(self, Expressao_TIPO):
+    def visitorExpressao_TIPO(self, Expressao_TIPO):
         pass
 
     @abstractmethod
-    def visitSAY(self, SAY):
+    def visitorSAY(self, SAY):
         pass
 
     @abstractmethod
-    def visitPARAMETROS(self, PARAMETROS):
+    def visitorPARAMETROS(self, PARAMETROS):
         pass
 
     @abstractmethod
-    def visitPARAMETROSMULT(self, PARAMETROSMULT):
+    def visitorPARAMETROSMULT(self, PARAMETROSMULT):
         pass
 
     @abstractmethod
-    def visitCHAMADA_FUNCAO(self, CHAMADA_FUNCAO):
+    def visitorCHAMADA_FUNCAO(self, CHAMADA_FUNCAO):
         pass
 
     @abstractmethod
-    def visitCHAMADA_FUNCAO_SEM_PARAMETRO(self, CHAMADA_FUNCAO_SEM_PARAMETRO):
+    def visitorCHAMADA_FUNCAO_SEM_PARAMETRO(self, CHAMADA_FUNCAO_SEM_PARAMETRO):
         pass
 
     @abstractmethod
-    def visitBreak(self, Break):
+    def visitorBreak(self, Break):
         pass
 
     @abstractmethod
-    def visitExit(self, Exit):
+    def visitorExit(self, Exit):
         pass
     
     @abstractmethod
-    def visitLast(self, Last):
+    def visitorLast(self, Last):
         pass
 
     @abstractmethod
-    def visitNext(self, Next):
+    def visitorNext(self, Next):
         pass
 
     @abstractmethod
-    def visitRedo(self, Redo):
+    def visitorRedo(self, Redo):
         pass
 
     @abstractmethod
-    def visitReturn(self, Return):
+    def visitorReturn(self, Return):
         pass
 
     @abstractmethod
-    def visitConstant(self, Constant):
+    def visitorConstant(self, Constant):
         pass
 
     @abstractmethod
-    def visitState(self, State):
+    def visitorState(self, State):
         pass
 
     @abstractmethod
-    def visitLet(self, Let):
+    def visitorLet(self, Let):
         pass
 
     @abstractmethod
-    def visitMulti(self, Multi):
+    def visitorMulti(self, Multi):
         pass
 
     @abstractmethod
-    def visitOnly(self, Only):
+    def visitorOnly(self, Only):
         pass
 
     @abstractmethod
-    def visitUnit(self, Unit):
+    def visitorUnit(self, Unit):
         pass
 
     @abstractmethod
-    def visitExport(self, Export):
+    def visitorExport(self, Export):
         pass
     
     @abstractmethod
-    def visitImport(self, Import):
+    def visitorImport(self, Import):
         pass
     
     @abstractmethod
-    def visitNeed(self, Need):
+    def visitorNeed(self, Need):
         pass
 
     @abstractmethod
-    def visitRequire(self, Require):
+    def visitorRequire(self, Require):
         pass
 
     @abstractmethod
-    def visitUse(self, Use):
+    def visitorUse(self, Use):
         pass
 
     @abstractmethod
-    def visitPush(self, Push):
+    def visitorPush(self, Push):
         pass
 
     @abstractmethod
-    def visitUnshift(self, Unshift):
+    def visitorUnshift(self, Unshift):
         pass
 
     @abstractmethod
-    def visitSplice(self, Splice):
+    def visitorSplice(self, Splice):
+        pass
+    
+    @abstractmethod
+    def visitorBreak(self, Break):
         pass

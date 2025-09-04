@@ -182,20 +182,20 @@ def p_unario(p):
  p[0] = p[1]
 
 def p_prefixo_incremento(p):
-   '''prefixo_incremento : ADC_DP ID'''
-   p[0] = sa.Expressao_PREFIXO_INCREMENTO(p[2]) # ARQUI É 2 OU 1
+   '''prefixo_incremento : ADC_DP escalar'''
+   p[0] = sa.Expressao_PREFIXO_INCREMENTO(sa.Expressao_VALOR(p[2], 'ESCALAR'))
 
 def p_posfixo_incremento(p):
-    '''posfixo_incremento : ID ADC_DP'''
-    p[0] = sa.Expressao_POSFIXO_INCREMENTO(p[1]) 
+    '''posfixo_incremento : escalar ADC_DP'''
+    p[0] = sa.Expressao_POSFIXO_INCREMENTO(sa.Expressao_VALOR(p[1], 'ESCALAR')) 
 
 def p_prefixo_decremento(p):
-   '''prefixo_decremento : DECREMENTO ID'''
-   p[0] = sa.Expressao_PREFIXO_DECREMENTO(p[2]) # AQUI É 2 OU 1
+   '''prefixo_decremento : DECREMENTO escalar'''
+   p[0] = sa.Expressao_PREFIXO_DECREMENTO(sa.Expressao_VALOR(p[2], 'ESCALAR'))
 
 def p_posfixo_decremento(p):
-    '''posfixo_decremento : ID DECREMENTO'''
-    p[0] = sa.Expressao_POSFIXO_DECREMENTO(p[1]) 
+    '''posfixo_decremento : escalar DECREMENTO'''
+    p[0] = sa.Expressao_POSFIXO_DECREMENTO(sa.Expressao_VALOR(p[1], 'ESCALAR')) 
 
 def p_operando(p):
     '''operando : parenteses
@@ -204,11 +204,13 @@ def p_operando(p):
 
 def p_parenteses(p):
    '''parenteses : LPAREN exp_2 RPAREN'''
-   p[0] = sa.Expressao_PARENTESES(p[2]) # PRO QUE ESTÁ DANDO ERRO DE SINTAXE
+   p[0] = sa.Expressao_PARENTESES(p[2])
 
 # Tipo 
 def p_completo(p):
    '''completo : tipo
+               | chamada_funcao
+               | chamada_funcao_sem_parametro
                | escalar '''
    p[0] = p[1]
 
@@ -221,13 +223,17 @@ def p_tipo(p):
 
 def p_tipo_opicional(p):
    '''tipo_opicional : tipo_opicional_int
-                     | STR 
+                     | tipo_opicional_str 
                      | empty'''
    p[0] = p[1]
 
 def p_tipo_opicional_int(p):
    '''tipo_opicional_int : INT '''
    p[0] = sa.Expressao_TIPO('int')
+
+def p_tipo_opicional_str(p):
+   '''tipo_opicional_str : STR '''
+   p[0] = sa.Expressao_TIPO('str')
 
 def p_empty(p):
    '''empty : '''
@@ -267,7 +273,7 @@ def p_declaracao_escalar_MY(p):
   pass
 
 def p_declaracao_escalar_OUR(p):
-  '''declaracao_escalar_OUR : OUR tipo_opicional ESCALAR IGUAL exp_2 PONTO_VIRGULA''' # Problema com o ponto e virgula
+  '''declaracao_escalar_OUR : OUR ESCALAR IGUAL exp_2 PONTO_VIRGULA''' # Problema com o ponto e virgula
   pass
 
 def p_declaracao_lista(p):
@@ -316,8 +322,6 @@ def p_loop_while(p):
 
 def p_loop(p):
     # Renomeei para evitar conflito com p_loop_for, etc.
-    # Tive que tirar o ponto e virgula para voltar a funcionar
-   #'''loop : LOOP LPAREN declaracao_escalar_MY **PONTO_VIRGULA** exp_2 PONTO_VIRGULA atribuicao RPAREN ABRE_CHAVE lista_declaracoes FECHA_CHAVE '''
     '''loop : LOOP LPAREN declaracao_escalar_MY exp_2 PONTO_VIRGULA atribuicao RPAREN ABRE_CHAVE lista_declaracoes FECHA_CHAVE '''
     p[0] = sa.LoopRepeticao(p[3], p[5], p[7], p[10])
 
@@ -328,9 +332,13 @@ def p_loop_sem_condicao(p):
 # --- SAY ---
 
 def p_say(p):
-    '''say : SAY exp_2 PONTO_VIRGULA '''
+    '''say : SAY say_func PONTO_VIRGULA '''
     p[0] = p[2]
 
+def p_say_func(p):
+    '''say_func : exp_2
+                | LIST'''
+    p[0] = p[1]
 # --- FUNÇÕES ---
 
 def p_funcao_com_params(p):
@@ -345,17 +353,17 @@ def p_funcao_sem_params(p):
 # Definição de 'parametros'
 
 def p_parametros(p):
-    '''parametros : ESCALAR
-                  | parametros COMMA ESCALAR '''
-    if len(p) == 2:
-        p[0] = [p[1]] # -> Com um unico parametro
+    '''parametros : tipo_opicional ESCALAR
+                  | parametros COMMA tipo_opicional ESCALAR '''
+    if len(p) == 3:
+        p[0] = [p[2]] # -> Com um unico parametro
     else:
-        p[0] = p[1] + [p[3]] # -> Com varios parametros
+        p[0] = p[1] + [p[4]] # -> Com varios parametros
 
 # Definição de 'atribuicao'
 def p_atribuicao(p):
     '''atribuicao : ESCALAR IGUAL exp_2'''
-    pass
+    p[0] = sa.Atribuicao(p[1], p[3])
 
 # Definição de 'chamada_funcao'
 
@@ -369,8 +377,8 @@ def p_chamada_funcao_sem_parametro(p):
     p[0] = sa.CHAMADA_FUNCAO_SEM_PARAMETRO(p[1])
 
 def p_chamada_funcao_auxiliar(p):
-    '''chamada_funcao_auxiliar : chamada_funcao_auxiliar COMMA completo
-                               | completo ''' 
+    '''chamada_funcao_auxiliar : chamada_funcao_auxiliar COMMA exp_2
+                               | exp_2 ''' 
     if len(p) == 2:
         p[0] = [p[1]] # -> Com um unico parametro
     else:
@@ -403,13 +411,17 @@ def p_bloco_chaves(p):
 
 def p_declaracoes(p):
     '''declaracoes : declaracoes_para_funcoes
+                   | declaracao_multi
+                   | declaracao_multi_sem_par
+                   | declaracao_only
+                   | declaracao_only_sem_par
                    | declaracao_de_funcao'''
     p[0] = p[1]
 
 def p_declaracoes_para_funcoes(p):
     '''declaracoes_para_funcoes : declaracao_de_atribuicao
                         | say
-                        | declaracao_de_chamada_funcao
+                        | comentario
                         | declaracao_de_condicional
                         | declaracao_loop
                         | declaracao_de_expressao 
@@ -425,17 +437,16 @@ def p_declaracoes_para_funcoes(p):
                         | declaracao_de_controle_de_lista'''
     p[0] = p[1]
     
+def p_comentario(p):
+    '''comentario : COMMENT '''
+    p[0] = sa.Comentario(p[1])
+
 def p_declaracao_de_atribuicao(p):
     '''declaracao_de_atribuicao : atribuicao PONTO_VIRGULA'''
 
 def p_declaracao_de_funcao(p):
     '''declaracao_de_funcao : funcao_com_params 
                             | funcao_sem_params '''
-    p[0] = p[1]
-
-def p_declaracao_de_chamada_funcao(p):
-    '''declaracao_de_chamada_funcao : chamada_funcao PONTO_VIRGULA
-                                    | chamada_funcao_sem_parametro PONTO_VIRGULA'''
     p[0] = p[1]
 
 def p_declaracao_de_condicional(p):
@@ -466,16 +477,11 @@ def p_declaracao_de_controle_de_fluxo(p):
 
 def p_declaracao_de_controle_de_escopo(p):
     '''declaracao_de_controle_de_escopo : declaracao_constant 
-                                        | declaracao_state
-                                        | declaracao_let
-                                        | declaracao_multi
-                                        | declaracao_only
-                                        | declaracao_unit '''
+                                        | declaracao_state '''
     p[0] = p[1]
 
 def p_declaracao_de_controle_de_modularizacao(p):
-    '''declaracao_de_controle_de_modularizacao : export 
-                                               | import
+    '''declaracao_de_controle_de_modularizacao : import
                                                | need
                                                | require
                                                | use '''
@@ -506,7 +512,7 @@ def p_next(p):
     p[0] = sa.Next()
 
 def p_redo(p):
-    '''declaracao_redo : REDO PONTO_VIRGULA'''
+    '''declaracao_redo : REDO IF BOOLEAN PONTO_VIRGULA'''
     p[0] = sa.Redo()
 
 def p_return(p):
@@ -524,31 +530,27 @@ def p_declaracao_state(p):
     '''declaracao_state : STATE ESCALAR IGUAL exp_2 PONTO_VIRGULA'''
     p[0] = sa.State(p[2], p[4])
 
-def p_declaracao_let(p):
-    '''declaracao_let : LET ESCALAR IGUAL exp_2 PONTO_VIRGULA'''
-    p[0] = sa.Let(p[2], p[4])
-
 def p_declaracao_multi(p):
-    '''declaracao_multi : MULTI FUNCTION ID LPAREN parametros RPAREN ABRE_CHAVE declaracoes_para_funcoes FECHA_CHAVE'''
-    p[0] = sa.Multi(p[3], p[5], p[7])
+    '''declaracao_multi : MULTI ID LPAREN parametros RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
+    p[0] = sa.Multi(p[2])
+
+def p_declaracao_multi_sem_par(p):
+    '''declaracao_multi_sem_par : MULTI ID LPAREN RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
+    p[0] = sa.Multi(p[2])
 
 def p_declaracao_only(p):
-    '''declaracao_only : ONLY FUNCTION ID ABRE_CHAVE declaracoes_para_funcoes FECHA_CHAVE'''
-    p[0] = sa.Only(p[3], p[5])
+    '''declaracao_only : ONLY ID LPAREN parametros RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
+    p[0] = sa.Only(p[2])
 
-def p_declaracao_unit(p):
-    '''declaracao_unit : UNIT PONTO_VIRGULA'''
-    p[0] = sa.Unit()
+def p_declaracao_only_sem_par(p):
+    '''declaracao_only_sem_par : ONLY ID LPAREN RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
+    p[0] = sa.Only(p[2])
 
 
 # --- IMPORTAÇÃO E MODULARIZAÇÃO ---
 
-def p_export(p):
-    '''export : EXPORT ID PONTO_VIRGULA'''
-    p[0] = sa.Export(p[2])
-
 def p_import(p):
-    '''import : IMPORT ID PONTO_VIRGULA'''
+    '''import : IMPORT ID MENOR ID MAIOR PONTO_VIRGULA'''
     p[0] = sa.Import(p[2])
 
 def p_need(p):
@@ -565,17 +567,19 @@ def p_use(p):
 
 # --- OPERAÇÕES EM LISTAS ---
 
+
 def p_push(p):
-    '''push : PUSH LPAREN ESCALAR COMMA lista_valores RPAREN PONTO_VIRGULA'''
-    p[0] = sa.Push(p[3], p[5])
+    '''push : PUSH LIST COMMA lista_valores PONTO_VIRGULA'''
+    p[0] = sa.Push(p[2], p[4])
 
 def p_unshift(p):
-    '''unshift : UNSHIFT LPAREN ESCALAR COMMA lista_valores RPAREN PONTO_VIRGULA'''
-    p[0] = sa.Unshift(p[3], p[5])
+    '''unshift : UNSHIFT LIST COMMA lista_valores PONTO_VIRGULA'''
+    p[0] = sa.Unshift(p[2], p[4])
 
 def p_splice(p):
-    '''splice : SPLICE LPAREN ESCALAR COMMA INTEGER COMMA INTEGER RPAREN PONTO_VIRGULA'''
-    p[0] = sa.Splice(p[3], p[5], p[7])
+    '''splice : SPLICE LIST COMMA lista_valores PONTO_VIRGULA'''
+    p[0] = sa.Splice(p[2], p[4])
+
 
 def main():
 

@@ -2,7 +2,7 @@ import ply.lex as lex     #importa módulo ply.lex e o renomeia para lex
 
 # Definindo Tokens e padroes
 tokens = ['ADC','LIST','DIV','IGUAL_DP','MAIOR_IGL','ADC_DP','SUB','MOD','DIF','IGUAL',
-          'DECREMENTO','POW','MAIOR','KMARK','LPAREN','RPAREN','COMMA','STRING','FLOAT',
+          'DECREMENTO','POW','MAIOR','LPAREN','RPAREN','COMMA','STRING','FLOAT',
           'INTEGER','BOOLEAN', 'COMMENT','ID','MULT', 'DIVI', 'MENOR','CONC', 'NEGAC',
           'DIVIDE','LCM','GCD','LESSEQUAL', 'SMARTMATCH', 
           'SETA','ABRE_CHAVE', 'FECHA_CHAVE', 'PONTO_VIRGULA', 'AND_S', 'OR_S', 'XOR_S',
@@ -26,22 +26,15 @@ id_reservados = {
     'our': 'OUR',
     'state': 'STATE',
     'constant': 'CONSTANT',
-    'let': 'LET',
     'multi': 'MULTI',
     'only': 'ONLY',
-    'Mu': 'MU',
-    'Nil': 'NIL',
-    'True': 'TRUE',
-    'False': 'FALSE',
     'int': 'INT',
     'str': 'STR',
     'not': 'NOT',   
     'require': 'REQUIRE',
     'need': 'NEED',
     'use': 'USE',
-    'unit': 'UNIT',
     'import': 'IMPORT',
-    'export': 'EXPORT',
     'push': 'PUSH',
     'unshift': 'UNSHIFT',
     'splice': 'SPLICE',
@@ -93,7 +86,7 @@ def t_STRING(t):
   return t
 
 def t_BOOLEAN(t):
-  r'true|false'
+  r'True|False'
   t.value = t.value.lower() == 'true'
   return t
 
@@ -139,11 +132,12 @@ def t_TIMES(t):
     return t
 
 lexer = lex.lex()  # Cria o analisador léxico
-lexer.input("if while str False my our ( )")  # Define a entrada do analisador léxico
+lexer.input("-2 +2 2 $a++;")  # Define a entrada do analisador léxico
 
 # Realizando analise lexica
 print('{:10s}{:10s}{:10s}{:10s}'.format("Token", "Lexema", "Linha", "Coluna"))
 for tok in lexer:
-  print('{:10s}{:10s}{:10s}{:10s}'.format(tok.type, tok.value, str(tok.lineno), str(tok.lexpos))) 
+  print('{:10s}{:10s}{:10s}{:10s}'.format(str(tok.type), str(tok.value), str(tok.lineno), str(tok.lexpos)))
+
 
 # def ID ( ){
