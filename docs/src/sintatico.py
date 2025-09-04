@@ -182,19 +182,19 @@ def p_unario(p):
  p[0] = p[1]
 
 def p_prefixo_incremento(p):
-   '''prefixo_incremento : ADC_DP escalar PONTO_VIRGULA'''
+   '''prefixo_incremento : ADC_DP escalar'''
    p[0] = sa.Expressao_PREFIXO_INCREMENTO(sa.Expressao_VALOR(p[2], 'ESCALAR'))
 
 def p_posfixo_incremento(p):
-    '''posfixo_incremento : escalar ADC_DP PONTO_VIRGULA'''
+    '''posfixo_incremento : escalar ADC_DP'''
     p[0] = sa.Expressao_POSFIXO_INCREMENTO(sa.Expressao_VALOR(p[1], 'ESCALAR')) 
 
 def p_prefixo_decremento(p):
-   '''prefixo_decremento : DECREMENTO escalar PONTO_VIRGULA'''
+   '''prefixo_decremento : DECREMENTO escalar'''
    p[0] = sa.Expressao_PREFIXO_DECREMENTO(sa.Expressao_VALOR(p[2], 'ESCALAR'))
 
 def p_posfixo_decremento(p):
-    '''posfixo_decremento : escalar DECREMENTO PONTO_VIRGULA'''
+    '''posfixo_decremento : escalar DECREMENTO'''
     p[0] = sa.Expressao_POSFIXO_DECREMENTO(sa.Expressao_VALOR(p[1], 'ESCALAR')) 
 
 def p_operando(p):
@@ -322,8 +322,6 @@ def p_loop_while(p):
 
 def p_loop(p):
     # Renomeei para evitar conflito com p_loop_for, etc.
-    # Tive que tirar o ponto e virgula para voltar a funcionar
-   #'''loop : LOOP LPAREN declaracao_escalar_MY **PONTO_VIRGULA** exp_2 PONTO_VIRGULA atribuicao RPAREN ABRE_CHAVE lista_declaracoes FECHA_CHAVE '''
     '''loop : LOOP LPAREN declaracao_escalar_MY exp_2 PONTO_VIRGULA atribuicao RPAREN ABRE_CHAVE lista_declaracoes FECHA_CHAVE '''
     p[0] = sa.LoopRepeticao(p[3], p[5], p[7], p[10])
 
@@ -413,13 +411,14 @@ def p_bloco_chaves(p):
 
 def p_declaracoes(p):
     '''declaracoes : declaracoes_para_funcoes
+                   | declaracao_multi
+                   | declaracao_only
                    | declaracao_de_funcao'''
     p[0] = p[1]
 
 def p_declaracoes_para_funcoes(p):
     '''declaracoes_para_funcoes : declaracao_de_atribuicao
                         | say
-                        | declaracao_de_chamada_funcao
                         | declaracao_de_condicional
                         | declaracao_loop
                         | declaracao_de_expressao 
@@ -443,11 +442,6 @@ def p_declaracao_de_funcao(p):
                             | funcao_sem_params '''
     p[0] = p[1]
 
-def p_declaracao_de_chamada_funcao(p):
-    '''declaracao_de_chamada_funcao : chamada_funcao PONTO_VIRGULA
-                                    | chamada_funcao_sem_parametro PONTO_VIRGULA'''
-    p[0] = p[1]
-
 def p_declaracao_de_condicional(p):
    '''declaracao_de_condicional : condicional'''
 
@@ -460,7 +454,7 @@ def p_declaracao_de_loop(p):
                        | loop_sem_condicao '''
 
 def p_declaracao_de_expressao(p):
-    '''declaracao_de_expressao : exp_2'''
+    '''declaracao_de_expressao : exp_2 PONTO_VIRGULA'''
 
 def p_declaracao_de_bloco(p):
     '''declaracao_bloco : bloco'''
@@ -477,9 +471,7 @@ def p_declaracao_de_controle_de_fluxo(p):
 def p_declaracao_de_controle_de_escopo(p):
     '''declaracao_de_controle_de_escopo : declaracao_constant 
                                         | declaracao_state
-                                        | declaracao_let
-                                        | declaracao_multi
-                                        | declaracao_only '''
+                                        | declaracao_let '''
     p[0] = p[1]
 
 def p_declaracao_de_controle_de_modularizacao(p):

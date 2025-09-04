@@ -1,4 +1,4 @@
-from AbstractVisitor import abstractVisitor
+from abstractVisitor import abstractVisitor
 import lexico
 from sintatico import *
 import ply.lex as lex
@@ -15,7 +15,7 @@ def blank():
 class Visitor(abstractVisitor):
 
 # ------------------Funções-------------------------------
-    def visitCompoundFuncao(self, func):
+    def visitorCompoundFuncao(self, func):
         print(f"sub {func.id}({', '.join(func.parametros)}) {{")
 
         #func.comando.accept(self)
@@ -26,7 +26,7 @@ class Visitor(abstractVisitor):
 
         print("}")
 
-    def visitCompoundFuncaoSemParametros(self, func):
+    def visitorCompoundFuncaoSemParametros(self, func):
         print(f"sub {func.id}() {{")
         #func.comando.accept(self)
         if hasattr(func.comando, "accept"):
@@ -39,131 +39,131 @@ class Visitor(abstractVisitor):
 
 
 # ------------------Repetição-------------------------------
-    def visitLoopFor(self, loop_for):
+    def visitorLoopFor(self, loop_for):
         print(f"for {loop_for.expr} -> {loop_for.id} {{")
         loop_for.comando.accept(self)
         print("}")
 
-    def visitLoopTimes(self, loop_times):
+    def visitorLoopTimes(self, loop_times):
         print(f"{loop_times.integer}.times -> {loop_times.id} {{")
         loop_times.comando.accept(self)
         print("}")
 
-    def visitLoopWhile(self, loop_while):
+    def visitorLoopWhile(self, loop_while):
         print(f"while ({loop_while.limite}) {{")
         loop_while.comando.accept(self)
         print("}")
 
-    def visitLoopRepeticao(self, loop_repeticao):
+    def visitorLoopRepeticao(self, loop_repeticao):
         print(f"loop ({loop_repeticao.instrucao1}; {loop_repeticao.instrucao2}; {loop_repeticao.instrucao3}) {{")
         loop_repeticao.comando.accept(self)
         print("}")
 
-    def visitLoopSemCondicao(self, loop_sem_condicao):
+    def visitorLoopSemCondicao(self, loop_sem_condicao):
         print("loop {")
         loop_sem_condicao.comando.accept(self)
         print("}")
 
 
 #----------------------------------------------------Expressoes--------
-    def visitExpressaoOR(self, oor):
+    def visitorExpressaoOR(self, oor):
         print("(", end=""); oor.esquerda.accept(self); print(" or ", end=""); oor.direita.accept(self); print(")", end="")
 
-    def visitExpressaoXOR(self, xor):
+    def visitorExpressaoXOR(self, xor):
         print("(", end=""); xor.esquerda.accept(self); print(" xor ", end=""); xor.direita.accept(self); print(")", end="")
 
-    def visitExpressaoAND(self, andd):
+    def visitorExpressaoAND(self, andd):
         print("(", end=""); andd.esquerda.accept(self); print(" and ", end=""); andd.direita.accept(self); print(")", end="")
 
-    def visitExpressaoIGUAL_DP(self, igual):
+    def visitorExpressaoIGUAL_DP(self, igual):
         print("(", end=""); igual.esquerda.accept(self); print(" == ", end=""); igual.direita.accept(self); print(")", end="")
 
-    def visitExpressaoDIF(self, dif):
+    def visitorExpressaoDIF(self, dif):
         print("(", end=""); dif.esquerda.accept(self); print(" != ", end=""); dif.direita.accept(self); print(")", end="")
 
-    def visitExpressaoMAIOR(self, maior):
+    def visitorExpressaoMAIOR(self, maior):
         print("(", end=""); maior.esquerda.accept(self); print(" > ", end=""); maior.direita.accept(self); print(")", end="")
     
-    def visitExpressaoMENOR(self, menor):
+    def visitorExpressaoMENOR(self, menor):
         print("(", end=""); menor.esquerda.accept(self); print(" < ", end=""); menor.direita.accept(self); print(")", end="")
 
-    def visitExpressaoMAIOR_IGUAL(self, igual):
+    def visitorExpressaoMAIOR_IGUAL(self, igual):
         print("(", end=""); igual.esquerda.accept(self); print(" >= ", end=""); igual.direita.accept(self); print(")", end="")
 
-    def visitExpressaoMENOR_IGUAL(self, menorIgual):
+    def visitorExpressaoMENOR_IGUAL(self, menorIgual):
         print("(", end=""); menorIgual.esquerda.accept(self); print(" <= ", end=""); menorIgual.direita.accept(self); print(")", end="")
 
-    def visitExpressaoSMARTMATCH(self, match):
+    def visitorExpressaoSMARTMATCH(self, match):
         print("(", end=""); match.esquerda.accept(self); print(" ~~ ", end=""); match.direita.accept(self); print(")", end="")
 
-    def visitExpressaoADICAO(self, adicao):
+    def visitorExpressaoADICAO(self, adicao):
         print("(", end=""); adicao.esquerda.accept(self); print(" + ", end=""); adicao.direita.accept(self); print(")", end="")
 
-    def visitExpressaoSUBTRACAO(self, subtacao):
+    def visitorExpressaoSUBTRACAO(self, subtacao):
         print("(", end=""); subtacao.esquerda.accept(self); print(" - ", end=""); subtacao.direita.accept(self); print(")", end="")
 
-    def visitExpressaoCONCATENACAO(self, concatenacao):
+    def visitorExpressaoCONCATENACAO(self, concatenacao):
         print("(", end=""); concatenacao.esquerda.accept(self);print(" ~", end="");concatenacao.direita.accept(self); print(")", end="")
 
 
-    def visitExpressaoMULTIPLICACAO(self, mult):
+    def visitorExpressaoMULTIPLICACAO(self, mult):
         print("(", end=""); mult.esquerda.accept(self); print(" * ", end=""); mult.direita.accept(self); print(")", end="")
 
-    def visitExpressaoDIVISAO(self, div):
+    def visitorExpressaoDIVISAO(self, div):
         print("(", end=""); div.esquerda.accept(self); print(" / ", end=""); div.direita.accept(self); print(")", end="")
 
-    def visitExpressaoDIVISAO_INTEIRA(self, diviInt):
+    def visitorExpressaoDIVISAO_INTEIRA(self, diviInt):
         print("(", end=""); diviInt.esquerda.accept(self); print(" div ", end=""); diviInt.direita.accept(self); print(")", end="")
 
-    def visitExpressaoDIVISIBILIDADE(self, divi):
+    def visitorExpressaoDIVISIBILIDADE(self, divi):
         print("(", end=""); divi.esquerda.accept(self); print(" % ", end=""); divi.direita.accept(self); print(")", end="")
      
-    def visitExpressaoMOD(self, mod):
+    def visitorExpressaoMOD(self, mod):
         print("(", end=""); mod.esquerda.accept(self); print(" mod ", end=""); mod.direita.accept(self); print(")", end="")
 
-    def visitExpressaoLCM(self, lmc):
+    def visitorExpressaoLCM(self, lmc):
         print("lcm(", end=""); lmc.esquerda.accept(self); print(", ", end=""); lmc.direita.accept(self); print(")", end="")
 
-    def visitExpressaoGCD(self, gcd):
+    def visitorExpressaoGCD(self, gcd):
         print("gcd(", end=""); gcd.esquerda.accept(self); print(", ", end=""); gcd.direita.accept(self); print(")", end="")
 
-    def visitExpressaoPOW(self, pow):
+    def visitorExpressaoPOW(self, pow):
         print("(", end=""); pow.esquerda.accept(self); print(" ** ", end=""); pow.direita.accept(self); print(")", end="")
 
-    def visitExpressaoNOT_OPERADOR(self, operador):
+    def visitorExpressaoNOT_OPERADOR(self, operador):
         print("not ", end=""); operador.operando.accept(self)
 
-    def visitExpressaoNOT_SIMBULO(self, simb):
+    def visitorExpressaoNOT_SIMBULO(self, simb):
         print("!", end=""); simb.operando.accept(self)
 
-    def visitExpressao_PREFIXO_INCREMENTO(self, increm):
+    def visitorExpressao_PREFIXO_INCREMENTO(self, increm):
         print("++", end=""); increm.operando.accept(self)
 
-    def visitExpressao_POSFIXO_INCREMENTO(self, increm):
+    def visitorExpressao_POSFIXO_INCREMENTO(self, increm):
         increm.operando.accept(self); print("++", end="")
 
-    def visitExpressao_PREFIXO_DECREMENTO(self, decrem):
+    def visitorExpressao_PREFIXO_DECREMENTO(self, decrem):
         print("--", end=""); decrem.operando.accept(self)
 
-    def visitExpressao_POSFIXO_DECREMENTO(self, decrem):
+    def visitorExpressao_POSFIXO_DECREMENTO(self, decrem):
         decrem.operando.accept(self); print("--", end="")
 
-    def visitExpressao_PARENTESES(self, parenteses):
+    def visitorExpressao_PARENTESES(self, parenteses):
         print("(", end=""); parenteses.expressao.accept(self); print(")", end="")
 
-    def visitExpressao_VALOR(self, valor):
+    def visitorExpressao_VALOR(self, valor):
         print(valor.valor, end="")
 
-    def visitExpressao_TIPO(self, tipo):
+    def visitorExpressao_TIPO(self, tipo):
         print(tipo.tipo, end="")
 
-    def visitSAY(self, say):
+    def visitorSAY(self, say):
         print("say ", end=""); say.exp.accept(self); print(";")
 
-    def visitPARAMETROS(self, param):
+    def visitorPARAMETROS(self, param):
         param.escalar.accept(self)
 
-    def visitPARAMETROSMULT(self, param):
+    def visitorPARAMETROSMULT(self, param):
         param.escalar.accept(self)
         for p in param.outros_parametros:
             print(", ", end=""); p.accept(self)
@@ -174,10 +174,15 @@ class Visitor(abstractVisitor):
 
 # ------------------Chamada Funções-------------------------------
             
-    def visitCHAMADA_FUNCAO(self, chamada):
-        print(f"{chamada.id}({chamada.valor});")
+def visitorCHAMADA_FUNCAO(self, chamada):
+    print(f"{chamada.id}(", end="")
+    for i, arg in enumerate(chamada.args):
+        if i > 0:
+            print(", ", end="")
+        arg.accept(self)
+    print(");")
 
-    def visitCHAMADA_FUNCAO_SEM_PARAMETRO(self, chamada):
+    def visitorCHAMADA_FUNCAO_SEM_PARAMETRO(self, chamada):
         print(f"{chamada.id}();")
 
 
@@ -187,74 +192,74 @@ class Visitor(abstractVisitor):
 
 
       # ------------------Controle de Fluxo-------------------------------
-    def visitBreak(self, breakk):
+    def visitorBreak(self, breakk):
         print("break;")
 
-    def visitExit(self, exit):
+    def visitorExit(self, exit):
         print("exit(", end=""); exit.exp.accept(self); print(");")
 
-    def visitLast(self, last):
+    def visitorLast(self, last):
         print("last;")
 
-    def visitNext(self, next):
+    def visitorNext(self, next):
         print("next;")
 
-    def visitRedo(self, redo):
+    def visitorRedo(self, redo):
         print("redo;")
 
-    def visitReturn(self, returnn):
+    def visitorReturn(self, returnn):
         print("return ", end=""); returnn.exp.accept(self); print(";")  
 
 
 
 # ------------------Declarações e Escopo-------------------------------
-    def visitConstant(self, constant):
+    def visitorConstant(self, constant):
         print(f"constant {constant.id} = {constant.valor};")
 
-    def visitState(self, state):
+    def visitorState(self, state):
         print(f"state {state.id} = {state.valor};")
 
-    def visitLet(self, let):
+    def visitorLet(self, let):
         print(f"let {let.id} = {let.valor};")
 
-    def visitMulti(self, multi):
+    def visitorMulti(self, multi):
         print(f"multi {multi.id}({', '.join(multi.parametros)}) {{")
         m.comando.accept(self)
         print("}")
 
-    def visitOnly(self, only):
+    def visitorOnly(self, only):
         print(f"only {only.id} {{")
         o.comando.accept(self)
         print("}")
 
-    def visitUnit(self, unit):
+    def visitorUnit(self, unit):
         print("unit;")
 
     # ------------------Importação/Modularização-------------------------------
-    def visitExport(self, export):
+    def visitorExport(self, export):
         print(f"export {export.id};")
 
-    def visitImport(self, importt):
+    def visitorImport(self, importt):
         print(f"import {importt.id};")
 
-    def visitNeed(self, need):
+    def visitorNeed(self, need):
         print(f"need {need.id};")
 
-    def visitRequire(self, require):
+    def visitorRequire(self, require):
         print(f"require {require.id};")
 
-    def visitUse(self, use):
+    def visitorUse(self, use):
         print(f"use {use.id};")
 
 
     # ------------------Operações em Listas-------------------------------
-    def visitPush(self, push):
+    def visitorPush(self, push):
         print(f"push {push.escalar}, {', '.join(map(str, push.valores))};")
 
-    def visitUnshift(self, unshift):
+    def visitorUnshift(self, unshift):
         print(f"unshift {unshift.escalar}, {', '.join(map(str, unshift.valores))};")
 
-    def visitSplice(self, splice):
+    def visitorSplice(self, splice):
         print(f"splice {splice.escalar}, {splice.inicio}, {splice.quantidade};")
 
 def main():
