@@ -31,8 +31,6 @@ id_reservados = {
     'only': 'ONLY',
     'Mu': 'MU',
     'Nil': 'NIL',
-    'True': 'TRUE',
-    'False': 'FALSE',
     'int': 'INT',
     'str': 'STR',
     'not': 'NOT',   
@@ -93,7 +91,7 @@ def t_STRING(t):
   return t
 
 def t_BOOLEAN(t):
-  r'true|false'
+  r'True|False'
   t.value = t.value.lower() == 'true'
   return t
 
@@ -139,7 +137,7 @@ def t_TIMES(t):
     return t
 
 lexer = lex.lex()  # Cria o analisador léxico
-lexer.input("-2 +2 2")  # Define a entrada do analisador léxico
+lexer.input("-2 +2 2 $a++;")  # Define a entrada do analisador léxico
 
 # Realizando analise lexica
 print('{:10s}{:10s}{:10s}{:10s}'.format("Token", "Lexema", "Linha", "Coluna"))

@@ -142,83 +142,71 @@ for 1..3 -> $i {
     say "Valor do i: $i";
 }
 
-# redo if False;       # Deve repetir a instrução anterior (não roda pois False)
+redo if False;       # Deve repetir a instrução anterior (não roda pois False)
 
-# exit(0);             
-# return 42;           # Retorna valor (só válido dentro de função normalmente)
-# break;               
+exit(0);             
+return 42;           # Retorna valor (só válido dentro de função normalmente)
+break;               
 
-# # ===========================
-# # Testes com constantes e variáveis especiais
-# # ===========================
+# ===========================
+# Testes com constantes e variáveis especiais
+# ===========================
 
-# constant $PI = 3.14159;
-# say "Valor de PI: " ~ $PI;
+constant $PI = 3.14159;
+say "Valor de PI: " ~ $PI;
 
-# state $contador = 0;
-# $contador++ ;
-# say "Valor persistente de contador: $contador";
+state $contador = 0;
+$contador++;
+say "Valor persistente de contador: $contador";
 
-# let $x = 10;  
-# say "Valor de x com let: $x";
+let $x = 10;  
+say "Valor de x com let: $x";
 
-# # ===========================
-# # Testes de multi-funções
-# # ===========================
+# ===========================
+# Testes de multi-funções
+# ===========================
 
-# multi sub soma(Int $a, Int $b) {
-#     $a + $b
-# }
-# multi sub soma(Str $a, Str $b) {
-#     $a ~ $b
-# }
+multi sub soma(Int $a, Int $b) {
+    $a + $b
+}
+multi sub soma(Str $a, Str $b) {
+    $a ~ $b
+}
 
-# say soma(2, 3);
-# say soma("Olá, ", "Felipe");
+say soma(2, 3);
+say soma("Olá, ", "Felipe");
 
-# # ===========================
-# # Testes de only
-# # ===========================
+# ===========================
+# Testes de only
+# ===========================
 
-# only sub saudacao() {
-#     say "Função exclusiva saudacao";
-# }
-# saudacao();
+only sub saudacao() {
+    say "Função exclusiva saudacao";
+}
+saudacao();
 
-# # ===========================
-# # Testes de unit/export
-# # ===========================
+# ===========================
+# Testes de import, need, require, use
+# ===========================
 
-# unit module Matematica;
+use Utils;         
+need Utils;        
+require Utils;     
+import Utils <ola>; 
 
-# sub dobro(Int $n) is export {
-#     $n * 2
-# }
+ola("Felipe");
 
-# say Matematica::dobro(10);
+# ===========================
+# Testes com arrays e operações
+# ===========================
 
-# # ===========================
-# # Testes de import, need, require, use
-# # ===========================
+my @lista = 'a', 'b', 'c';
+push @lista, "d";
+say @lista;
 
-# use Utils;         
-# need Utils;        
-# require Utils;     
-# import Utils <ola>; 
+unshift @lista, "z";
+say @lista;
 
-# ola("Felipe");
-
-# # ===========================
-# # Testes com arrays e operações
-# # ===========================
-
-# my @lista = <a b c>;
-# push @lista, "d";
-# say @lista;
-
-# unshift @lista, "z";
-# say @lista;
-
-# splice @lista, 1, 2, <x y>;
-# say @lista;
+splice @lista, 1, 2, 'x', 'y';
+say @lista;
 

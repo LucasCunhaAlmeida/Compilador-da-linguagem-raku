@@ -414,16 +414,13 @@ class Let(Expressao):
         return visitor.visitorLet(self)
 
 class Multi(Expressao):
-    def __init__(self, id, parametros, comando):
-        self.id = id
-        self.parametros = parametros
+    def __init__(self, comando):
         self.comando = comando
     def accept(self, visitor):
         return visitor.visitorMulti(self)
 
 class Only(Expressao):
-    def __init__(self, id, comando):
-        self.id = id
+    def __init__(self, comando):
         self.comando = comando
     def accept(self, visitor):
         return visitor.visitorOnly(self)
@@ -481,9 +478,8 @@ class Unshift(Expressao):
         return visitor.visitorUnshift(self)
 
 class Splice(Expressao):
-    def __init__(self, escalar, inicio, quantidade):
+    def __init__(self, escalar, quantidade):
         self.escalar = escalar
-        self.inicio = inicio
         self.quantidade = quantidade
     def accept(self, visitor):
         return visitor.visitorSplice(self)
