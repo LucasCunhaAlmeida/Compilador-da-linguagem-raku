@@ -70,11 +70,6 @@ for 1..5 -> $i {
     say "Iteração: " ~ $i;
 }
 
-# # Estrutura de repetição times  -> Retirar
-# 5.times -> $j {
-#     say "Times loop: " ~ $j;
-# }
-
 # Estrutura de repetição while
 while $a < 50 {
   say "Novo valor de a: " ~ $a;

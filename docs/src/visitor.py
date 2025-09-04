@@ -44,11 +44,6 @@ class Visitor(abstractVisitor):
         loop_for.comando.accept(self)
         print("}")
 
-    def visitorLoopTimes(self, loop_times):
-        print(f"{loop_times.integer}.times -> {loop_times.id} {{")
-        loop_times.comando.accept(self)
-        print("}")
-
     def visitorLoopWhile(self, loop_while):
         print(f"while ({loop_while.limite}) {{")
         loop_while.comando.accept(self)

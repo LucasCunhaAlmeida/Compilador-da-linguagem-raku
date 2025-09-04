@@ -308,12 +308,6 @@ def p_loop_for_com_lista(p):
     '''loop_for_com_lista : FOR LIST SETA ESCALAR ABRE_CHAVE lista_declaracoes FECHA_CHAVE''' 
    # p[0] = sa.LoopFor(p[2], p[4])
     pass
-    
-def p_loop_times(p):
-    # O nome da função não pode ter espaço. Usei 'loop_times'.
-    '''loop_times : INTEGER TIMES SETA ESCALAR ABRE_CHAVE lista_declaracoes FECHA_CHAVE'''
-
-    p[0] = sa.LoopTimes(p[1], p[5], p[7])
 
 def p_loop_while(p):
     # Alterei para usar exp_2 para consistência
@@ -455,8 +449,7 @@ def p_declaracao_de_condicional(p):
 def p_declaracao_de_loop(p):
     '''declaracao_loop : loop
                        | loop_for
-                       | loop_for_com_lista
-                       | loop_times 
+                       | loop_for_com_lista 
                        | loop_while
                        | loop_sem_condicao '''
 
