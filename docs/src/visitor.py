@@ -1,4 +1,4 @@
-from abstractVisitor import abstractVisitor
+from AbstractVisitor import abstractVisitor
 import lexico
 from sintatico import *
 import ply.lex as lex
@@ -217,12 +217,12 @@ def visitorCHAMADA_FUNCAO(self, chamada):
 
     def visitorMulti(self, multi):
         print(f"multi {multi.id}({', '.join(multi.parametros)}) {{")
-        m.comando.accept(self)
+        multi.comando.accept(self)
         print("}")
 
     def visitorOnly(self, only):
         print(f"only {only.id} {{")
-        o.comando.accept(self)
+        only.comando.accept(self)
         print("}")
 
     def visitorUnit(self, unit):
@@ -274,16 +274,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
