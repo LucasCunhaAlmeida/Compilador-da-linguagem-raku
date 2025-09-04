@@ -14,7 +14,8 @@ Este projeto foi desenvolvido por:
 - 👩‍💻 [**Hevellyn de Souza Alves**](https://github.com/heveeedesouza)  
 - 👨‍💻 [**Felipe da Silva Souza**](https://github.com/Miyamura1101)  
 - 👩‍💻 [**Lorena Pereira Nascimento**](https://github.com/Lorena-pn)
-- 👨‍💻 [**Thiago dos Santos Lima**](https://github.com/ThiagoLima09) 
+- 👨‍💻 [**Thiago dos Santos Lima**](https://github.com/ThiagoLima09)
+- 👨‍💻 [**Beatriz de Souza Carvalho**](https://github.com/BeatrizSouz) 
 
 ### 👨‍🏫 Professor Orientador  
 - 🏫 [**Andre Luis Meneses Silva**](https://github.com/andreluisms)  
