@@ -358,7 +358,15 @@ class Atribuicao(Expressao):
         
     def accept(self, visitor):
         return visitor.visitorAtribuicao(self)
+# --- Comentario --- 
 
+class Comentario():
+    def __init__(self, comentario) -> None:
+        self.comentario = comentario
+
+    def accept(self, visitor):
+        return visitor.visitoComentario(self)
+    
 # --- CONTROLE DE FLUXO ---
 
 class Break(Expressao):
@@ -405,13 +413,6 @@ class State(Expressao):
         self.valor = valor
     def accept(self, visitor):
         return visitor.visitorState(self)
-
-class Let(Expressao):
-    def __init__(self, id, valor):
-        self.id = id
-        self.valor = valor
-    def accept(self, visitor):
-        return visitor.visitorLet(self)
 
 class Multi(Expressao):
     def __init__(self, comando):

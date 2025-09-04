@@ -273,7 +273,7 @@ def p_declaracao_escalar_MY(p):
   pass
 
 def p_declaracao_escalar_OUR(p):
-  '''declaracao_escalar_OUR : OUR tipo_opicional ESCALAR IGUAL exp_2 PONTO_VIRGULA''' # Problema com o ponto e virgula
+  '''declaracao_escalar_OUR : OUR ESCALAR IGUAL exp_2 PONTO_VIRGULA''' # Problema com o ponto e virgula
   pass
 
 def p_declaracao_lista(p):
@@ -412,13 +412,16 @@ def p_bloco_chaves(p):
 def p_declaracoes(p):
     '''declaracoes : declaracoes_para_funcoes
                    | declaracao_multi
+                   | declaracao_multi_sem_par
                    | declaracao_only
+                   | declaracao_only_sem_par
                    | declaracao_de_funcao'''
     p[0] = p[1]
 
 def p_declaracoes_para_funcoes(p):
     '''declaracoes_para_funcoes : declaracao_de_atribuicao
                         | say
+                        | comentario
                         | declaracao_de_condicional
                         | declaracao_loop
                         | declaracao_de_expressao 
@@ -434,6 +437,10 @@ def p_declaracoes_para_funcoes(p):
                         | declaracao_de_controle_de_lista'''
     p[0] = p[1]
     
+def p_comentario(p):
+    '''comentario : COMMENT '''
+    p[0] = sa.Comentario(p[1])
+
 def p_declaracao_de_atribuicao(p):
     '''declaracao_de_atribuicao : atribuicao PONTO_VIRGULA'''
 
@@ -470,8 +477,7 @@ def p_declaracao_de_controle_de_fluxo(p):
 
 def p_declaracao_de_controle_de_escopo(p):
     '''declaracao_de_controle_de_escopo : declaracao_constant 
-                                        | declaracao_state
-                                        | declaracao_let '''
+                                        | declaracao_state '''
     p[0] = p[1]
 
 def p_declaracao_de_controle_de_modularizacao(p):
@@ -524,16 +530,20 @@ def p_declaracao_state(p):
     '''declaracao_state : STATE ESCALAR IGUAL exp_2 PONTO_VIRGULA'''
     p[0] = sa.State(p[2], p[4])
 
-def p_declaracao_let(p):
-    '''declaracao_let : LET ESCALAR IGUAL exp_2 PONTO_VIRGULA'''
-    p[0] = sa.Let(p[2], p[4])
-
 def p_declaracao_multi(p):
-    '''declaracao_multi : MULTI declaracao_de_funcao'''
+    '''declaracao_multi : MULTI ID LPAREN parametros RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
+    p[0] = sa.Multi(p[2])
+
+def p_declaracao_multi_sem_par(p):
+    '''declaracao_multi_sem_par : MULTI ID LPAREN RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
     p[0] = sa.Multi(p[2])
 
 def p_declaracao_only(p):
-    '''declaracao_only : ONLY declaracao_de_funcao'''
+    '''declaracao_only : ONLY ID LPAREN parametros RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
+    p[0] = sa.Only(p[2])
+
+def p_declaracao_only_sem_par(p):
+    '''declaracao_only_sem_par : ONLY ID LPAREN RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
     p[0] = sa.Only(p[2])
 
 

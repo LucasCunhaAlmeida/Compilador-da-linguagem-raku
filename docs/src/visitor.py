@@ -192,7 +192,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
 
 
       # ------------------Controle de Fluxo-------------------------------
-    def visitorBreak(self, breakk):
+    def visitorBreak(self, Break):
         print("break;")
 
     def visitorExit(self, exit):
@@ -218,9 +218,6 @@ def visitorCHAMADA_FUNCAO(self, chamada):
 
     def visitorState(self, state):
         print(f"state {state.id} = {state.valor};")
-
-    def visitorLet(self, let):
-        print(f"let {let.id} = {let.valor};")
 
     def visitorMulti(self, multi):
         print(f"multi {multi.id}({', '.join(multi.parametros)}) {{")

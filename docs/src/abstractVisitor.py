@@ -250,3 +250,7 @@ class abstractVisitor(metaclass=ABCMeta):
     @abstractmethod
     def visitorSplice(self, Splice):
         pass
+    
+    @abstractmethod
+    def visitorBreak(self, Break):
+        pass

@@ -2,13 +2,15 @@
 
 my Int $a = -20;
 my Int $b = 20;
-our Str $nome = "Felipe";
+our $nome = "Felipe";
 
 # Variáveis para o loop
 
 my Int $d = 0;
 my Int $v = 0;
 my Int $k = 0;
+my $j = 1;
+my $i = 1;
 
 # Lista;
 
@@ -68,10 +70,10 @@ for 1..5 -> $i {
     say "Iteração: " ~ $i;
 }
 
-# Estrutura de repetição times
-5.times -> $j {
-    say "Times loop: " ~ $j;
-}
+# # Estrutura de repetição times  -> Retirar
+# 5.times -> $j {
+#     say "Times loop: " ~ $j;
+# }
 
 # Estrutura de repetição while
 while $a < 50 {
@@ -82,19 +84,11 @@ while $a < 50 {
 # ===========================
 # # Função
 # ===========================
-sub soma($x, $y) {
+multi soma($x, $y) {
     say "Resultado da soma: " ~ ($x + $y);
     $a = $a + 5;
 }
 
-sub saudacao() {
-    say "Olá, " ~ $nome ~ "!";
-    $a = $a + 5;
-}
-
-# # Chamadas de função
-
-saudacao();
 soma(15, 30);
 
 # ===========================
@@ -108,10 +102,10 @@ say "Valor de c: " ~ $c;
 # Loop estilo C
 # ===========================
 
-loop (my Int $a = 0; $d < 3; $v = $v + 1) {
-     say "Loop estilo C, k = " ~ $k;
-     $k = $k + 1;
-}
+# loop ($a = 0; $d < 3; $v = $v + 1) {
+#      say "Loop estilo C, k = " ~ $k;
+#      $k = $k + 1;
+# }
 
 # ===========================
 # Função recursiva
@@ -134,19 +128,26 @@ say "Fatorial de 5: " ~ fatorial(5);
 
 for 1..3 -> $i {
     if $i == 2 {
-        next;        # Deve pular a iteração
+        next;  # pular iteração
     }
     if $i == 3 {
-        last;        # Deve sair do loop
+        last;  # sair do loop
     }
     say "Valor do i: $i";
 }
 
-redo if False;       # Deve repetir a instrução anterior (não roda pois False)
+# redo só dentro de loop
+loop {
+    say "Exemplo redo";
+    redo if False;  # OK, mas não repete
+    last;
+}
 
-exit(0);             
-return 42;           # Retorna valor (só válido dentro de função normalmente)
-break;               
+exit(0);
+
+# return 42 só dentro de sub
+sub teste-retorno() { return 42; }
+say teste-retorno();            
 
 # ===========================
 # Testes com constantes e variáveis especiais
@@ -159,19 +160,26 @@ state $contador = 0;
 $contador++;
 say "Valor persistente de contador: $contador";
 
-let $x = 10;  
-say "Valor de x com let: $x";
+my $x = 10;  
+say "Valor de x com my: $x";
 
 # ===========================
 # Testes de multi-funções
 # ===========================
 
-multi sub soma(Int $a, Int $b) {
-    return $a + $b;
+
+multi soma(Int $valor, Int $valor1) {
+    return $valor + $valor1;
 }
-multi sub soma(Str $a, Str $b) {
-    return $a ~ $b;
+
+multi soma() {
+    return 12;
 }
+
+multi soma(Str $nome, Str $nome2) {
+    return $nome ~ $nome2;
+}
+
 say soma(2, 3);
 say soma("Olá, ", "Felipe");
 
@@ -179,33 +187,22 @@ say soma("Olá, ", "Felipe");
 # Testes de only
 # ===========================
 
-# only sub saudacao() {
-#     say "Função exclusiva saudacao";
-# }
-# saudacao();
-
-# # ===========================
-# # Testes de import, need, require, use
-# # ===========================
-
-# use Utils;         
-# need Utils;        
-# require Utils;     
-# import Utils <ola>; 
-
-# ola("Felipe");
+only saudacao() {
+    say "Função exclusiva saudacao";
+}
+saudacao();
 
 # # ===========================
 # # Testes com arrays e operações
 # # ===========================
 
-# my @lista = 'a', 'b', 'c';
-# push @lista, "d";
-# say @lista;
+my @lista1 = 'a', 'b', 'c';
+push @lista1, "d";
+say @lista1;
 
-# unshift @lista, "z";
-# say @lista;
+unshift @lista1, "z";
+say @lista1;
 
-# splice @lista, 1, 2, 'x', 'y';
-# say @lista;
+splice @lista1, 1, 2, 'x', 'y';
+say @lista1;
 
