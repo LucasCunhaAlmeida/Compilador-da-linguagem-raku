@@ -365,7 +365,7 @@ class Comentario():
         self.comentario = comentario
 
     def accept(self, visitor):
-        return visitor.visitoComentario(self)
+        return visitor.visitorComentario(self)
     
 # --- CONTROLE DE FLUXO ---
 

@@ -219,6 +219,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
     def visitorState(self, state):
         print(f"state {state.id} = {state.valor};")
 
+
     def visitorMulti(self, multi):
         print(f"multi {multi.id}({', '.join(multi.parametros)}) {{")
         m.comando.accept(self)
