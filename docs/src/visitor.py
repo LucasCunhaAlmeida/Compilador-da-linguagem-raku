@@ -1,6 +1,6 @@
 from AbstractVisitor import abstractVisitor
 import lexico
-from sintatico import *
+#from sintatico import *
 import ply.lex as lex
 
 tab = 0
@@ -10,7 +10,6 @@ def blank():
     for x in range(tab):
         p = p + ' '
     return p
-
 
 class Visitor(abstractVisitor):
 
@@ -43,7 +42,7 @@ class Visitor(abstractVisitor):
         print(f"for {loop_for.expr} -> {loop_for.id} {{")
         loop_for.comando.accept(self)
         print("}")
-
+    
     def visitorLoopWhile(self, loop_while):
         print(f"while ({loop_while.limite}) {{")
         loop_while.comando.accept(self)
@@ -228,6 +227,16 @@ def visitorCHAMADA_FUNCAO(self, chamada):
     def visitorUnit(self, unit):
         print("unit;")
 
+    def visitDeclaracaoEscalarMY(self, declaracao):
+        print(blank() + "my ", end="")
+        if declaracao.tipo:
+            declaracao.tipo.accept(self)
+            print(" ", end="")
+        
+        print(f"{declaracao.escalar} = ", end="")
+        declaracao.valor.accept(self)
+        print(";")
+
     # ------------------Importação/Modularização-------------------------------
     def visitorExport(self, export):
         print(f"export {export.id};")
@@ -254,6 +263,67 @@ def visitorCHAMADA_FUNCAO(self, chamada):
 
     def visitorSplice(self, splice):
         print(f"splice {splice.escalar}, {splice.inicio}, {splice.quantidade};")
+
+    # ------------------Condicionais-------------------------------
+    def visitDeclaracaoCondicional(self, declaracao_condicional):
+        declaracao_condicional.condicional.accept(self)
+
+    def visitCondicionalIf(self, condicional_if):
+        print("if (", end="")
+        condicional_if.condicao.accept(self)  
+        print(") {")
+        for stmt in condicional_if.bloco:     
+            if hasattr(stmt, "accept"):
+                stmt.accept(self)
+            else:
+                print(stmt)
+        print("}")
+
+    def visitCondicionalIfElse(self, condicional_if_else):
+        global tab
+        self.visitCondicionalIf(condicional_if_else)
+        
+        print(" else {")
+        tab += 2
+        for declaracao in condicional_if_else.bloco_else:
+            if hasattr(declaracao, "accept"):
+                declaracao.accept(self)
+        tab -= 2
+        print(blank() + "}")
+
+    def visitCondicionalIfElsif(self, condicional_if_elsif):
+       
+        self.visitCondicionalIf(condicional_if_elsif)
+        
+        for elsif_node in condicional_if_elsif.elsifs:
+            elsif_node.accept(self)
+
+    def visitCondicionalIfElsifElse(self, condicional_if_elsif_else):
+        global tab
+        
+        self.visitCondicionalIfElsif(condicional_if_elsif_else)
+
+        print(" else {")
+        tab += 2
+        for declaracao in condicional_if_elsif_else.bloco_else:
+            if hasattr(declaracao, "accept"):
+                declaracao.accept(self)
+        tab -= 2
+        print(blank() + "}")
+
+    def visitElsif(self, elsif):
+        global tab
+        print(" elsif ", end="")
+        elsif.condicao.accept(self)
+        print(" {")
+        
+        tab += 2
+        for declaracao in elsif.bloco:
+            if hasattr(declaracao, "accept"):
+                declaracao.accept(self)
+        tab -= 2
+        print(blank() + "}", end="")
+
 
 def main():
     f = open("main.raku", "r")
