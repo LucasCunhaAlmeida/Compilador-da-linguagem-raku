@@ -480,8 +480,9 @@ class DeclaracaoEscalarMY:
         self.tipo = tipo
         self.escalar = escalar
         self.valor = valor
-    def __repr__(self):
-        return f"DeclaracaoEscalarMY(tipo={self.tipo}, escalar={self.escalar}, valor={self.valor})"
+    def accept(self, visitor):
+        return visitor.visitDeclaracaoEscalarMY(self)
+    
 
 class DeclaracaoEscalarOUR:
     def __init__(self, escalar, valor):
@@ -523,18 +524,24 @@ class CondicionalIf:
     def __init__(self, condicao, bloco):
         self.condicao = condicao
         self.bloco = bloco
+    def accept(self, visitor):
+        return visitor.visitCondicionalIf(self)
 
 class CondicionalIfElse:
     def __init__(self, condicao, bloco_if, bloco_else):
         self.condicao = condicao
         self.bloco_if = bloco_if
         self.bloco_else = bloco_else
+    def accept(self, visitor):
+        return visitor.visitCondicionalIfElse(self)
 
 class CondicionalIfElsif:
     def __init__(self, condicao, bloco_if, elsifs):
         self.condicao = condicao
         self.bloco_if = bloco_if
         self.elsifs = elsifs
+    def accept(self, visitor):
+        return visitor.visitCondicionalIfElsif(self)
 
 class CondicionalIfElsifElse:
     def __init__(self, condicao, bloco_if, elsifs, bloco_else):
@@ -542,11 +549,15 @@ class CondicionalIfElsifElse:
         self.bloco_if = bloco_if
         self.elsifs = elsifs
         self.bloco_else = bloco_else
+    def accept(self, visitor):
+        return visitor.visitCondicionalIfElsifElse(self)
 
 class Elsif:
     def __init__(self, condicao, bloco):
         self.condicao = condicao
         self.bloco = bloco
+    def accept(self, visitor):
+        return visitor.visitElsif(self)
 
 class DeclaracaoCondicional:
     def __init__(self, condicional):
