@@ -270,7 +270,7 @@ def main():
     result = parser.parse(debug=False)
     print("imprime o programa que foi passado como entrada")
     visitor = Visitor()
-    #result.accept(visitor)
+    result.accept(visitor)
 
     if isinstance(result, list):
       for node in result:
