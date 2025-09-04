@@ -351,6 +351,14 @@ class CHAMADA_FUNCAO_SEM_PARAMETRO(Expressao):
     def accept(self, visitor):
         return visitor.visitor_CHAMADA_FUNCAO_SEM_PARAMETRO(self)
 
+class Atribuicao(Expressao):
+    def __init__(self, variavel, valor):
+        self.variavel = variavel
+        self.valor = valor
+        
+    def accept(self, visitor):
+        return visitor.visitorAtribuicao(self)
+
 # --- CONTROLE DE FLUXO ---
 
 class Break(Expressao):

@@ -209,6 +209,8 @@ def p_parenteses(p):
 # Tipo 
 def p_completo(p):
    '''completo : tipo
+               | chamada_funcao
+               | chamada_funcao_sem_parametro
                | escalar '''
    p[0] = p[1]
 
@@ -221,13 +223,17 @@ def p_tipo(p):
 
 def p_tipo_opicional(p):
    '''tipo_opicional : tipo_opicional_int
-                     | STR 
+                     | tipo_opicional_str 
                      | empty'''
    p[0] = p[1]
 
 def p_tipo_opicional_int(p):
    '''tipo_opicional_int : INT '''
    p[0] = sa.Expressao_TIPO('int')
+
+def p_tipo_opicional_str(p):
+   '''tipo_opicional_str : STR '''
+   p[0] = sa.Expressao_TIPO('str')
 
 def p_empty(p):
    '''empty : '''
@@ -355,7 +361,7 @@ def p_parametros(p):
 # Definição de 'atribuicao'
 def p_atribuicao(p):
     '''atribuicao : ESCALAR IGUAL exp_2'''
-    pass
+    p[0] = sa.Atribuicao(p[1], p[3])
 
 # Definição de 'chamada_funcao'
 
@@ -369,8 +375,8 @@ def p_chamada_funcao_sem_parametro(p):
     p[0] = sa.CHAMADA_FUNCAO_SEM_PARAMETRO(p[1])
 
 def p_chamada_funcao_auxiliar(p):
-    '''chamada_funcao_auxiliar : chamada_funcao_auxiliar COMMA completo
-                               | completo ''' 
+    '''chamada_funcao_auxiliar : chamada_funcao_auxiliar COMMA exp_2
+                               | exp_2 ''' 
     if len(p) == 2:
         p[0] = [p[1]] # -> Com um unico parametro
     else:
@@ -450,7 +456,7 @@ def p_declaracao_de_loop(p):
                        | loop_sem_condicao '''
 
 def p_declaracao_de_expressao(p):
-    '''declaracao_de_expressao : exp_2 PONTO_VIRGULA'''
+    '''declaracao_de_expressao : exp_2'''
 
 def p_declaracao_de_bloco(p):
     '''declaracao_bloco : bloco'''
@@ -506,7 +512,7 @@ def p_next(p):
     p[0] = sa.Next()
 
 def p_redo(p):
-    '''declaracao_redo : REDO PONTO_VIRGULA'''
+    '''declaracao_redo : REDO  PONTO_VIRGULA'''
     p[0] = sa.Redo()
 
 def p_return(p):

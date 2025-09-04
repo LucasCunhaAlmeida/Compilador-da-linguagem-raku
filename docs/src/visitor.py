@@ -27,3 +27,7 @@ class Visitor (abstractVisitor):
     def visitLoopSemCondicao(self, loop_sem_condicao):
         print("loop: ", end="")
         loop_sem_condicao.comando.accept(self)
+
+#atribuicao
+    def visitorAtribuicao(self, atribuicao):
+        print(f"{atribuicao.variavel} = {atribuicao.valor}")

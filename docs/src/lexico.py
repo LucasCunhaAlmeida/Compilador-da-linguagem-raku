@@ -139,11 +139,12 @@ def t_TIMES(t):
     return t
 
 lexer = lex.lex()  # Cria o analisador léxico
-lexer.input("if while str False my our ( )")  # Define a entrada do analisador léxico
+lexer.input("-2 +2 2")  # Define a entrada do analisador léxico
 
 # Realizando analise lexica
 print('{:10s}{:10s}{:10s}{:10s}'.format("Token", "Lexema", "Linha", "Coluna"))
 for tok in lexer:
-  print('{:10s}{:10s}{:10s}{:10s}'.format(tok.type, tok.value, str(tok.lineno), str(tok.lexpos))) 
+  print('{:10s}{:10s}{:10s}{:10s}'.format(str(tok.type), str(tok.value), str(tok.lineno), str(tok.lexpos)))
+
 
 # def ID ( ){

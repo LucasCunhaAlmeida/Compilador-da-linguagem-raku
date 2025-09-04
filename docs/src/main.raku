@@ -1,9 +1,11 @@
 # Declarações de variáveis escalares
+
 my Int $a = -20;
 my Int $b = 20;
 our Str $nome = "Felipe";
 
 # Variáveis para o loop
+
 my Int $d = 0;
 my Int $v = 0;
 my Int $k = 0;
@@ -21,7 +23,7 @@ elsif $a == $b {
     say '12';
 }
 else {
-    3 - 4;
+    $a = 3 - 4;
 }
 
 # Condicional Complexa
@@ -77,28 +79,146 @@ while $a < 50 {
   $a = $a + 5;
 }
 
-# # Função com parâmetros
+# ===========================
+# # Função
+# ===========================
 sub soma($x, $y) {
     say "Resultado da soma: " ~ ($x + $y);
     $a = $a + 5;
 }
 
-# # Função sem parâmetros
 sub saudacao() {
     say "Olá, " ~ $nome ~ "!";
     $a = $a + 5;
 }
 
 # # Chamadas de função
+
 saudacao();
 soma(15, 30);
 
+# ===========================
 # Expressões com operadores
+# ===========================
+
 my Int $c = ($a * $b) % 7;
 say "Valor de c: " ~ $c;
 
+# ===========================
 # Loop estilo C
+# ===========================
+
 loop (my Int $a = 0; $d < 3; $v = $v + 1) {
      say "Loop estilo C, k = " ~ $k;
      $k = $k + 1;
 }
+
+# ===========================
+# Função recursiva
+# ===========================
+
+sub fatorial($n) {
+    if $n <= 1 {
+        return 1;
+    }
+    else {
+       return $n * fatorial($n - 1);
+    }
+}
+
+say "Fatorial de 5: " ~ fatorial(5);
+
+# ===========================
+# Testes de controle de fluxo
+# ===========================
+
+for 1..3 -> $i {
+    if $i == 2 {
+        next;        # Deve pular a iteração
+    }
+    if $i == 3 {
+        last;        # Deve sair do loop
+    }
+    say "Valor do i: $i";
+}
+
+# redo if False;       # Deve repetir a instrução anterior (não roda pois False)
+
+# exit(0);             
+# return 42;           # Retorna valor (só válido dentro de função normalmente)
+# break;               
+
+# # ===========================
+# # Testes com constantes e variáveis especiais
+# # ===========================
+
+# constant $PI = 3.14159;
+# say "Valor de PI: " ~ $PI;
+
+# state $contador = 0;
+# $contador++ ;
+# say "Valor persistente de contador: $contador";
+
+# let $x = 10;  
+# say "Valor de x com let: $x";
+
+# # ===========================
+# # Testes de multi-funções
+# # ===========================
+
+# multi sub soma(Int $a, Int $b) {
+#     $a + $b
+# }
+# multi sub soma(Str $a, Str $b) {
+#     $a ~ $b
+# }
+
+# say soma(2, 3);
+# say soma("Olá, ", "Felipe");
+
+# # ===========================
+# # Testes de only
+# # ===========================
+
+# only sub saudacao() {
+#     say "Função exclusiva saudacao";
+# }
+# saudacao();
+
+# # ===========================
+# # Testes de unit/export
+# # ===========================
+
+# unit module Matematica;
+
+# sub dobro(Int $n) is export {
+#     $n * 2
+# }
+
+# say Matematica::dobro(10);
+
+# # ===========================
+# # Testes de import, need, require, use
+# # ===========================
+
+# use Utils;         
+# need Utils;        
+# require Utils;     
+# import Utils <ola>; 
+
+# ola("Felipe");
+
+# # ===========================
+# # Testes com arrays e operações
+# # ===========================
+
+# my @lista = <a b c>;
+# push @lista, "d";
+# say @lista;
+
+# unshift @lista, "z";
+# say @lista;
+
+# splice @lista, 1, 2, <x y>;
+# say @lista;
+
