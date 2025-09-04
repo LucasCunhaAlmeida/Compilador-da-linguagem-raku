@@ -474,3 +474,100 @@ class Splice(Expressao):
         self.quantidade = quantidade
     def accept(self, visitor):
         return visitor.visitorSplice(self)
+    
+class DeclaracaoEscalarMY:
+    def __init__(self, tipo, escalar, valor):
+        self.tipo = tipo
+        self.escalar = escalar
+        self.valor = valor
+    def __repr__(self):
+        return f"DeclaracaoEscalarMY(tipo={self.tipo}, escalar={self.escalar}, valor={self.valor})"
+
+class DeclaracaoEscalarOUR:
+    def __init__(self, escalar, valor):
+        self.escalar = escalar
+        self.valor = valor
+    def accept(self, visitor):
+        return visitor.visitDeclaracaoEscalarOUR(self)
+
+class DeclaracaoLista:
+    def __init__(self, lista, valores):
+        self.lista = lista
+        self.valores = valores
+    def accept(self, visitor):
+        return visitor.visitDeclaracaoLista(self)
+    
+class DeclaracaoListaMY:
+    def __init__(self, lista, valores):
+        self.lista = lista
+        self.valores = valores
+    def accept(self, visitor):
+        return visitor.visitDeclaracaoListaMY(self)
+    
+class DeclaracaoListaOUR:
+    def __init__(self, lista, valores):
+        self.lista = lista
+        self.valores = valores
+    def accept(self, visitor):
+        return visitor.visitDeclaracaoListaOUR(self)
+    
+class LoopForLista(Loop):
+    def __init__(self, lista, escalar, comandos):
+        self.lista = lista
+        self.escalar = escalar
+        self.comandos = comandos
+    def accept(self, visitor):
+        return visitor.visitLoopForLista(self)
+    
+class CondicionalIf:
+    def __init__(self, condicao, bloco):
+        self.condicao = condicao
+        self.bloco = bloco
+
+class CondicionalIfElse:
+    def __init__(self, condicao, bloco_if, bloco_else):
+        self.condicao = condicao
+        self.bloco_if = bloco_if
+        self.bloco_else = bloco_else
+
+class CondicionalIfElsif:
+    def __init__(self, condicao, bloco_if, elsifs):
+        self.condicao = condicao
+        self.bloco_if = bloco_if
+        self.elsifs = elsifs
+
+class CondicionalIfElsifElse:
+    def __init__(self, condicao, bloco_if, elsifs, bloco_else):
+        self.condicao = condicao
+        self.bloco_if = bloco_if
+        self.elsifs = elsifs
+        self.bloco_else = bloco_else
+
+class Elsif:
+    def __init__(self, condicao, bloco):
+        self.condicao = condicao
+        self.bloco = bloco
+
+class DeclaracaoCondicional:
+    def __init__(self, condicional):
+        self.condicional = condicional
+    def accept(self, visitor):
+        return visitor.visitDeclaracaoCondicional(self)
+
+class DeclaracaoLoop:
+    def __init__(self, loop):
+        self.loop = loop
+    def accept(self, visitor):
+        return visitor.visitDeclaracaoLoop(self)
+
+class DeclaracaoExpressao:
+    def __init__(self, expressao):
+        self.expressao = expressao
+    def accept(self, visitor):
+        return visitor.visitDeclaracaoExpressao(self)
+
+class DeclaracaoBloco:
+    def __init__(self, bloco):
+        self.bloco = bloco
+    def accept(self, visitor):
+        return visitor.visitDeclaracaoBloco(self)
