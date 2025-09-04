@@ -13,7 +13,8 @@ Este projeto foi desenvolvido por:
 - 👩‍💻 [**Alanna Rayssa de Oliveira Santos**](https://github.com/alannarayssaa)  
 - 👩‍💻 [**Hevellyn de Souza Alves**](https://github.com/heveeedesouza)  
 - 👨‍💻 [**Felipe da Silva Souza**](https://github.com/Miyamura1101)  
-- 👩‍💻 [**Lorena Pereira Nascimento**](https://github.com/Lorena-pn)  
+- 👩‍💻 [**Lorena Pereira Nascimento**](https://github.com/Lorena-pn)
+- 👨‍💻 [**Thiago dos Santos Lima**](https://github.com/ThiagoLima09) 
 
 ### 👨‍🏫 Professor Orientador  
 - 🏫 [**Andre Luis Meneses Silva**](https://github.com/andreluisms)  
@@ -23,6 +24,10 @@ Este projeto foi desenvolvido por:
 - 🐍 **Linguagem:** Python  
 - 🏛️ **Paradigma:** Análise e construção de compiladores  
 - 🔧 **Ferramentas:** Bibliotecas e frameworks para análise léxica e sintática  
+
+## 🎬 Link do Seminário
+
+🔗 [Apresentação no Canva](https://www.canva.com/design/DAGwcdRl0UY/uEVJOioKLAemQ63ieqyRmg/edit)
 
 ## 📂 Estrutura do Projeto  
 
@@ -34,7 +39,4 @@ Este projeto foi desenvolvido por:
  ├── 📁 markdowns (Documentação da linguagem)  
  ├── 📜 README.md (Este documento)  
 
-
-## 🎬 Link do Seminário
-
-🔗 [Apresentação no Canva](https://www.canva.com/design/DAGwcdRl0UY/uEVJOioKLAemQ63ieqyRmg/edit)
+```
