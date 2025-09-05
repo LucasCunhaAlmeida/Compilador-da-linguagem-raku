@@ -2,6 +2,7 @@ from abstractVisitor import abstractVisitor
 import lexico
 from sintatico import *
 import ply.lex as lex
+import os
 
 tab = 0
 
@@ -256,7 +257,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
         print(f"splice {splice.escalar}, {splice.inicio}, {splice.quantidade};")
 
 def main():
-    f = open("main.raku", "r")
+    f = open(os.path.join(os.path.dirname(__file__), "main.raku"))
     lexer = lex.lex(module=lexico)
     lexer.input(f.read())
     parser = yacc.yacc(start='programa')
