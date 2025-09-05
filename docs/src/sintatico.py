@@ -3,7 +3,7 @@ import lexico as lex
 import sintaxeabstrata as sa
 import sys
 import os
-#from visitor import Visitor
+from visitor import Visitor
 
 tokens = lex.tokens
 

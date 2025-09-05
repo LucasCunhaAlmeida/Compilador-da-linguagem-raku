@@ -254,3 +254,27 @@ class abstractVisitor(metaclass=ABCMeta):
     @abstractmethod
     def visitorBreak(self, Break):
         pass
+
+    @abstractmethod
+    def visitDeclaracaoCondicional(self, declaracaoCondicional):
+        pass
+
+    @abstractmethod
+    def visitCondicionalIf(self, condicionalIf):
+        pass
+
+    @abstractmethod
+    def visitCondicionalIfElse(self, condicionalIfElse):
+        pass
+
+    @abstractmethod
+    def visitCondicionalIfElsif(self, condicionalIfElsif):
+        pass
+
+    @abstractmethod
+    def visitCondicionalIfElsifElse(self, condicionalIfElsifElse):
+        pass
+        
+    @abstractmethod
+    def visitElsif(self, elsif):
+        pass
