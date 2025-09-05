@@ -237,6 +237,19 @@ def visitorCHAMADA_FUNCAO(self, chamada):
         declaracao.valor.accept(self)
         print(";")
 
+    def visitDeclaracaoListaMY(self, declaracao):
+        print("my ", end="")
+        if declaracao.tipo:
+            declaracao.tipo.accept(self)
+            print(" ", end="")
+
+        print(f"{declaracao.lista} = (", end="")
+        for i, v in enumerate(declaracao.valores):
+            v.accept(self)
+            if i < len(declaracao.valores) - 1:
+                print(", ", end="")
+        print(");")
+
     # ------------------Importação/Modularização-------------------------------
     def visitorExport(self, export):
         print(f"export {export.id};")
