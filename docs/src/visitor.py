@@ -2,6 +2,7 @@ from AbstractVisitor import abstractVisitor
 import lexico
 #from sintatico import *
 import ply.lex as lex
+#import ply.yacc as yacc
 import os
 
 tab = 0
@@ -227,6 +228,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
 
     def visitorUnit(self, unit):
         print("unit;")
+        unit.comando.accept(self)
 
     def visitDeclaracaoEscalarMY(self, declaracao):
         print(blank() + "my ", end="")
@@ -251,6 +253,24 @@ def visitorCHAMADA_FUNCAO(self, chamada):
                 print(", ", end="")
         print(");")
 
+    def visitDeclaracaoExpressao(self, node):
+        print(self.blank(), end="")
+        node.expressao.accept(self)
+        print(";")
+    
+    def visitDeclaracaoBloco(self, node):
+        print(self.blank() + "{")
+        self.level += 1
+        node.bloco.accept(self)
+        self.level -= 1
+        print(self.blank() + "}")
+    
+    def visitorAtribuicao(self,node):
+        print(f"Atribuição: {node.variavel} = {node.valor}")
+       
+    def visitorComentario(self,node):
+         print(f"# {node.comentario}")
+         
     # ------------------Importação/Modularização-------------------------------
     def visitorExport(self, export):
         print(f"export {export.id};")
