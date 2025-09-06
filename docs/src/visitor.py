@@ -39,6 +39,9 @@ class Visitor(abstractVisitor):
 
 
 # ------------------Repetição-------------------------------
+    def visitDeclaracaoLoop(self, declaracao_loop):
+        declaracao_loop.loop.accept(self)
+
     def visitorLoopFor(self, loop_for):
         print(f"for {loop_for.expr} -> {loop_for.id} {{")
         loop_for.comando.accept(self)
@@ -59,6 +62,16 @@ class Visitor(abstractVisitor):
         loop_sem_condicao.comando.accept(self)
         print("}")
 
+    def visitLoopForLista(self, loop_for_lista):
+        print(f"loop {loop_for_lista.escalar} in ", end="")
+        loop_for_lista.lista.accept(self)
+
+        print(" {")
+    
+        for comando in loop_for_lista.comandos:
+            comando.accept(self)
+    
+        print("}")
 
 #----------------------------------------------------Expressoes--------
     def visitorExpressaoOR(self, oor):
@@ -238,6 +251,29 @@ def visitorCHAMADA_FUNCAO(self, chamada):
         declaracao.valor.accept(self)
         print(";")
 
+    def visitDeclaracaoEscalarOUR(self, declaracao):
+        print(blank() + "our ", end="")
+        if declaracao.tipo:
+            declaracao.tipo.accept(self)
+            print(" ", end="")
+        
+        print(f"{declaracao.escalar} = ", end="")
+        declaracao.valor.accept(self)
+        print(";")
+
+    def visitDeclaracaoLista(self, declaracao):
+        print(" ", end="")
+        if declaracao.tipo:
+            declaracao.tipo.accept(self)
+            print(" ", end="")
+
+        print(f"{declaracao.list} = (", end="")
+        for i, v in enumerate(declaracao.valores):
+            v.accept(self)
+            if i < len(declaracao.valores) - 1:
+                print(", ", end="")
+        print(");")
+
     def visitDeclaracaoListaMY(self, declaracao):
         print("my ", end="")
         if declaracao.tipo:
@@ -245,6 +281,18 @@ def visitorCHAMADA_FUNCAO(self, chamada):
             print(" ", end="")
 
         print(f"{declaracao.lista} = (", end="")
+        for i, v in enumerate(declaracao.valores):
+            v.accept(self)
+            if i < len(declaracao.valores) - 1:
+                print(", ", end="")
+        print(");")
+
+    def visitDeclaracaoListaOUR(self, declaracao):
+        print("our ", end="")
+        if declaracao.tipo:
+            declaracao.tipo.accept(self)
+            print(" ", end="")
+        print(f"{declaracao.list} = (", end="")
         for i, v in enumerate(declaracao.valores):
             v.accept(self)
             if i < len(declaracao.valores) - 1:

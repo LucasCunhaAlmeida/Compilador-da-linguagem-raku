@@ -278,3 +278,31 @@ class abstractVisitor(metaclass=ABCMeta):
     @abstractmethod
     def visitElsif(self, elsif):
         pass
+
+    @abstractmethod
+    def visitLoopForLista(self, loop_for_lista):
+        pass
+
+    @abstractmethod
+    def visitDeclaracaoLoop(self, declaracao_loop):
+        pass
+
+    @abstractmethod
+    def visitDeclaracaoEscalarOUR(self, declaracao_escalar_our):
+        pass
+
+    @abstractmethod
+    def visitDeclaracaoEscalarMY(self, declaracao_escalar_my):
+        pass
+
+    @abstractmethod
+    def visitDeclaracaoLista(self, declaracao_lista):
+        pass
+
+    @abstractmethod
+    def visitDeclaracaoListaOUR(self, declaracao_lista_our):
+        pass
+
+    @abstractmethod
+    def visitDeclaracaoListaMY(self, declaracao_lista_my):
+        pass
