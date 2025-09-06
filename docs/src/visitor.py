@@ -254,6 +254,8 @@ def visitorCHAMADA_FUNCAO(self, chamada):
         print(");")
 
     def visitDeclaracaoExpressao(self, node):
+
+            def visitDeclaracaoExpressao(self, node):
         print(self.blank(), end="")
         node.expressao.accept(self)
         print(";")
@@ -271,6 +273,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
     def visitorComentario(self,node):
          print(f"# {node.comentario}")
          
+
     # ------------------Importação/Modularização-------------------------------
     def visitorExport(self, export):
         print(f"export {export.id};")
