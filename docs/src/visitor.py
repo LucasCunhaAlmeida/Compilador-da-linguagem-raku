@@ -1,7 +1,9 @@
-from AbstractVisitor import abstractVisitor
+from abstractVisitor import abstractVisitor
 import lexico
+import sintatico  # importa o arquivo sintatico.py, que tem as regras do parser
 #from sintatico import *
 import ply.lex as lex
+import ply.yacc as yacc
 import os
 
 tab = 0
@@ -343,7 +345,7 @@ def main():
     f = open(os.path.join(os.path.dirname(__file__), "main.raku"))
     lexer = lex.lex(module=lexico)
     lexer.input(f.read())
-    parser = yacc.yacc(start='programa')
+    parser = yacc.yacc(module=sintatico, start='programa')
     result = parser.parse(debug=False)
     print("imprime o programa que foi passado como entrada")
     visitor = Visitor()
