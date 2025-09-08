@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABCMeta
 
-class abstractVisitor(metaclass=ABCMeta):
+class abstractvisitoror(metaclass=ABCMeta):
 
 
     @abstractmethod
@@ -256,30 +256,30 @@ class abstractVisitor(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def visitDeclaracaoCondicional(self, declaracaoCondicional):
+    def visitorDeclaracaoCondicional(self, declaracaoCondicional):
         pass
 
     @abstractmethod
-    def visitCondicionalIf(self, condicionalIf):
+    def visitorCondicionalIf(self, condicionalIf):
         pass
 
     @abstractmethod
-    def visitCondicionalIfElse(self, condicionalIfElse):
+    def visitorConicionalIfElse(self, condicionalIfElse):
         pass
 
     @abstractmethod
-    def visitCondicionalIfElsif(self, condicionalIfElsif):
+    def visitorCondicionalIfElsif(self, condicionalIfElsif):
         pass
 
     @abstractmethod
-    def visitCondicionalIfElsifElse(self, condicionalIfElsifElse):
+    def visitorCondicionalIfElsifElse(self, condicionalIfElsifElse):
         pass
         
     @abstractmethod
-    def visitElsif(self, elsif):
+    def visitorElsif(self, elsif):
         pass
 
     @abstractmethod
-    def  visitDeclaracaoExpressao(self, node):
+    def  visitorDeclaracaoExpressao(self, node):
         pass
  
