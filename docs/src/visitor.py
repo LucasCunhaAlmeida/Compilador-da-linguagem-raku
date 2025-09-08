@@ -182,13 +182,13 @@ class visitor(abstractvisitor):
 
 # ------------------Chamada Funções-------------------------------
             
-def visitorCHAMADA_FUNCAO(self, chamada):
-    print(f"{chamada.id}(", end="")
-    for i, arg in enumerate(chamada.args):
-        if i > 0:
-            print(", ", end="")
-        arg.accept(self)
-    print(");")
+    def visitorCHAMADA_FUNCAO(self, chamada):
+        print(f"{chamada.id}(", end="")
+        for i, arg in enumerate(chamada.args):
+            if i > 0:
+                print(", ", end="")
+            arg.accept(self)
+        print(");")
 
     def visitorCHAMADA_FUNCAO_SEM_PARAMETRO(self, chamada):
         print(f"{chamada.id}();")
@@ -238,7 +238,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
         print(f"only {only.id} {{")
         only.comando.accept(self)
         print("}")
-        
+
     def visitorDeclaracaoEscalarMY(self, declaracao):
         print(blank() + "my ", end="")
         if declaracao.tipo:
@@ -265,7 +265,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
             declaracao.tipo.accept(self)
             print(" ", end="")
 
-        print(f"{declaracao.list} = (", end="")
+        print(f"{declaracao.lista} = (", end="")
         for i, v in enumerate(declaracao.valores):
             v.accept(self)
             if i < len(declaracao.valores) - 1:
@@ -290,7 +290,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
         if declaracao.tipo:
             declaracao.tipo.accept(self)
             print(" ", end="")
-        print(f"{declaracao.list} = (", end="")
+        print(f"{declaracao.lista} = (", end="")
         for i, v in enumerate(declaracao.valores):
             v.accept(self)
             if i < len(declaracao.valores) - 1:
@@ -389,18 +389,20 @@ def main():
     f = open(os.path.join(os.path.dirname(__file__), "main.raku"))
     lexer = lex.lex(module=lexico)
     lexer.input(f.read())
-    parser = yacc.yacc(module=sintatico, start='programa')
+    parser = yacc.yacc(start='programa')
     result = parser.parse(debug=False)
     print("imprime o programa que foi passado como entrada")
-    vis = visitor()
-    result.accept(vis)
+    visitor = Visitor()
 
-    if isinstance(result, list):
-      for node in result:
-        if node is not None:
-         node.accept(vis)
+    if result is not None:
+        if isinstance(result, list):
+            for node in result:
+                if node is not None:
+                    node.accept(visitor)
+        else:
+            result.accept(visitor)
     else:
-     result.accept(vis)
+        print("Erro: Parser retornou None")
 
 if __name__ == "__main__":
     main()

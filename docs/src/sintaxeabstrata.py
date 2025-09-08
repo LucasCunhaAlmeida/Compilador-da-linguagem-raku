@@ -126,7 +126,7 @@ class ExpressaoMENOR(Expressao):
         self.direita = direita
 
     def accept(self, visitor):
-        return visitor.visitorExpressaoMAIOR(self)
+        return visitor.visitorExpressaoMENOR(self)
 
 class ExpressaoMAIOR_IGUAL(Expressao):
     def __init__(self, esquerda, direita):
@@ -134,7 +134,7 @@ class ExpressaoMAIOR_IGUAL(Expressao):
         self.direita = direita
 
     def accept(self, visitor):
-        return visitor.visitorExpressaoMAIOR(self)
+        return visitor.visitorExpressaoMAIOR_IGUAL(self)
 
 class ExpressaoMENOR_IGUAL(Expressao):
     def __init__(self, esquerda, direita):
@@ -142,7 +142,7 @@ class ExpressaoMENOR_IGUAL(Expressao):
         self.direita = direita
 
     def accept(self, visitor):
-        return visitor.visitorExpressaoMAIOR(self)
+        return visitor.visitorExpressaoMENOR_IGUAL(self)
 
 class ExpressaoSMARTMATCH(Expressao):
     def __init__(self, esquerda, direita):
@@ -182,7 +182,7 @@ class ExpressaoMULTIPLICACAO(Expressao):
         self.direita = direita
 
     def accept(self, visitor):
-        return visitor.visitorExpressaoCONCATENACAO(self)   
+        return visitor.visitorExpressaoMULTIPLICACAO(self)   
 
 class ExpressaoDIVISAO(Expressao):
     def __init__(self, esquerda, direita):
@@ -245,49 +245,49 @@ class ExpressaoNOT_OPERADOR(Expressao):
         self.operando = operando
 
     def accept(self, visitor):
-        return visitor.visitorNOT_OPERADOR(self)  
+        return visitor.visitorExpressaoNOT_OPERADOR(self)  
 
 class Expressao_NOT_SIMBULO(Expressao):
     def __init__(self, operando):
         self.operando = operando
 
     def accept(self, visitor):
-        return visitor.visitorNOT_SIMBULO(self) 
+        return visitor.visitorExpressao_NOT_SIMBULO(self) 
 
 class Expressao_PREFIXO_INCREMENTO(Expressao):
     def __init__(self, operando):
         self.operando = operando
 
     def accept(self, visitor):
-        return visitor.visitor_PREFIXO_INCREMENTO(self)
+        return visitor.visitorExpressao_PREFIXO_INCREMENTO(self)
     
 class Expressao_POSFIXO_INCREMENTO(Expressao):
     def __init__(self, operando):
         self.operando = operando
 
     def accept(self, visitor):
-        return visitor.visitor_POSFIXO_INCREMENTO(self)
+        return visitor.visitorExpressao_POSFIXO_INCREMENTO(self)
     
 class Expressao_PREFIXO_DECREMENTO(Expressao):
     def __init__(self, operando):
         self.operando = operando
 
     def accept(self, visitor):
-        return visitor.visitor_PREFIXO_DECREMENTO(self)
+        return visitor.visitorExpressao_PREFIXO_DECREMENTO(self)
     
 class Expressao_POSFIXO_DECREMENTO(Expressao):
     def __init__(self, operando):
         self.operando = operando
 
     def accept(self, visitor):
-        return visitor.visitor_POSFIXO_INCREMENTO(self)
+        return visitor.visitorExpressao_POSFIXO_INCREMENTO(self)
 
 class Expressao_PARENTESES(Expressao):
     def __init__(self, expressao):
         self.expressao = expressao
 
     def accept(self, visitor):
-        return visitor.visitor_PARENTESES(self)
+        return visitor.visitorExpressao_PARENTESES(self)
 
 class Expressao_VALOR(Expressao):
     def __init__(self, valor, tipo):
@@ -295,28 +295,28 @@ class Expressao_VALOR(Expressao):
         self.tipo = tipo
 
     def accept(self, visitor):
-        return visitor.visitor_VALOR(self)
+        return visitor.visitorExpressao_VALOR(self)
 
 class Expressao_TIPO(Expressao):
     def __init__(self, tipo):
         self.tipo = tipo
 
     def accept(self, visitor):
-        return visitor.visitor_TIPO(self)
+        return visitor.visitorExpressao_TIPO(self)
 
 class SAY(Expressao):
     def __init__(self, exp):
         self.exp = exp
 
     def accept(self, visitor):
-        return visitor.visitor_SAY(self)
+        return visitor.visitorSAY(self)
 
 class PARAMETROS(Expressao):
     def __init__(self, escalar):
         self.escalar = escalar
     
     def accept(self, visitor):
-        return visitor.visitor_PARAMETROS(self)
+        return visitor.visitorPARAMETROS(self)
 
 class PARAMETROSMULT(Expressao):
     def __init__(self, escalar, outros_parametros):
@@ -324,7 +324,7 @@ class PARAMETROSMULT(Expressao):
         self.outros_parametros = outros_parametros
 
     def accept(self, visitor):
-        return visitor.visitor_PARAMETROSMULT(self)
+        return visitor.visitorPARAMETROSMULT(self)
 
 class CHAMADA_FUNCAO(Expressao):
     def __init__(self, id, valor):
@@ -332,14 +332,14 @@ class CHAMADA_FUNCAO(Expressao):
         self.valor = valor
 
     def accept(self, visitor):
-        return visitor.visitor_CHAMADA_FUNCAO(self)
+        return visitor.visitorCHAMADA_FUNCAO(self)
         
 class CHAMADA_FUNCAO_SEM_PARAMETRO(Expressao):
     def __init__(self, id):
         self.id = id
         
     def accept(self, visitor):
-        return visitor.visitor_CHAMADA_FUNCAO_SEM_PARAMETRO(self)
+        return visitor.visitorCHAMADA_FUNCAO_SEM_PARAMETRO(self)
 
 class Atribuicao(Expressao):
     def __init__(self, variavel, valor):
