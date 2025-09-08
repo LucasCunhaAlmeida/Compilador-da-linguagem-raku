@@ -75,6 +75,7 @@ Unused terminals:
 
 Grammar
 
+<<<<<<< Updated upstream
 Rule 0     S' -> exp
 Rule 1     exp -> exp_tip
 Rule 2     exp -> exp_logic
@@ -95,6 +96,199 @@ Rule 16    exp_tip -> INTEGER
 Rule 17    exp_tip -> FLOAT
 Rule 18    exp_tip -> STRING
 Rule 19    exp_tip -> ID
+=======
+Rule 0     S' -> programa
+Rule 1     programa -> lista_declaracoes
+Rule 2     lista_declaracoes -> lista_declaracoes declaracoes
+Rule 3     lista_declaracoes -> declaracoes
+Rule 4     lista_declaracoes_para_funcoes -> lista_declaracoes declaracoes_para_funcoes
+Rule 5     lista_declaracoes_para_funcoes -> declaracoes_para_funcoes
+Rule 6     exp_2 -> or
+Rule 7     exp_2 -> xor
+Rule 8     exp_2 -> exp_3
+Rule 9     or -> exp_2 OR_S exp_3
+Rule 10    xor -> exp_2 XOR_S exp_3
+Rule 11    exp_3 -> and
+Rule 12    exp_3 -> exp_4
+Rule 13    and -> exp_3 AND_S exp_4
+Rule 14    exp_4 -> igual_dp
+Rule 15    exp_4 -> dif
+Rule 16    exp_4 -> maior
+Rule 17    exp_4 -> menor
+Rule 18    exp_4 -> maior_igual
+Rule 19    exp_4 -> menor_igual
+Rule 20    exp_4 -> smartmatch
+Rule 21    exp_4 -> exp_5
+Rule 22    igual_dp -> exp_4 IGUAL_DP exp_5
+Rule 23    dif -> exp_4 DIF exp_5
+Rule 24    maior -> exp_4 MAIOR exp_5
+Rule 25    menor -> exp_4 MENOR exp_5
+Rule 26    maior_igual -> exp_4 MAIOR_IGL exp_5
+Rule 27    menor_igual -> exp_4 LESSEQUAL exp_5
+Rule 28    smartmatch -> exp_4 SMARTMATCH exp_5
+Rule 29    exp_5 -> adicao
+Rule 30    exp_5 -> subtracao
+Rule 31    exp_5 -> conc
+Rule 32    exp_5 -> exp_6
+Rule 33    adicao -> exp_5 ADC exp_6
+Rule 34    subtracao -> exp_5 SUB exp_6
+Rule 35    conc -> exp_5 CONC exp_6
+Rule 36    exp_6 -> mult
+Rule 37    exp_6 -> divide
+Rule 38    exp_6 -> div
+Rule 39    exp_6 -> divi
+Rule 40    exp_6 -> mod
+Rule 41    exp_6 -> lcm
+Rule 42    exp_6 -> gcd
+Rule 43    exp_6 -> exp_7
+Rule 44    mult -> exp_6 MULT exp_7
+Rule 45    divide -> exp_6 DIVIDE exp_7
+Rule 46    div -> exp_6 DIV exp_7
+Rule 47    divi -> exp_6 DIVI exp_7
+Rule 48    mod -> exp_6 MOD exp_7
+Rule 49    lcm -> exp_6 LCM exp_7
+Rule 50    gcd -> exp_6 GCD exp_7
+Rule 51    exp_7 -> pow
+Rule 52    exp_7 -> exp_8
+Rule 53    pow -> exp_7 POW exp_8
+Rule 54    exp_8 -> not_op
+Rule 55    exp_8 -> not_s
+Rule 56    exp_8 -> exp_9
+Rule 57    not_op -> NOT exp_8
+Rule 58    not_s -> NEGAC exp_8
+Rule 59    exp_9 -> unario
+Rule 60    exp_9 -> operando
+Rule 61    unario -> prefixo_incremento
+Rule 62    unario -> posfixo_incremento
+Rule 63    unario -> prefixo_decremento
+Rule 64    unario -> posfixo_decremento
+Rule 65    prefixo_incremento -> ADC_DP escalar
+Rule 66    posfixo_incremento -> escalar ADC_DP
+Rule 67    prefixo_decremento -> DECREMENTO escalar
+Rule 68    posfixo_decremento -> escalar DECREMENTO
+Rule 69    operando -> parenteses
+Rule 70    operando -> completo
+Rule 71    parenteses -> LPAREN exp_2 RPAREN
+Rule 72    completo -> tipo
+Rule 73    completo -> chamada_funcao
+Rule 74    completo -> chamada_funcao_sem_parametro
+Rule 75    completo -> escalar
+Rule 76    tipo -> inteiro
+Rule 77    tipo -> float
+Rule 78    tipo -> string
+Rule 79    tipo -> boolean
+Rule 80    tipo_opicional -> tipo_opicional_int
+Rule 81    tipo_opicional -> tipo_opicional_str
+Rule 82    tipo_opicional -> empty
+Rule 83    tipo_opicional_int -> INT
+Rule 84    tipo_opicional_str -> STR
+Rule 85    empty -> <empty>
+Rule 86    inteiro -> INTEGER
+Rule 87    float -> FLOAT
+Rule 88    string -> STRING
+Rule 89    boolean -> BOOLEAN
+Rule 90    escalar -> ESCALAR
+Rule 91    declaracao_escalar_MY -> MY tipo_opicional ESCALAR IGUAL exp_2 PONTO_VIRGULA
+Rule 92    declaracao_escalar_OUR -> OUR tipo_opcional ESCALAR IGUAL exp_2 PONTO_VIRGULA
+Rule 93    declaracao_lista -> LIST IGUAL lista_valores PONTO_VIRGULA
+Rule 94    declaracao_lista_MY -> MY LIST IGUAL lista_valores PONTO_VIRGULA
+Rule 95    declaracao_lista_OUR -> OUR LIST IGUAL lista_valores PONTO_VIRGULA
+Rule 96    lista_valores -> lista_valores COMMA tipo
+Rule 97    lista_valores -> lista_valores_base
+Rule 98    lista_valores_base -> tipo
+Rule 99    loop_for -> FOR inteiro INTERPOLACAO inteiro SETA ESCALAR ABRE_CHAVE lista_declaracoes FECHA_CHAVE
+Rule 100   loop_for_com_lista -> FOR LIST SETA ESCALAR ABRE_CHAVE lista_declaracoes FECHA_CHAVE
+Rule 101   loop_while -> WHILE exp_2 ABRE_CHAVE lista_declaracoes FECHA_CHAVE
+Rule 102   loop -> LOOP LPAREN declaracao_escalar_MY exp_2 PONTO_VIRGULA atribuicao RPAREN ABRE_CHAVE lista_declaracoes FECHA_CHAVE
+Rule 103   loop_sem_condicao -> LOOP ABRE_CHAVE lista_declaracoes FECHA_CHAVE
+Rule 104   say -> SAY say_func PONTO_VIRGULA
+Rule 105   say_func -> exp_2
+Rule 106   say_func -> LIST
+Rule 107   funcao_com_params -> FUNCTION ID LPAREN parametros RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE
+Rule 108   funcao_sem_params -> FUNCTION ID LPAREN RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE
+Rule 109   parametros -> tipo_opicional ESCALAR
+Rule 110   parametros -> parametros COMMA tipo_opicional ESCALAR
+Rule 111   atribuicao -> ESCALAR IGUAL exp_2
+Rule 112   chamada_funcao -> ID LPAREN chamada_funcao_auxiliar RPAREN
+Rule 113   chamada_funcao_sem_parametro -> ID LPAREN RPAREN
+Rule 114   chamada_funcao_auxiliar -> chamada_funcao_auxiliar COMMA exp_2
+Rule 115   chamada_funcao_auxiliar -> exp_2
+Rule 116   condicional -> IF exp_2 bloco
+Rule 117   condicional -> IF exp_2 bloco ELSE bloco
+Rule 118   condicional -> IF exp_2 bloco lista_elsif
+Rule 119   condicional -> IF exp_2 bloco lista_elsif ELSE bloco
+Rule 120   lista_elsif -> ELSIF exp_2 bloco
+Rule 121   lista_elsif -> lista_elsif ELSIF exp_2 bloco
+Rule 122   bloco -> ABRE_CHAVE lista_declaracoes FECHA_CHAVE
+Rule 123   declaracoes -> declaracoes_para_funcoes
+Rule 124   declaracoes -> declaracao_multi
+Rule 125   declaracoes -> declaracao_multi_sem_par
+Rule 126   declaracoes -> declaracao_only
+Rule 127   declaracoes -> declaracao_only_sem_par
+Rule 128   declaracoes -> declaracao_de_funcao
+Rule 129   declaracoes_para_funcoes -> declaracao_de_atribuicao
+Rule 130   declaracoes_para_funcoes -> say
+Rule 131   declaracoes_para_funcoes -> comentario
+Rule 132   declaracoes_para_funcoes -> declaracao_de_condicional
+Rule 133   declaracoes_para_funcoes -> declaracao_loop
+Rule 134   declaracoes_para_funcoes -> declaracao_de_expressao
+Rule 135   declaracoes_para_funcoes -> declaracao_bloco
+Rule 136   declaracoes_para_funcoes -> declaracao_escalar_MY
+Rule 137   declaracoes_para_funcoes -> declaracao_escalar_OUR
+Rule 138   declaracoes_para_funcoes -> declaracao_lista
+Rule 139   declaracoes_para_funcoes -> declaracao_lista_MY
+Rule 140   declaracoes_para_funcoes -> declaracao_lista_OUR
+Rule 141   declaracoes_para_funcoes -> declaracao_de_controle_de_fluxo
+Rule 142   declaracoes_para_funcoes -> declaracao_de_controle_de_escopo
+Rule 143   declaracoes_para_funcoes -> declaracao_de_controle_de_modularizacao
+Rule 144   declaracoes_para_funcoes -> declaracao_de_controle_de_lista
+Rule 145   comentario -> COMMENT
+Rule 146   declaracao_de_atribuicao -> atribuicao PONTO_VIRGULA
+Rule 147   declaracao_de_funcao -> funcao_com_params
+Rule 148   declaracao_de_funcao -> funcao_sem_params
+Rule 149   declaracao_de_condicional -> condicional
+Rule 150   declaracao_loop -> loop
+Rule 151   declaracao_loop -> loop_for
+Rule 152   declaracao_loop -> loop_for_com_lista
+Rule 153   declaracao_loop -> loop_while
+Rule 154   declaracao_loop -> loop_sem_condicao
+Rule 155   declaracao_de_expressao -> exp_2 PONTO_VIRGULA
+Rule 156   declaracao_bloco -> bloco
+Rule 157   declaracao_de_controle_de_fluxo -> declaracao_break
+Rule 158   declaracao_de_controle_de_fluxo -> declaracao_exit
+Rule 159   declaracao_de_controle_de_fluxo -> declaracao_last
+Rule 160   declaracao_de_controle_de_fluxo -> declaracao_next
+Rule 161   declaracao_de_controle_de_fluxo -> declaracao_redo
+Rule 162   declaracao_de_controle_de_fluxo -> declaracao_return
+Rule 163   declaracao_de_controle_de_escopo -> declaracao_constant
+Rule 164   declaracao_de_controle_de_escopo -> declaracao_state
+Rule 165   declaracao_de_controle_de_modularizacao -> import
+Rule 166   declaracao_de_controle_de_modularizacao -> need
+Rule 167   declaracao_de_controle_de_modularizacao -> require
+Rule 168   declaracao_de_controle_de_modularizacao -> use
+Rule 169   declaracao_de_controle_de_lista -> push
+Rule 170   declaracao_de_controle_de_lista -> unshift
+Rule 171   declaracao_de_controle_de_lista -> splice
+Rule 172   declaracao_break -> BREAK PONTO_VIRGULA
+Rule 173   declaracao_exit -> EXIT exp_2 PONTO_VIRGULA
+Rule 174   declaracao_last -> LAST PONTO_VIRGULA
+Rule 175   declaracao_next -> NEXT PONTO_VIRGULA
+Rule 176   declaracao_redo -> REDO IF BOOLEAN PONTO_VIRGULA
+Rule 177   declaracao_return -> RETURN exp_2 PONTO_VIRGULA
+Rule 178   declaracao_constant -> CONSTANT ESCALAR IGUAL exp_2 PONTO_VIRGULA
+Rule 179   declaracao_state -> STATE ESCALAR IGUAL exp_2 PONTO_VIRGULA
+Rule 180   declaracao_multi -> MULTI ID LPAREN parametros RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE
+Rule 181   declaracao_multi_sem_par -> MULTI ID LPAREN RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE
+Rule 182   declaracao_only -> ONLY ID LPAREN parametros RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE
+Rule 183   declaracao_only_sem_par -> ONLY ID LPAREN RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE
+Rule 184   import -> IMPORT ID MENOR ID MAIOR PONTO_VIRGULA
+Rule 185   need -> NEED ID PONTO_VIRGULA
+Rule 186   require -> REQUIRE ID PONTO_VIRGULA
+Rule 187   use -> USE ID PONTO_VIRGULA
+Rule 188   push -> PUSH LIST COMMA lista_valores PONTO_VIRGULA
+Rule 189   unshift -> UNSHIFT LIST COMMA lista_valores PONTO_VIRGULA
+Rule 190   splice -> SPLICE LIST COMMA lista_valores PONTO_VIRGULA
+>>>>>>> Stashed changes
 
 Terminals, with rules where they appear
 
@@ -188,6 +382,7 @@ error                :
 
 Nonterminals, with rules where they appear
 
+<<<<<<< Updated upstream
 exp                  : 4 4 5 5 6 6 7 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 0
 exp_comp             : 3
 exp_logic            : 2
@@ -1250,3 +1445,115 @@ state 32
   ! LESSEQUAL       [ shift and go to state 19 ]
   ! SMARTMATCH      [ shift and go to state 20 ]
 
+=======
+adicao               : 29
+and                  : 11
+atribuicao           : 102 146
+bloco                : 116 117 117 118 119 119 120 121 156
+boolean              : 79
+chamada_funcao       : 73
+chamada_funcao_auxiliar : 112 114
+chamada_funcao_sem_parametro : 74
+comentario           : 131
+completo             : 70
+conc                 : 31
+condicional          : 149
+declaracao_bloco     : 135
+declaracao_break     : 157
+declaracao_constant  : 163
+declaracao_de_atribuicao : 129
+declaracao_de_condicional : 132
+declaracao_de_controle_de_escopo : 142
+declaracao_de_controle_de_fluxo : 141
+declaracao_de_controle_de_lista : 144
+declaracao_de_controle_de_modularizacao : 143
+declaracao_de_expressao : 134
+declaracao_de_funcao : 128
+declaracao_escalar_MY : 102 136
+declaracao_escalar_OUR : 137
+declaracao_exit      : 158
+declaracao_last      : 159
+declaracao_lista     : 138
+declaracao_lista_MY  : 139
+declaracao_lista_OUR : 140
+declaracao_loop      : 133
+declaracao_multi     : 124
+declaracao_multi_sem_par : 125
+declaracao_next      : 160
+declaracao_only      : 126
+declaracao_only_sem_par : 127
+declaracao_redo      : 161
+declaracao_return    : 162
+declaracao_state     : 164
+declaracoes          : 2 3
+declaracoes_para_funcoes : 4 5 123
+dif                  : 15
+div                  : 38
+divi                 : 39
+divide               : 37
+empty                : 82
+escalar              : 65 66 67 68 75
+exp_2                : 9 10 71 91 92 101 102 105 111 114 115 116 117 118 119 120 121 155 173 177 178 179
+exp_3                : 8 9 10 13
+exp_4                : 12 13 22 23 24 25 26 27 28
+exp_5                : 21 22 23 24 25 26 27 28 33 34 35
+exp_6                : 32 33 34 35 44 45 46 47 48 49 50
+exp_7                : 43 44 45 46 47 48 49 50 53
+exp_8                : 52 53 57 58
+exp_9                : 56
+float                : 77
+funcao_com_params    : 147
+funcao_sem_params    : 148
+gcd                  : 42
+igual_dp             : 14
+import               : 165
+inteiro              : 76 99 99
+lcm                  : 41
+lista_declaracoes    : 1 2 4 99 100 101 102 103 122
+lista_declaracoes_para_funcoes : 107 108 180 181 182 183
+lista_elsif          : 118 119 121
+lista_valores        : 93 94 95 96 188 189 190
+lista_valores_base   : 97
+loop                 : 150
+loop_for             : 151
+loop_for_com_lista   : 152
+loop_sem_condicao    : 154
+loop_while           : 153
+maior                : 16
+maior_igual          : 18
+menor                : 17
+menor_igual          : 19
+mod                  : 40
+mult                 : 36
+need                 : 166
+not_op               : 54
+not_s                : 55
+operando             : 60
+or                   : 6
+parametros           : 107 110 180 182
+parenteses           : 69
+posfixo_decremento   : 64
+posfixo_incremento   : 62
+pow                  : 51
+prefixo_decremento   : 63
+prefixo_incremento   : 61
+programa             : 0
+push                 : 169
+require              : 167
+say                  : 130
+say_func             : 104
+smartmatch           : 20
+splice               : 171
+string               : 78
+subtracao            : 30
+tipo                 : 72 96 98
+tipo_opcional        : 92
+tipo_opicional       : 91 109 110
+tipo_opicional_int   : 80
+tipo_opicional_str   : 81
+unario               : 59
+unshift              : 170
+use                  : 168
+xor                  : 7
+
+>>>>>>> Stashed changes
