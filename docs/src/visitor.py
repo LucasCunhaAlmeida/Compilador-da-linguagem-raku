@@ -238,10 +238,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
         print(f"only {only.id} {{")
         only.comando.accept(self)
         print("}")
-
-    def visitorUnit(self, unit):
-        print("unit;")
-
+        
     def visitorDeclaracaoEscalarMY(self, declaracao):
         print(blank() + "my ", end="")
         if declaracao.tipo:

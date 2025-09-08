@@ -16,10 +16,6 @@ class abstractvisitor(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def visitorLoopTimes(self, loopTimes):
-        pass
-
-    @abstractmethod
     def visitorLoopWhile(self, loopWhile):
         pass
 
@@ -213,10 +209,6 @@ class abstractvisitor(metaclass=ABCMeta):
 
     @abstractmethod
     def visitorOnly(self, Only):
-        pass
-
-    @abstractmethod
-    def visitorUnit(self, Unit):
         pass
 
     @abstractmethod

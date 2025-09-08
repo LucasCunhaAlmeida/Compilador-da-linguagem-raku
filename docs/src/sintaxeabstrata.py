@@ -415,10 +415,6 @@ class Only(Expressao):
         self.comando = comando
     def accept(self, visitor):
         return visitor.visitorOnly(self)
-
-class Unit(Expressao):
-    def accept(self, visitor):
-        return visitor.visitorUnit(self)
     
 # --- IMPORTAÇÃO E MODULARIZAÇÃO ---
 
