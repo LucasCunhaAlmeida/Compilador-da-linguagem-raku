@@ -1,9 +1,7 @@
-from abstractVisitor import abstractVisitor
+from abstractvisitor import abstractvisitor
 import lexico
-import sintatico  # importa o arquivo sintatico.py, que tem as regras do parser
 #from sintatico import *
 import ply.lex as lex
-import ply.yacc as yacc
 import os
 
 tab = 0
@@ -14,7 +12,7 @@ def blank():
         p = p + ' '
     return p
 
-class Visitor(abstractVisitor):
+class visitor(abstractvisitor):
 
 # ------------------Funções-------------------------------
     def visitorCompoundFuncao(self, func):
@@ -41,6 +39,9 @@ class Visitor(abstractVisitor):
 
 
 # ------------------Repetição-------------------------------
+    def visitorDeclaracaoLoop(self, declaracao_loop):
+        declaracao_loop.loop.accept(self)
+
     def visitorLoopFor(self, loop_for):
         print(f"for {loop_for.expr} -> {loop_for.id} {{")
         loop_for.comando.accept(self)
@@ -61,6 +62,16 @@ class Visitor(abstractVisitor):
         loop_sem_condicao.comando.accept(self)
         print("}")
 
+    def visitorLoopForLista(self, loop_for_lista):
+        print(f"loop {loop_for_lista.escalar} in ", end="")
+        loop_for_lista.lista.accept(self)
+
+        print(" {")
+    
+        for comando in loop_for_lista.comandos:
+            comando.accept(self)
+    
+        print("}")
 
 #----------------------------------------------------Expressoes--------
     def visitorExpressaoOR(self, oor):
@@ -229,9 +240,8 @@ def visitorCHAMADA_FUNCAO(self, chamada):
 
     def visitorUnit(self, unit):
         print("unit;")
-        unit.comando.accept(self)
 
-    def visitDeclaracaoEscalarMY(self, declaracao):
+    def visitorDeclaracaoEscalarMY(self, declaracao):
         print(blank() + "my ", end="")
         if declaracao.tipo:
             declaracao.tipo.accept(self)
@@ -241,7 +251,30 @@ def visitorCHAMADA_FUNCAO(self, chamada):
         declaracao.valor.accept(self)
         print(";")
 
-    def visitDeclaracaoListaMY(self, declaracao):
+    def visitorDeclaracaoEscalarOUR(self, declaracao):
+        print(blank() + "our ", end="")
+        if declaracao.tipo:
+            declaracao.tipo.accept(self)
+            print(" ", end="")
+        
+        print(f"{declaracao.escalar} = ", end="")
+        declaracao.valor.accept(self)
+        print(";")
+
+    def visitorDeclaracaoLista(self, declaracao):
+        print(" ", end="")
+        if declaracao.tipo:
+            declaracao.tipo.accept(self)
+            print(" ", end="")
+
+        print(f"{declaracao.list} = (", end="")
+        for i, v in enumerate(declaracao.valores):
+            v.accept(self)
+            if i < len(declaracao.valores) - 1:
+                print(", ", end="")
+        print(");")
+
+    def visitorDeclaracaoListaMY(self, declaracao):
         print("my ", end="")
         if declaracao.tipo:
             declaracao.tipo.accept(self)
@@ -254,26 +287,17 @@ def visitorCHAMADA_FUNCAO(self, chamada):
                 print(", ", end="")
         print(");")
 
-    def visitDeclaracaoExpressao(self, node):
-
-        def visitDeclaracaoExpressao(self, node):
-            print(self.blank(), end="")
-            node.expressao.accept(self)
-            print(";")
-    
-    def visitDeclaracaoBloco(self, node):
-        print(self.blank() + "{")
-        self.level += 1
-        node.bloco.accept(self)
-        self.level -= 1
-        print(self.blank() + "}")
-    
-    def visitorAtribuicao(self,node):
-        print(f"Atribuição: {node.variavel} = {node.valor}")
-       
-    def visitorComentario(self,node):
-         print(f"# {node.comentario}")
-         
+    def visitorDeclaracaoListaOUR(self, declaracao):
+        print("our ", end="")
+        if declaracao.tipo:
+            declaracao.tipo.accept(self)
+            print(" ", end="")
+        print(f"{declaracao.list} = (", end="")
+        for i, v in enumerate(declaracao.valores):
+            v.accept(self)
+            if i < len(declaracao.valores) - 1:
+                print(", ", end="")
+        print(");")
 
     # ------------------Importação/Modularização-------------------------------
     def visitorExport(self, export):
@@ -303,10 +327,10 @@ def visitorCHAMADA_FUNCAO(self, chamada):
         print(f"splice {splice.escalar}, {splice.inicio}, {splice.quantidade};")
 
     # ------------------Condicionais-------------------------------
-    def visitDeclaracaoCondicional(self, declaracao_condicional):
+    def visitorDeclaracaoCondicional(self, declaracao_condicional):
         declaracao_condicional.condicional.accept(self)
 
-    def visitCondicionalIf(self, condicional_if):
+    def visitorCondicionalIf(self, condicional_if):
         print("if (", end="")
         condicional_if.condicao.accept(self)  
         print(") {")
@@ -317,9 +341,9 @@ def visitorCHAMADA_FUNCAO(self, chamada):
                 print(stmt)
         print("}")
 
-    def visitCondicionalIfElse(self, condicional_if_else):
+    def visitorCondicionalIfElse(self, condicional_if_else):
         global tab
-        self.visitCondicionalIf(condicional_if_else)
+        self.visitorCondicionalIf(condicional_if_else)
         
         print(" else {")
         tab += 2
@@ -329,17 +353,17 @@ def visitorCHAMADA_FUNCAO(self, chamada):
         tab -= 2
         print(blank() + "}")
 
-    def visitCondicionalIfElsif(self, condicional_if_elsif):
+    def visitorCondicionalIfElsif(self, condicional_if_elsif):
        
-        self.visitCondicionalIf(condicional_if_elsif)
+        self.visitorCondicionalIf(condicional_if_elsif)
         
         for elsif_node in condicional_if_elsif.elsifs:
             elsif_node.accept(self)
 
-    def visitCondicionalIfElsifElse(self, condicional_if_elsif_else):
+    def visitorCondicionalIfElsifElse(self, condicional_if_elsif_else):
         global tab
         
-        self.visitCondicionalIfElsif(condicional_if_elsif_else)
+        self.visitorCondicionalIfElsif(condicional_if_elsif_else)
 
         print(" else {")
         tab += 2
@@ -349,7 +373,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
         tab -= 2
         print(blank() + "}")
 
-    def visitElsif(self, elsif):
+    def visitorElsif(self, elsif):
         global tab
         print(" elsif ", end="")
         elsif.condicao.accept(self)
@@ -367,7 +391,7 @@ def main():
     f = open(os.path.join(os.path.dirname(__file__), "main.raku"))
     lexer = lex.lex(module=lexico)
     lexer.input(f.read())
-    parser = yacc.yacc(module=sintatico, start='programa')
+    parser = yacc.yacc(start='programa')
     result = parser.parse(debug=False)
     print("imprime o programa que foi passado como entrada")
     visitor = Visitor()
