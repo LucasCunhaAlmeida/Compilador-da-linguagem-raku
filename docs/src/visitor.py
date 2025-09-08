@@ -1,9 +1,9 @@
-from abstractvisitor import abstractvisitor
+from abstractVisitor import abstractvisitor
 import lexico
-#from sintatico import *
+import sintatico
 import ply.lex as lex
 import os
-
+import ply.yacc as yacc
 tab = 0
 
 def blank():
@@ -202,6 +202,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
       # ------------------Controle de Fluxo-------------------------------
     def visitorBreak(self, Break):
         print("break;")
+        pass
 
     def visitorExit(self, exit):
         print("exit(", end=""); exit.exp.accept(self); print(");")
@@ -391,18 +392,18 @@ def main():
     f = open(os.path.join(os.path.dirname(__file__), "main.raku"))
     lexer = lex.lex(module=lexico)
     lexer.input(f.read())
-    parser = yacc.yacc(start='programa')
+    parser = yacc.yacc(module=sintatico, start='programa')
     result = parser.parse(debug=False)
     print("imprime o programa que foi passado como entrada")
-    visitor = Visitor()
-    result.accept(visitor)
+    vis = visitor()
+    result.accept(vis)
 
     if isinstance(result, list):
       for node in result:
         if node is not None:
-         node.accept(visitor)
+         node.accept(vis)
     else:
-     result.accept(visitor)
+     result.accept(vis)
 
 if __name__ == "__main__":
     main()

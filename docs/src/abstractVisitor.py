@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABCMeta
 
-class abstractvisitoror(metaclass=ABCMeta):
+class abstractvisitor(metaclass=ABCMeta):
 
 
     @abstractmethod
@@ -252,10 +252,6 @@ class abstractvisitoror(metaclass=ABCMeta):
         pass
     
     @abstractmethod
-    def visitorBreak(self, Break):
-        pass
-
-    @abstractmethod
     def visitorDeclaracaoCondicional(self, declaracaoCondicional):
         pass
 
@@ -264,7 +260,7 @@ class abstractvisitoror(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def visitorConicionalIfElse(self, condicionalIfElse):
+    def visitorCondicionalIfElse(self, condicionalIfElse):
         pass
 
     @abstractmethod
