@@ -278,3 +278,8 @@ class abstractVisitor(metaclass=ABCMeta):
     @abstractmethod
     def visitElsif(self, elsif):
         pass
+
+    @abstractmethod
+    def  visitDeclaracaoExpressao(self, node):
+        pass
+ 
