@@ -344,7 +344,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
 
     def visitorCondicionalIfElse(self, condicional_if_else):
         global tab
-        self.visitorCondicionalIf(condicional_if_else)
+        self.visitorCondicionalIfElse(condicional_if_else)
         
         print(" else {")
         tab += 2
@@ -356,7 +356,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
 
     def visitorCondicionalIfElsif(self, condicional_if_elsif):
        
-        self.visitorCondicionalIf(condicional_if_elsif)
+        self.visitorCondicionalIfElsif(condicional_if_elsif)
         
         for elsif_node in condicional_if_elsif.elsifs:
             elsif_node.accept(self)
@@ -364,7 +364,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
     def visitorCondicionalIfElsifElse(self, condicional_if_elsif_else):
         global tab
         
-        self.visitorCondicionalIfElsif(condicional_if_elsif_else)
+        self.visitorCondicionalIfElsifElse(condicional_if_elsif_else)
 
         print(" else {")
         tab += 2
