@@ -2,8 +2,7 @@ import ply.yacc as yacc
 import lexico as lex
 import sintaxeabstrata as sa
 import sys
-import os
-# from visitor import visitor
+#from visitor import Visitor
 
 tokens = lex.tokens
 
@@ -35,11 +34,11 @@ def p_exp_2(p):
 
 def p_or(p):
    '''or : exp_2 OR_S exp_3'''
-   p[0] = sa.ExpressaoOR(p[1], p[3])
+   p[0] = sa.visitExpressaoOR(p[1], p[3])
 
 def p_xor(p):
    '''xor : exp_2 XOR_S exp_3'''
-   p[0] = sa.ExpressaoXOR(p[1], p[3])
+   p[0] = sa.visitExpressaoXOR(p[1], p[3])
 
 def p_exp_3(p):
    '''exp_3 : and
@@ -48,7 +47,7 @@ def p_exp_3(p):
 
 def p_and(p):
    '''and : exp_3 AND_S exp_4'''
-   p[0] = sa.ExpressaoAND(p[1], p[3])
+   p[0] = sa.visitExpressaoAND(p[1], p[3])
 
 def p_exp_4(p):
    '''exp_4 : igual_dp
@@ -63,11 +62,11 @@ def p_exp_4(p):
 
 def p_igual_dp(p):
    '''igual_dp : exp_4 IGUAL_DP exp_5'''
-   p[0] = sa.ExpressaoIGUAL_DP(p[1], p[3])
+   p[0] = sa.visitExpressaoIGUAL_DP(p[1], p[3])
 
 def p_dif(p):
     '''dif : exp_4 DIF exp_5'''
-    p[0] = sa.ExpressaoDIF(p[1], p[3])
+    p[0] = sa.visitExpressaoDIF(p[1], p[3])
 
 def p_maior(p):
    '''maior : exp_4 MAIOR exp_5'''
@@ -271,37 +270,33 @@ def p_error(p):
 # --- DECLARAÇÕES DE VARIÁVEIS ---
 def p_declaracao_escalar_MY(p):
   '''declaracao_escalar_MY : MY tipo_opicional ESCALAR IGUAL exp_2 PONTO_VIRGULA''' # Problema com o ponto e virgula
-  p[0] = sa.DeclaracaoEscalarMY(p[2], p[3], p[5])
+  pass
 
 def p_declaracao_escalar_OUR(p):
-  '''declaracao_escalar_OUR : OUR tipo_opicional ESCALAR IGUAL exp_2 PONTO_VIRGULA''' # Problema com o ponto e virgula
-  p[0] = sa.DeclaracaoEscalarOUR(p[2], p[3], p[5])
+  '''declaracao_escalar_OUR : OUR ESCALAR IGUAL exp_2 PONTO_VIRGULA''' # Problema com o ponto e virgula
+  pass
 
 def p_declaracao_lista(p):
-  '''declaracao_lista : tipo_opicional LIST IGUAL lista_valores PONTO_VIRGULA'''
-  p[0] = sa.DeclaracaoLista(p[1], p[2], p[3])
+  '''declaracao_lista : LIST IGUAL lista_valores PONTO_VIRGULA'''
+  pass
 
 def p_declaracao_lista_my(p):
-  '''declaracao_lista_MY : MY tipo_opicional LIST IGUAL lista_valores PONTO_VIRGULA''' 
-  p[0] = sa.DeclaracaoListaMY(p[2], p[3], p[5])
+  '''declaracao_lista_MY : MY LIST IGUAL lista_valores PONTO_VIRGULA''' 
+  pass
 
 def p_declaracao_lista_our(p):
-  '''declaracao_lista_OUR : OUR tipo_opicional LIST IGUAL lista_valores PONTO_VIRGULA'''
-  p[0] = sa.DeclaracaoListaOUR(p[2], p[3], p[5])
+  '''declaracao_lista_OUR : OUR LIST IGUAL lista_valores PONTO_VIRGULA'''
+  pass
 
   # Aqui você criaria um nó na AST para a declaração
 
 def p_lista_valores(p):
    '''lista_valores : lista_valores COMMA tipo 
                     | lista_valores_base '''
-   if len(p) == 4:
-        p[0] = p[1] + [p[3]]
-   else:
-        p[0] = p[1]
 
 def p_lista_valores_base(p):
   '''lista_valores_base : tipo'''
-  p[0] = [p[1]]
+  pass
 
 # --- ESTRUTURAS DE REPETIÇÃO ---
 
@@ -312,7 +307,7 @@ def p_loop_for(p):
 def p_loop_for_com_lista(p):
     '''loop_for_com_lista : FOR LIST SETA ESCALAR ABRE_CHAVE lista_declaracoes FECHA_CHAVE''' 
    # p[0] = sa.LoopFor(p[2], p[4])
-    p[0] = sa.LoopFor(p[2], p[4], p[6])
+    pass
 
 def p_loop_while(p):
     # Alterei para usar exp_2 para consistência
@@ -386,27 +381,21 @@ def p_chamada_funcao_auxiliar(p):
 # --- CONDICIONAIS (COM NOMES ÚNICOS) ---
 def p_condicional_if(p):
     '''condicional : IF exp_2 bloco'''
-    p[0] = sa.CondicionalIf(p[2], p[3])
 
 def p_condicional_if_else(p):
     '''condicional : IF exp_2 bloco ELSE bloco'''
-    p[0] = sa.CondicionalIfElse(p[2], p[3], p[5])
 
 def p_condicional_if_elsif(p):
     '''condicional : IF exp_2 bloco lista_elsif'''
-    p[0] = sa.CondicionalIfElsif(p[2], p[3], p[4])
 
 def p_condicional_if_elsif_else(p):
     '''condicional : IF exp_2 bloco lista_elsif ELSE bloco'''
-    p[0] = sa.CondicionalIfElsifElse(p[2], p[3], p[4], p[6])
 
 def p_lista_elsif_base(p):
     '''lista_elsif : ELSIF exp_2 bloco'''
-    p[0] = [sa.Elsif(p[2], p[3])]
 
 def p_lista_elsif_recursiva(p):
     '''lista_elsif : lista_elsif ELSIF exp_2 bloco'''
-    p[0] = p[1] + [sa.Elsif(p[3], p[4])]
 
 # --- ESTRUTURA DE BLOCOS E DECLARAÇÕES (COM NOMES ÚNICOS) ---
 def p_bloco_chaves(p):
@@ -448,7 +437,6 @@ def p_comentario(p):
 
 def p_declaracao_de_atribuicao(p):
     '''declaracao_de_atribuicao : atribuicao PONTO_VIRGULA'''
-    p[0] = p[1]
 
 def p_declaracao_de_funcao(p):
     '''declaracao_de_funcao : funcao_com_params 
@@ -457,7 +445,6 @@ def p_declaracao_de_funcao(p):
 
 def p_declaracao_de_condicional(p):
    '''declaracao_de_condicional : condicional'''
-   p[0] = sa.DeclaracaoCondicional(p[1])
 
 def p_declaracao_de_loop(p):
     '''declaracao_loop : loop
@@ -465,15 +452,12 @@ def p_declaracao_de_loop(p):
                        | loop_for_com_lista 
                        | loop_while
                        | loop_sem_condicao '''
-    p[0] = sa.DeclaracaoLoop(p[1])
 
 def p_declaracao_de_expressao(p):
     '''declaracao_de_expressao : exp_2 PONTO_VIRGULA'''
-    p[0] = sa.DeclaracaoExpressao(p[1])
 
 def p_declaracao_de_bloco(p):
     '''declaracao_bloco : bloco'''
-    p[0] = sa.DeclaracaoBloco(p[1])
 
 def p_declaracao_de_controle_de_fluxo(p):
     '''declaracao_de_controle_de_fluxo : declaracao_break 
@@ -541,19 +525,19 @@ def p_declaracao_state(p):
 
 def p_declaracao_multi(p):
     '''declaracao_multi : MULTI ID LPAREN parametros RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
-    p[0] = sa.Multi(p[2], p[4], p[7])
+    p[0] = sa.Multi(p[2])
 
 def p_declaracao_multi_sem_par(p):
     '''declaracao_multi_sem_par : MULTI ID LPAREN RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
-    p[0] = sa.Multi(p[2], [], p[6])
+    p[0] = sa.Multi(p[2])
 
 def p_declaracao_only(p):
     '''declaracao_only : ONLY ID LPAREN parametros RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
-    p[0] = sa.Only(p[2], p[4], p[7])
+    p[0] = sa.Only(p[2])
 
 def p_declaracao_only_sem_par(p):
     '''declaracao_only_sem_par : ONLY ID LPAREN RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
-    p[0] = sa.Only(p[2], [], p[6])
+    p[0] = sa.Only(p[2])
 
 
 # --- IMPORTAÇÃO E MODULARIZAÇÃO ---
@@ -592,8 +576,7 @@ def p_splice(p):
 
 def main():
 
-    # Caminho relativo
-    caminho = os.path.join(os.path.dirname(__file__), "main.raku")
+    caminho = "./main.raku"
 
     try:
         with open(caminho, "r", encoding="utf-8") as f:
@@ -613,7 +596,8 @@ def main():
 '''
     print("\n=== Visitando com Visitor ===")
     visitor = Visitor()
-    result.accept(visitor)   # testando o visitor
+    result.accept(visitor)   # testando o visitor]
+
 '''
 
 if __name__ == "__main__":

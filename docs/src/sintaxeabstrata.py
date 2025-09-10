@@ -14,17 +14,16 @@ class CompoundFuncao(Funcao):
         self.parametros = parametros
         self.comando = comando
     def accept(self, visitor):
-        return visitor.visitCompoundFuncao(self)
+        return visitor.visitorCompoundFuncao(self)
 
 class CompoundFuncaoSemParametros(Funcao):
     def __init__(self, id, comando):
         self.id= id
         self.comando = comando
     def accept(self, visitor):
-        return visitor.visitCompoundFuncaoSemParametros(self)
+        return visitor.visitorCompoundFuncaoSemParametros(self)
 
 
-    
 
 class Loop(metaclass=ABCMeta):
     @abstractmethod
@@ -38,7 +37,7 @@ class LoopFor(Loop):
         self.comando = comando    
     
     def accept(self, visitor):
-        return visitor.visitLoopFor(self)
+        return visitor.visitorLoopFor(self)
 
 class LoopWhile(Loop):
     def __init__(self, limite, comando):      
@@ -46,7 +45,7 @@ class LoopWhile(Loop):
         self.comando = comando  
     
     def accept(self, visitor):
-        return visitor.visitLoopWhile(self)
+        return visitor.visitorLoopWhile(self)
 
 class LoopRepeticao(Loop):
     def __init__(self, instrucao1, instrucao2, instrucao3, comando):
@@ -56,14 +55,14 @@ class LoopRepeticao(Loop):
         self.comando = comando
     
     def accept(self, visitor):
-        return visitor.visitLoopRepeticao(self)
+        return visitor.visitorLoopRepeticao(self)
 
 class LoopSemCondicao(Loop):
     def __init__(self, comando):
         self.comando = comando
     
     def accept(self, visitor):
-        return visitor.visitLoopSemCondicao(self)
+        return visitor.visitorLoopSemCondicao(self)
 
 # Operações
 
@@ -405,13 +404,17 @@ class State(Expressao):
         return visitor.visitorState(self)
 
 class Multi(Expressao):
-    def __init__(self, comando):
+    def __init__(self, id, parametros, comando):
+        self.id = id
+        self.parametros = parametros
         self.comando = comando
     def accept(self, visitor):
         return visitor.visitorMulti(self)
 
 class Only(Expressao):
-    def __init__(self, comando):
+    def __init__(self, id, parametros, comando):
+        self.id = id
+        self.parametros = parametros
         self.comando = comando
     def accept(self, visitor):
         return visitor.visitorOnly(self)
@@ -477,36 +480,40 @@ class DeclaracaoEscalarMY:
         self.escalar = escalar
         self.valor = valor
     def accept(self, visitor):
-        return visitor.visitDeclaracaoEscalarMY(self)
+        return visitor.visitorDeclaracaoEscalarMY(self)
     
 
 class DeclaracaoEscalarOUR:
-    def __init__(self, escalar, valor):
+    def __init__(self, tipo, escalar, valor):
+        self.tipo = tipo
         self.escalar = escalar
         self.valor = valor
     def accept(self, visitor):
-        return visitor.visitDeclaracaoEscalarOUR(self)
+        return visitor.visitorDeclaracaoEscalarOUR(self)
 
 class DeclaracaoLista:
-    def __init__(self, lista, valores):
+    def __init__(self, tipo, lista, valores):
+        self.tipo = tipo
         self.lista = lista
         self.valores = valores
     def accept(self, visitor):
-        return visitor.visitDeclaracaoLista(self)
+        return visitor.visitorDeclaracaoLista(self)
     
 class DeclaracaoListaMY:
-    def __init__(self, lista, valores):
+    def __init__(self, tipo, lista, valores):
+        self.tipo = tipo
         self.lista = lista
         self.valores = valores
     def accept(self, visitor):
-        return visitor.visitDeclaracaoListaMY(self)
+        return visitor.visitorDeclaracaoListaMY(self)
     
 class DeclaracaoListaOUR:
-    def __init__(self, lista, valores):
+    def __init__(self, tipo, lista, valores):
+        self.tipo = tipo
         self.lista = lista
         self.valores = valores
     def accept(self, visitor):
-        return visitor.visitDeclaracaoListaOUR(self)
+        return visitor.visitorDeclaracaoListaOUR(self)
     
 class LoopForLista(Loop):
     def __init__(self, lista, escalar, comandos):
@@ -514,14 +521,14 @@ class LoopForLista(Loop):
         self.escalar = escalar
         self.comandos = comandos
     def accept(self, visitor):
-        return visitor.visitLoopForLista(self)
+        return visitor.visitorLoopForLista(self)
     
 class CondicionalIf:
     def __init__(self, condicao, bloco):
         self.condicao = condicao
         self.bloco = bloco
     def accept(self, visitor):
-        return visitor.visitCondicionalIf(self)
+        return visitor.visitorCondicionalIf(self)
 
 class CondicionalIfElse:
     def __init__(self, condicao, bloco_if, bloco_else):
@@ -529,7 +536,7 @@ class CondicionalIfElse:
         self.bloco_if = bloco_if
         self.bloco_else = bloco_else
     def accept(self, visitor):
-        return visitor.visitCondicionalIfElse(self)
+        return visitor.visitorCondicionalIfElse(self)
 
 class CondicionalIfElsif:
     def __init__(self, condicao, bloco_if, elsifs):
@@ -537,7 +544,7 @@ class CondicionalIfElsif:
         self.bloco_if = bloco_if
         self.elsifs = elsifs
     def accept(self, visitor):
-        return visitor.visitCondicionalIfElsif(self)
+        return visitor.visitorCondicionalIfElsif(self)
 
 class CondicionalIfElsifElse:
     def __init__(self, condicao, bloco_if, elsifs, bloco_else):
@@ -546,35 +553,35 @@ class CondicionalIfElsifElse:
         self.elsifs = elsifs
         self.bloco_else = bloco_else
     def accept(self, visitor):
-        return visitor.visitCondicionalIfElsifElse(self)
+        return visitor.visitorCondicionalIfElsifElse(self)
 
 class Elsif:
     def __init__(self, condicao, bloco):
         self.condicao = condicao
         self.bloco = bloco
     def accept(self, visitor):
-        return visitor.visitElsif(self)
+        return visitor.visitorElsif(self)
 
 class DeclaracaoCondicional:
     def __init__(self, condicional):
         self.condicional = condicional
     def accept(self, visitor):
-        return visitor.visitDeclaracaoCondicional(self)
+        return visitor.visitorDeclaracaoCondicional(self)
 
 class DeclaracaoLoop:
     def __init__(self, loop):
         self.loop = loop
     def accept(self, visitor):
-        return visitor.visitDeclaracaoLoop(self)
+        return visitor.visitorDeclaracaoLoop(self)
 
 class DeclaracaoExpressao:
     def __init__(self, expressao):
         self.expressao = expressao
     def accept(self, visitor):
-        return visitor.visitDeclaracaoExpressao(self)
+        return visitor.visitorDeclaracaoExpressao(self)
 
 class DeclaracaoBloco:
     def __init__(self, bloco):
         self.bloco = bloco
     def accept(self, visitor):
-        return visitor.visitDeclaracaoBloco(self)
+        return visitor.visitorDeclaracaoBloco(self)
