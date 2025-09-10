@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
-#Funções
+#---------------Funções------------------
 
 class Funcao(metaclass=ABCMeta):
     @abstractmethod
@@ -64,7 +64,7 @@ class LoopSemCondicao(Loop):
     def accept(self, visitor):
         return visitor.visitorLoopSemCondicao(self)
 
-# Operações
+# ----------------Operações---------------------
 
 class Expressao(metaclass = ABCMeta):
     @abstractmethod
@@ -347,7 +347,7 @@ class Atribuicao(Expressao):
         
     def accept(self, visitor):
         return visitor.visitorAtribuicao(self)
-# --- Comentario --- 
+# ---------- Comentario --- ---
 
 class Comentario():
     def __init__(self, comentario) -> None:
@@ -356,7 +356,7 @@ class Comentario():
     def accept(self, visitor):
         return visitor.visitorComentario(self)
     
-# --- CONTROLE DE FLUXO ---
+# -------------- CONTROLE DE FLUXO ---------------
 
 class Break(Expressao):
     def accept(self, visitor):
@@ -387,7 +387,7 @@ class Return(Expressao):
         return visitor.visitorReturn(self)
 
 
- # --- DECLARAÇÕES E ESCOPO ---
+ # ------------- DECLARAÇÕES E ESCOPO --------------
 
 class Constant(Expressao):
     def __init__(self, id, valor):
@@ -419,7 +419,7 @@ class Only(Expressao):
     def accept(self, visitor):
         return visitor.visitorOnly(self)
     
-# --- IMPORTAÇÃO E MODULARIZAÇÃO ---
+# ----------------- IMPORTAÇÃO E MODULARIZAÇÃO ----------------
 
 class Export(Expressao):
     def __init__(self, id):
@@ -451,7 +451,7 @@ class Use(Expressao):
     def accept(self, visitor):
         return visitor.visitorUse(self)
         
-# --- OPERAÇÕES EM LISTAS ---
+# ---------------- OPERAÇÕES EM LISTAS ------------------
 
 class Push(Expressao):
     def __init__(self, escalar, valores):
