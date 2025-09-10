@@ -348,10 +348,10 @@ def p_parametros(p):
     '''parametros : tipo_opicional ESCALAR
                   | parametros COMMA tipo_opicional ESCALAR '''
     if len(p) == 3:
-        p[0] = [p[2]] # -> Com um unico parametro
+        p[0] = [p[2]] 
     else:
-        p[0] = p[1] + [p[4]] # -> Com varios parametros
-
+        p[0] = p[1] + [p[4]] 
+        
 # Definição de 'atribuicao'
 def p_atribuicao(p):
     '''atribuicao : ESCALAR IGUAL exp_2'''
