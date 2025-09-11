@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
-#Funções
+#---------------Funções------------------
 
 class Funcao(metaclass=ABCMeta):
     @abstractmethod
@@ -14,17 +14,16 @@ class CompoundFuncao(Funcao):
         self.parametros = parametros
         self.comando = comando
     def accept(self, visitor):
-        return visitor.visitCompoundFuncao(self)
+        return visitor.visitorCompoundFuncao(self)
 
 class CompoundFuncaoSemParametros(Funcao):
     def __init__(self, id, comando):
         self.id= id
         self.comando = comando
     def accept(self, visitor):
-        return visitor.visitCompoundFuncaoSemParametros(self)
+        return visitor.visitorCompoundFuncaoSemParametros(self)
 
 
-    
 
 class Loop(metaclass=ABCMeta):
     @abstractmethod
@@ -38,7 +37,7 @@ class LoopFor(Loop):
         self.comando = comando    
     
     def accept(self, visitor):
-        return visitor.visitLoopFor(self)
+        return visitor.visitorLoopFor(self)
 
 class LoopWhile(Loop):
     def __init__(self, limite, comando):      
@@ -46,7 +45,7 @@ class LoopWhile(Loop):
         self.comando = comando  
     
     def accept(self, visitor):
-        return visitor.visitLoopWhile(self)
+        return visitor.visitorLoopWhile(self)
 
 class LoopRepeticao(Loop):
     def __init__(self, instrucao1, instrucao2, instrucao3, comando):
@@ -56,16 +55,16 @@ class LoopRepeticao(Loop):
         self.comando = comando
     
     def accept(self, visitor):
-        return visitor.visitLoopRepeticao(self)
+        return visitor.visitorLoopRepeticao(self)
 
 class LoopSemCondicao(Loop):
     def __init__(self, comando):
         self.comando = comando
     
     def accept(self, visitor):
-        return visitor.visitLoopSemCondicao(self)
+        return visitor.visitorLoopSemCondicao(self)
 
-# Operações
+# ----------------Operações---------------------
 
 class Expressao(metaclass = ABCMeta):
     @abstractmethod
@@ -126,7 +125,7 @@ class ExpressaoMENOR(Expressao):
         self.direita = direita
 
     def accept(self, visitor):
-        return visitor.visitorExpressaoMAIOR(self)
+        return visitor.visitorExpressaoMENOR(self)
 
 class ExpressaoMAIOR_IGUAL(Expressao):
     def __init__(self, esquerda, direita):
@@ -134,7 +133,7 @@ class ExpressaoMAIOR_IGUAL(Expressao):
         self.direita = direita
 
     def accept(self, visitor):
-        return visitor.visitorExpressaoMAIOR(self)
+        return visitor.visitorExpressaoMAIOR_IGUAL(self)
 
 class ExpressaoMENOR_IGUAL(Expressao):
     def __init__(self, esquerda, direita):
@@ -142,7 +141,7 @@ class ExpressaoMENOR_IGUAL(Expressao):
         self.direita = direita
 
     def accept(self, visitor):
-        return visitor.visitorExpressaoMAIOR(self)
+        return visitor.visitorExpressaoMENOR_IGUAL(self)
 
 class ExpressaoSMARTMATCH(Expressao):
     def __init__(self, esquerda, direita):
@@ -182,7 +181,7 @@ class ExpressaoMULTIPLICACAO(Expressao):
         self.direita = direita
 
     def accept(self, visitor):
-        return visitor.visitorExpressaoCONCATENACAO(self)   
+        return visitor.visitorExpressaoMULTIPLICACAO(self)   
 
 class ExpressaoDIVISAO(Expressao):
     def __init__(self, esquerda, direita):
@@ -245,49 +244,49 @@ class ExpressaoNOT_OPERADOR(Expressao):
         self.operando = operando
 
     def accept(self, visitor):
-        return visitor.visitorNOT_OPERADOR(self)  
+        return visitor.visitorExpressaoNOT_OPERADOR(self)  
 
 class Expressao_NOT_SIMBULO(Expressao):
     def __init__(self, operando):
         self.operando = operando
 
     def accept(self, visitor):
-        return visitor.visitorNOT_SIMBULO(self) 
+        return visitor.visitorExpressao_NOT_SIMBULO(self) 
 
 class Expressao_PREFIXO_INCREMENTO(Expressao):
     def __init__(self, operando):
         self.operando = operando
 
     def accept(self, visitor):
-        return visitor.visitor_PREFIXO_INCREMENTO(self)
+        return visitor.visitorExpressao_PREFIXO_INCREMENTO(self)
     
 class Expressao_POSFIXO_INCREMENTO(Expressao):
     def __init__(self, operando):
         self.operando = operando
 
     def accept(self, visitor):
-        return visitor.visitor_POSFIXO_INCREMENTO(self)
+        return visitor.visitorExpressao_POSFIXO_INCREMENTO(self)
     
 class Expressao_PREFIXO_DECREMENTO(Expressao):
     def __init__(self, operando):
         self.operando = operando
 
     def accept(self, visitor):
-        return visitor.visitor_PREFIXO_DECREMENTO(self)
+        return visitor.visitorExpressao_PREFIXO_DECREMENTO(self)
     
 class Expressao_POSFIXO_DECREMENTO(Expressao):
     def __init__(self, operando):
         self.operando = operando
 
     def accept(self, visitor):
-        return visitor.visitor_POSFIXO_INCREMENTO(self)
+        return visitor.visitorExpressao_POSFIXO_INCREMENTO(self)
 
 class Expressao_PARENTESES(Expressao):
     def __init__(self, expressao):
         self.expressao = expressao
 
     def accept(self, visitor):
-        return visitor.visitor_PARENTESES(self)
+        return visitor.visitorExpressao_PARENTESES(self)
 
 class Expressao_VALOR(Expressao):
     def __init__(self, valor, tipo):
@@ -295,28 +294,28 @@ class Expressao_VALOR(Expressao):
         self.tipo = tipo
 
     def accept(self, visitor):
-        return visitor.visitor_VALOR(self)
+        return visitor.visitorExpressao_VALOR(self)
 
 class Expressao_TIPO(Expressao):
     def __init__(self, tipo):
         self.tipo = tipo
 
     def accept(self, visitor):
-        return visitor.visitor_TIPO(self)
+        return visitor.visitorExpressao_TIPO(self)
 
 class SAY(Expressao):
     def __init__(self, exp):
         self.exp = exp
 
     def accept(self, visitor):
-        return visitor.visitor_SAY(self)
+        return visitor.visitorSAY(self)
 
 class PARAMETROS(Expressao):
     def __init__(self, escalar):
         self.escalar = escalar
     
     def accept(self, visitor):
-        return visitor.visitor_PARAMETROS(self)
+        return visitor.visitorPARAMETROS(self)
 
 class PARAMETROSMULT(Expressao):
     def __init__(self, escalar, outros_parametros):
@@ -324,7 +323,7 @@ class PARAMETROSMULT(Expressao):
         self.outros_parametros = outros_parametros
 
     def accept(self, visitor):
-        return visitor.visitor_PARAMETROSMULT(self)
+        return visitor.visitorPARAMETROSMULT(self)
 
 class CHAMADA_FUNCAO(Expressao):
     def __init__(self, id, valor):
@@ -332,14 +331,14 @@ class CHAMADA_FUNCAO(Expressao):
         self.valor = valor
 
     def accept(self, visitor):
-        return visitor.visitor_CHAMADA_FUNCAO(self)
+        return visitor.visitorCHAMADA_FUNCAO(self)
         
 class CHAMADA_FUNCAO_SEM_PARAMETRO(Expressao):
     def __init__(self, id):
         self.id = id
         
     def accept(self, visitor):
-        return visitor.visitor_CHAMADA_FUNCAO_SEM_PARAMETRO(self)
+        return visitor.visitorCHAMADA_FUNCAO_SEM_PARAMETRO(self)
 
 class Atribuicao(Expressao):
     def __init__(self, variavel, valor):
@@ -348,7 +347,7 @@ class Atribuicao(Expressao):
         
     def accept(self, visitor):
         return visitor.visitorAtribuicao(self)
-# --- Comentario --- 
+# ---------- Comentario --- ---
 
 class Comentario():
     def __init__(self, comentario) -> None:
@@ -357,7 +356,7 @@ class Comentario():
     def accept(self, visitor):
         return visitor.visitorComentario(self)
     
-# --- CONTROLE DE FLUXO ---
+# -------------- CONTROLE DE FLUXO ---------------
 
 class Break(Expressao):
     def accept(self, visitor):
@@ -388,7 +387,7 @@ class Return(Expressao):
         return visitor.visitorReturn(self)
 
 
- # --- DECLARAÇÕES E ESCOPO ---
+ # ------------- DECLARAÇÕES E ESCOPO --------------
 
 class Constant(Expressao):
     def __init__(self, id, valor):
@@ -405,18 +404,22 @@ class State(Expressao):
         return visitor.visitorState(self)
 
 class Multi(Expressao):
-    def __init__(self, comando):
+    def __init__(self, id, parametros, comando):
+        self.id = id
+        self.parametros = parametros
         self.comando = comando
     def accept(self, visitor):
         return visitor.visitorMulti(self)
 
 class Only(Expressao):
-    def __init__(self, comando):
+    def __init__(self, id, parametros, comando):
+        self.id = id
+        self.parametros = parametros
         self.comando = comando
     def accept(self, visitor):
         return visitor.visitorOnly(self)
     
-# --- IMPORTAÇÃO E MODULARIZAÇÃO ---
+# ----------------- IMPORTAÇÃO E MODULARIZAÇÃO ----------------
 
 class Export(Expressao):
     def __init__(self, id):
@@ -448,7 +451,7 @@ class Use(Expressao):
     def accept(self, visitor):
         return visitor.visitorUse(self)
         
-# --- OPERAÇÕES EM LISTAS ---
+# ---------------- OPERAÇÕES EM LISTAS ------------------
 
 class Push(Expressao):
     def __init__(self, escalar, valores):
@@ -477,36 +480,40 @@ class DeclaracaoEscalarMY:
         self.escalar = escalar
         self.valor = valor
     def accept(self, visitor):
-        return visitor.visitDeclaracaoEscalarMY(self)
+        return visitor.visitorDeclaracaoEscalarMY(self)
     
 
 class DeclaracaoEscalarOUR:
-    def __init__(self, escalar, valor):
+    def __init__(self, tipo, escalar, valor):
+        self.tipo = tipo
         self.escalar = escalar
         self.valor = valor
     def accept(self, visitor):
-        return visitor.visitDeclaracaoEscalarOUR(self)
+        return visitor.visitorDeclaracaoEscalarOUR(self)
 
 class DeclaracaoLista:
-    def __init__(self, lista, valores):
+    def __init__(self, tipo, lista, valores):
+        self.tipo = tipo
         self.lista = lista
         self.valores = valores
     def accept(self, visitor):
-        return visitor.visitDeclaracaoLista(self)
+        return visitor.visitorDeclaracaoLista(self)
     
 class DeclaracaoListaMY:
-    def __init__(self, lista, valores):
+    def __init__(self, tipo, lista, valores):
+        self.tipo = tipo
         self.lista = lista
         self.valores = valores
     def accept(self, visitor):
-        return visitor.visitDeclaracaoListaMY(self)
+        return visitor.visitorDeclaracaoListaMY(self)
     
 class DeclaracaoListaOUR:
-    def __init__(self, lista, valores):
+    def __init__(self, tipo, lista, valores):
+        self.tipo = tipo
         self.lista = lista
         self.valores = valores
     def accept(self, visitor):
-        return visitor.visitDeclaracaoListaOUR(self)
+        return visitor.visitorDeclaracaoListaOUR(self)
     
 class LoopForLista(Loop):
     def __init__(self, lista, escalar, comandos):
@@ -514,14 +521,14 @@ class LoopForLista(Loop):
         self.escalar = escalar
         self.comandos = comandos
     def accept(self, visitor):
-        return visitor.visitLoopForLista(self)
+        return visitor.visitorLoopForLista(self)
     
 class CondicionalIf:
     def __init__(self, condicao, bloco):
         self.condicao = condicao
         self.bloco = bloco
     def accept(self, visitor):
-        return visitor.visitCondicionalIf(self)
+        return visitor.visitorCondicionalIf(self)
 
 class CondicionalIfElse:
     def __init__(self, condicao, bloco_if, bloco_else):
@@ -529,7 +536,7 @@ class CondicionalIfElse:
         self.bloco_if = bloco_if
         self.bloco_else = bloco_else
     def accept(self, visitor):
-        return visitor.visitCondicionalIfElse(self)
+        return visitor.visitorCondicionalIfElse(self)
 
 class CondicionalIfElsif:
     def __init__(self, condicao, bloco_if, elsifs):
@@ -537,7 +544,7 @@ class CondicionalIfElsif:
         self.bloco_if = bloco_if
         self.elsifs = elsifs
     def accept(self, visitor):
-        return visitor.visitCondicionalIfElsif(self)
+        return visitor.visitorCondicionalIfElsif(self)
 
 class CondicionalIfElsifElse:
     def __init__(self, condicao, bloco_if, elsifs, bloco_else):
@@ -546,35 +553,35 @@ class CondicionalIfElsifElse:
         self.elsifs = elsifs
         self.bloco_else = bloco_else
     def accept(self, visitor):
-        return visitor.visitCondicionalIfElsifElse(self)
+        return visitor.visitorCondicionalIfElsifElse(self)
 
 class Elsif:
     def __init__(self, condicao, bloco):
         self.condicao = condicao
         self.bloco = bloco
     def accept(self, visitor):
-        return visitor.visitElsif(self)
+        return visitor.visitorElsif(self)
 
 class DeclaracaoCondicional:
     def __init__(self, condicional):
         self.condicional = condicional
     def accept(self, visitor):
-        return visitor.visitDeclaracaoCondicional(self)
+        return visitor.visitorDeclaracaoCondicional(self)
 
 class DeclaracaoLoop:
     def __init__(self, loop):
         self.loop = loop
     def accept(self, visitor):
-        return visitor.visitDeclaracaoLoop(self)
+        return visitor.visitorDeclaracaoLoop(self)
 
 class DeclaracaoExpressao:
     def __init__(self, expressao):
         self.expressao = expressao
     def accept(self, visitor):
-        return visitor.visitDeclaracaoExpressao(self)
+        return visitor.visitorDeclaracaoExpressao(self)
 
 class DeclaracaoBloco:
     def __init__(self, bloco):
         self.bloco = bloco
     def accept(self, visitor):
-        return visitor.visitDeclaracaoBloco(self)
+        return visitor.visitorDeclaracaoBloco(self)

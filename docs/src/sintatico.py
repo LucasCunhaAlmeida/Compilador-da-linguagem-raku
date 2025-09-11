@@ -3,7 +3,7 @@ import lexico as lex
 import sintaxeabstrata as sa
 import sys
 import os
-from visitor import visitor
+# from visitor import visitor
 
 tokens = lex.tokens
 
@@ -260,8 +260,6 @@ def p_escalar(p):
    '''escalar : ESCALAR'''
    p[0] = sa.Expressao_VALOR(p[1], 'ESCALAR')
 
-# ... (toda a sua gramática de expressões de p_exp até p_id está ótima) ...
-
 def p_error(p):
     if p:
         print(f"Erro de Sintaxe no token '{p.value}' (tipo: {p.type}) na linha {p.lineno}")
@@ -274,22 +272,20 @@ def p_declaracao_escalar_MY(p):
   p[0] = sa.DeclaracaoEscalarMY(p[2], p[3], p[5])
 
 def p_declaracao_escalar_OUR(p):
-  '''declaracao_escalar_OUR : OUR ESCALAR IGUAL exp_2 PONTO_VIRGULA''' # Problema com o ponto e virgula
-  p[0] = sa.DeclaracaoEscalarOUR(p[2], p[4])
+  '''declaracao_escalar_OUR : OUR tipo_opicional ESCALAR IGUAL exp_2 PONTO_VIRGULA''' # Problema com o ponto e virgula
+  p[0] = sa.DeclaracaoEscalarOUR(p[2], p[3], p[5])
 
 def p_declaracao_lista(p):
-  '''declaracao_lista : LIST IGUAL lista_valores PONTO_VIRGULA'''
-  p[0] = sa.DeclaracaoLista(p[1], p[3])
+  '''declaracao_lista : tipo_opicional LIST IGUAL lista_valores PONTO_VIRGULA'''
+  p[0] = sa.DeclaracaoLista(p[1], p[2], p[3])
 
 def p_declaracao_lista_my(p):
-  '''declaracao_lista_MY : MY LIST IGUAL lista_valores PONTO_VIRGULA''' 
-  p[0] = sa.DeclaracaoListaMY(p[2], p[4])
+  '''declaracao_lista_MY : MY tipo_opicional LIST IGUAL lista_valores PONTO_VIRGULA''' 
+  p[0] = sa.DeclaracaoListaMY(p[2], p[3], p[5])
 
 def p_declaracao_lista_our(p):
-  '''declaracao_lista_OUR : OUR LIST IGUAL lista_valores PONTO_VIRGULA'''
-  p[0] = sa.DeclaracaoListaOUR(p[2], p[4])
-
-  # Aqui você criaria um nó na AST para a declaração
+  '''declaracao_lista_OUR : OUR tipo_opicional LIST IGUAL lista_valores PONTO_VIRGULA'''
+  p[0] = sa.DeclaracaoListaOUR(p[2], p[3], p[5])
 
 def p_lista_valores(p):
    '''lista_valores : lista_valores COMMA tipo 
@@ -315,12 +311,10 @@ def p_loop_for_com_lista(p):
     p[0] = sa.LoopFor(p[2], p[4], p[6])
 
 def p_loop_while(p):
-    # Alterei para usar exp_2 para consistência
     '''loop_while : WHILE exp_2 ABRE_CHAVE lista_declaracoes FECHA_CHAVE'''
     p[0] = sa.LoopWhile(p[2], p[4])
 
 def p_loop(p):
-    # Renomeei para evitar conflito com p_loop_for, etc.
     '''loop : LOOP LPAREN declaracao_escalar_MY exp_2 PONTO_VIRGULA atribuicao RPAREN ABRE_CHAVE lista_declaracoes FECHA_CHAVE '''
     p[0] = sa.LoopRepeticao(p[3], p[5], p[7], p[10])
 
@@ -348,17 +342,16 @@ def p_funcao_sem_params(p):
     '''funcao_sem_params : FUNCTION ID LPAREN RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
     p[0] = sa.CompoundFuncaoSemParametros(p[2], p[6])
 
-# --- REGRAS QUE FALTAVAM ---
 # Definição de 'parametros'
 
 def p_parametros(p):
     '''parametros : tipo_opicional ESCALAR
                   | parametros COMMA tipo_opicional ESCALAR '''
     if len(p) == 3:
-        p[0] = [p[2]] # -> Com um unico parametro
+        p[0] = [p[2]] 
     else:
-        p[0] = p[1] + [p[4]] # -> Com varios parametros
-
+        p[0] = p[1] + [p[4]] 
+        
 # Definição de 'atribuicao'
 def p_atribuicao(p):
     '''atribuicao : ESCALAR IGUAL exp_2'''
@@ -367,7 +360,6 @@ def p_atribuicao(p):
 # Definição de 'chamada_funcao'
 
 def p_chamada_funcao(p):
-    # Adicione regras para parâmetros se necessário
     '''chamada_funcao : ID LPAREN chamada_funcao_auxiliar RPAREN'''
     p[0] = sa.CHAMADA_FUNCAO(p[1], p[3])
 
@@ -379,11 +371,11 @@ def p_chamada_funcao_auxiliar(p):
     '''chamada_funcao_auxiliar : chamada_funcao_auxiliar COMMA exp_2
                                | exp_2 ''' 
     if len(p) == 2:
-        p[0] = [p[1]] # -> Com um unico parametro
+        p[0] = [p[1]] 
     else:
-        p[0] = p[1] + [p[3]] # -> Com varios parametros
+        p[0] = p[1] + [p[3]]
 
-# --- CONDICIONAIS (COM NOMES ÚNICOS) ---
+# --- CONDICIONAIS--------------- ---
 def p_condicional_if(p):
     '''condicional : IF exp_2 bloco'''
     p[0] = sa.CondicionalIf(p[2], p[3])
@@ -408,7 +400,7 @@ def p_lista_elsif_recursiva(p):
     '''lista_elsif : lista_elsif ELSIF exp_2 bloco'''
     p[0] = p[1] + [sa.Elsif(p[3], p[4])]
 
-# --- ESTRUTURA DE BLOCOS E DECLARAÇÕES (COM NOMES ÚNICOS) ---
+# --- ESTRUTURA DE BLOCOS -----------------------
 def p_bloco_chaves(p):
     '''bloco : ABRE_CHAVE lista_declaracoes FECHA_CHAVE'''
     p[0] = p[2]
@@ -502,7 +494,7 @@ def p_declaracao_de_controle_de_lista(p):
                                        | splice '''
     p[0] = p[1]
 
-# --- CONTROLE DE FLUXO ---
+# --- CONTROLE DE FLUXO ---------------
 
 def p_break(p):
     '''declaracao_break : BREAK PONTO_VIRGULA'''
@@ -529,7 +521,7 @@ def p_return(p):
     p[0] = sa.Return(p[2])
 
 
- # --- DECLARAÇÕES E ESCOPO ---
+ # --- DECLARAÇÕES E ESCOPO ---------------
 
 def p_declaracao_constant(p):
     '''declaracao_constant : CONSTANT ESCALAR IGUAL exp_2 PONTO_VIRGULA'''
@@ -541,22 +533,22 @@ def p_declaracao_state(p):
 
 def p_declaracao_multi(p):
     '''declaracao_multi : MULTI ID LPAREN parametros RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
-    p[0] = sa.Multi(p[2])
+    p[0] = sa.Multi(p[2], p[4], p[7])
 
 def p_declaracao_multi_sem_par(p):
     '''declaracao_multi_sem_par : MULTI ID LPAREN RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
-    p[0] = sa.Multi(p[2])
+    p[0] = sa.Multi(p[2], [], p[6])
 
 def p_declaracao_only(p):
     '''declaracao_only : ONLY ID LPAREN parametros RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
-    p[0] = sa.Only(p[2])
+    p[0] = sa.Only(p[2], p[4], p[7])
 
 def p_declaracao_only_sem_par(p):
     '''declaracao_only_sem_par : ONLY ID LPAREN RPAREN ABRE_CHAVE lista_declaracoes_para_funcoes FECHA_CHAVE'''
-    p[0] = sa.Only(p[2])
+    p[0] = sa.Only(p[2], [], p[6])
 
 
-# --- IMPORTAÇÃO E MODULARIZAÇÃO ---
+# --- IMPORTAÇÃO E MODULARIZAÇÃO ------------------
 
 def p_import(p):
     '''import : IMPORT ID MENOR ID MAIOR PONTO_VIRGULA'''
@@ -574,7 +566,7 @@ def p_use(p):
     '''use : USE ID PONTO_VIRGULA'''
     p[0] = sa.Use(p[2])
 
-# --- OPERAÇÕES EM LISTAS ---
+# --- OPERAÇÕES EM LISTAS -------------
 
 
 def p_push(p):
@@ -591,8 +583,6 @@ def p_splice(p):
 
 
 def main():
-
-    # Caminho relativo
     caminho = os.path.join(os.path.dirname(__file__), "main.raku")
 
     try:
@@ -603,11 +593,11 @@ def main():
         sys.exit(1)
 
     # Cria o parser
-    parser = yacc.yacc()  # parser já construído no sintaxe.py
+    parser = yacc.yacc() 
     result = parser.parse(codigo, lexer=lex.lexer)
 
     print("\n=== Resultado do Parser ===")
-    print(result)  # aqui você vai ver a AST retornada
+    print(result) 
 
 
 '''

@@ -199,9 +199,9 @@ class abstractvisitor(metaclass=ABCMeta):
     def visitorState(self, State):
         pass
 
-    @abstractmethod
-    def visitorLet(self, Let):
-        pass
+    # @abstractmethod
+    # def visitorLet(self, Let):
+    #     pass
 
     @abstractmethod
     def visitorMulti(self, Multi):
@@ -267,7 +267,7 @@ class abstractvisitor(metaclass=ABCMeta):
     def visitorElsif(self, elsif):
         pass
 
-    @abstractmethod
-    def  visitorDeclaracaoExpressao(self, node):
-        pass
+    # @abstractmethod
+    # def  visitorDeclaracaoExpressao(self, node):
+    #     pass
  

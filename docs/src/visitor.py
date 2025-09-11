@@ -28,7 +28,7 @@ class visitor(abstractvisitor):
 
     def visitorCompoundFuncaoSemParametros(self, func):
         print(f"sub {func.id}() {{")
-        #func.comando.accept(self)
+        
         if hasattr(func.comando, "accept"):
            func.comando.accept(self)
         else:
@@ -44,22 +44,38 @@ class visitor(abstractvisitor):
 
     def visitorLoopFor(self, loop_for):
         print(f"for {loop_for.expr} -> {loop_for.id} {{")
-        loop_for.comando.accept(self)
+        for comando in loop_for.comando:
+            if hasattr(comando, "accept"):
+                comando.accept(self)
+            else:
+                print(comando)
         print("}")
     
     def visitorLoopWhile(self, loop_while):
         print(f"while ({loop_while.limite}) {{")
-        loop_while.comando.accept(self)
+        for comando in loop_while.comando:
+            if hasattr(comando, "accept"):
+                comando.accept(self)
+            else:
+                print(comando)
         print("}")
 
     def visitorLoopRepeticao(self, loop_repeticao):
         print(f"loop ({loop_repeticao.instrucao1}; {loop_repeticao.instrucao2}; {loop_repeticao.instrucao3}) {{")
-        loop_repeticao.comando.accept(self)
+        for comando in loop_repeticao.comando:
+            if hasattr(comando, "accept"):
+                comando.accept(self)
+            else:
+                print(comando)
         print("}")
 
     def visitorLoopSemCondicao(self, loop_sem_condicao):
         print("loop {")
-        loop_sem_condicao.comando.accept(self)
+        for comando in loop_sem_condicao.comando:
+            if hasattr(comando, "accept"):
+                comando.accept(self)
+            else:
+                print(comando)
         print("}")
 
     def visitorLoopForLista(self, loop_for_lista):
@@ -75,59 +91,59 @@ class visitor(abstractvisitor):
 
 #----------------------------------------------------Expressoes--------
     def visitorExpressaoOR(self, oor):
-        print("(", end=""); oor.esquerda.accept(self); print(" or ", end=""); oor.direita.accept(self); print(")", end="")
+        oor.esquerda.accept(self); print(" or ", end=""); oor.direita.accept(self)
 
     def visitorExpressaoXOR(self, xor):
-        print("(", end=""); xor.esquerda.accept(self); print(" xor ", end=""); xor.direita.accept(self); print(")", end="")
+        xor.esquerda.accept(self); print(" xor ", end=""); xor.direita.accept(self)
 
     def visitorExpressaoAND(self, andd):
-        print("(", end=""); andd.esquerda.accept(self); print(" and ", end=""); andd.direita.accept(self); print(")", end="")
+        andd.esquerda.accept(self); print(" and ", end=""); andd.direita.accept(self)
 
     def visitorExpressaoIGUAL_DP(self, igual):
-        print("(", end=""); igual.esquerda.accept(self); print(" == ", end=""); igual.direita.accept(self); print(")", end="")
+        igual.esquerda.accept(self); print(" == ", end=""); igual.direita.accept(self)
 
     def visitorExpressaoDIF(self, dif):
-        print("(", end=""); dif.esquerda.accept(self); print(" != ", end=""); dif.direita.accept(self); print(")", end="")
+        dif.esquerda.accept(self); print(" != ", end=""); dif.direita.accept(self)
 
     def visitorExpressaoMAIOR(self, maior):
-        print("(", end=""); maior.esquerda.accept(self); print(" > ", end=""); maior.direita.accept(self); print(")", end="")
+        maior.esquerda.accept(self); print(" > ", end=""); maior.direita.accept(self)
     
     def visitorExpressaoMENOR(self, menor):
-        print("(", end=""); menor.esquerda.accept(self); print(" < ", end=""); menor.direita.accept(self); print(")", end="")
+        menor.esquerda.accept(self); print(" < ", end=""); menor.direita.accept(self)
 
     def visitorExpressaoMAIOR_IGUAL(self, igual):
-        print("(", end=""); igual.esquerda.accept(self); print(" >= ", end=""); igual.direita.accept(self); print(")", end="")
+        igual.esquerda.accept(self); print(" >= ", end=""); igual.direita.accept(self)
 
     def visitorExpressaoMENOR_IGUAL(self, menorIgual):
-        print("(", end=""); menorIgual.esquerda.accept(self); print(" <= ", end=""); menorIgual.direita.accept(self); print(")", end="")
+        menorIgual.esquerda.accept(self); print(" <= ", end=""); menorIgual.direita.accept(self)
 
     def visitorExpressaoSMARTMATCH(self, match):
-        print("(", end=""); match.esquerda.accept(self); print(" ~~ ", end=""); match.direita.accept(self); print(")", end="")
+        match.esquerda.accept(self); print(" ~~ ", end=""); match.direita.accept(self)
 
     def visitorExpressaoADICAO(self, adicao):
-        print("(", end=""); adicao.esquerda.accept(self); print(" + ", end=""); adicao.direita.accept(self); print(")", end="")
+        adicao.esquerda.accept(self); print(" + ", end=""); adicao.direita.accept(self)
 
     def visitorExpressaoSUBTRACAO(self, subtacao):
-        print("(", end=""); subtacao.esquerda.accept(self); print(" - ", end=""); subtacao.direita.accept(self); print(")", end="")
+        subtacao.esquerda.accept(self); print(" - ", end=""); subtacao.direita.accept(self)
 
     def visitorExpressaoCONCATENACAO(self, concatenacao):
-        print("(", end=""); concatenacao.esquerda.accept(self);print(" ~", end="");concatenacao.direita.accept(self); print(")", end="")
+        concatenacao.esquerda.accept(self);print(" ~", end="");concatenacao.direita.accept(self)
 
 
     def visitorExpressaoMULTIPLICACAO(self, mult):
-        print("(", end=""); mult.esquerda.accept(self); print(" * ", end=""); mult.direita.accept(self); print(")", end="")
+        mult.esquerda.accept(self); print(" * ", end=""); mult.direita.accept(self)
 
     def visitorExpressaoDIVISAO(self, div):
-        print("(", end=""); div.esquerda.accept(self); print(" / ", end=""); div.direita.accept(self); print(")", end="")
+        div.esquerda.accept(self); print(" / ", end=""); div.direita.accept(self)
 
     def visitorExpressaoDIVISAO_INTEIRA(self, diviInt):
-        print("(", end=""); diviInt.esquerda.accept(self); print(" div ", end=""); diviInt.direita.accept(self); print(")", end="")
+        diviInt.esquerda.accept(self); print(" div ", end=""); diviInt.direita.accept(self)
 
     def visitorExpressaoDIVISIBILIDADE(self, divi):
-        print("(", end=""); divi.esquerda.accept(self); print(" % ", end=""); divi.direita.accept(self); print(")", end="")
+        divi.esquerda.accept(self); print(" % ", end=""); divi.direita.accept(self)
      
     def visitorExpressaoMOD(self, mod):
-        print("(", end=""); mod.esquerda.accept(self); print(" mod ", end=""); mod.direita.accept(self); print(")", end="")
+        mod.esquerda.accept(self); print(" mod ", end=""); mod.direita.accept(self)
 
     def visitorExpressaoLCM(self, lmc):
         print("lcm(", end=""); lmc.esquerda.accept(self); print(", ", end=""); lmc.direita.accept(self); print(")", end="")
@@ -136,7 +152,7 @@ class visitor(abstractvisitor):
         print("gcd(", end=""); gcd.esquerda.accept(self); print(", ", end=""); gcd.direita.accept(self); print(")", end="")
 
     def visitorExpressaoPOW(self, pow):
-        print("(", end=""); pow.esquerda.accept(self); print(" ** ", end=""); pow.direita.accept(self); print(")", end="")
+        pow.esquerda.accept(self); print(" ** ", end=""); pow.direita.accept(self)
 
     def visitorExpressaoNOT_OPERADOR(self, operador):
         print("not ", end=""); operador.operando.accept(self)
@@ -177,26 +193,18 @@ class visitor(abstractvisitor):
             print(", ", end=""); p.accept(self)
 
 
-
-
-
 # ------------------Chamada Funções-------------------------------
             
-def visitorCHAMADA_FUNCAO(self, chamada):
-    print(f"{chamada.id}(", end="")
-    for i, arg in enumerate(chamada.args):
-        if i > 0:
-            print(", ", end="")
-        arg.accept(self)
-    print(");")
+    def visitorCHAMADA_FUNCAO(self, chamada):
+        print(f"{chamada.id}(", end="")
+        for i, arg in enumerate(chamada.valor):
+            if i > 0:
+                print(", ", end="")
+            arg.accept(self)
+        print(");")
 
     def visitorCHAMADA_FUNCAO_SEM_PARAMETRO(self, chamada):
         print(f"{chamada.id}();")
-
-
-
-
-
 
 
       # ------------------Controle de Fluxo-------------------------------
@@ -231,14 +239,22 @@ def visitorCHAMADA_FUNCAO(self, chamada):
 
     def visitorMulti(self, multi):
         print(f"multi {multi.id}({', '.join(multi.parametros)}) {{")
-        multi.comando.accept(self)
+        for comando in multi.comando:
+            if hasattr(comando, "accept"):
+                comando.accept(self)
+            else:
+                print(comando)
         print("}")
 
     def visitorOnly(self, only):
         print(f"only {only.id} {{")
-        only.comando.accept(self)
-        print("}")
-        
+        for comando in only.comando:
+            if hasattr(comando, "accept"):
+                comando.accept(self)
+            else:
+                print(comando)
+        print("\n}")
+
     def visitorDeclaracaoEscalarMY(self, declaracao):
         print(blank() + "my ", end="")
         if declaracao.tipo:
@@ -259,13 +275,18 @@ def visitorCHAMADA_FUNCAO(self, chamada):
         declaracao.valor.accept(self)
         print(";")
 
+    def visitorAtribuicao(self, atribuicao):
+        print(blank() + f"{atribuicao.variavel} = ", end="")
+        atribuicao.valor.accept(self)
+        print(";")
+
     def visitorDeclaracaoLista(self, declaracao):
         print(" ", end="")
         if declaracao.tipo:
             declaracao.tipo.accept(self)
             print(" ", end="")
 
-        print(f"{declaracao.list} = (", end="")
+        print(f"{declaracao.lista} = (", end="")
         for i, v in enumerate(declaracao.valores):
             v.accept(self)
             if i < len(declaracao.valores) - 1:
@@ -290,7 +311,7 @@ def visitorCHAMADA_FUNCAO(self, chamada):
         if declaracao.tipo:
             declaracao.tipo.accept(self)
             print(" ", end="")
-        print(f"{declaracao.list} = (", end="")
+        print(f"{declaracao.lista} = (", end="")
         for i, v in enumerate(declaracao.valores):
             v.accept(self)
             if i < len(declaracao.valores) - 1:
@@ -316,17 +337,53 @@ def visitorCHAMADA_FUNCAO(self, chamada):
 
     # ------------------Operações em Listas-------------------------------
     def visitorPush(self, push):
-        print(f"push {push.escalar}, {', '.join(map(str, push.valores))};")
+        print(f"push {push.escalar}, ", end="")
+        for i, valor in enumerate(push.valores):
+            if i > 0:
+                print(", ", end="")
+            if hasattr(valor, "accept"):
+                valor.accept(self)
+            else:
+                print(valor, end="")
+        print(";")
 
     def visitorUnshift(self, unshift):
-        print(f"unshift {unshift.escalar}, {', '.join(map(str, unshift.valores))};")
+        print(f"unshift {unshift.escalar}, ", end="")
+        for i, valor in enumerate(unshift.valores):
+            if i > 0:
+                print(", ", end="")
+            if hasattr(valor, "accept"):
+                valor.accept(self)
+            else:
+                print(valor, end="")
+        print(";")
 
     def visitorSplice(self, splice):
-        print(f"splice {splice.escalar}, {splice.inicio}, {splice.quantidade};")
+        print(f"splice {splice.escalar}, ", end="")
+        for i, valor in enumerate(splice.quantidade):
+            if i > 0:
+                print(", ", end="")
+            if hasattr(valor, "accept"):
+                valor.accept(self)
+            else:
+                print(valor, end="")
+        print(";")
 
     # ------------------Condicionais-------------------------------
     def visitorDeclaracaoCondicional(self, declaracao_condicional):
         declaracao_condicional.condicional.accept(self)
+
+    def visitorDeclaracaoExpressao(self, declaracao_expressao):
+        print(blank(), end="")
+        declaracao_expressao.expressao.accept(self)
+        print(";")
+
+    def visitorDeclaracaoBloco(self, declaracao_bloco):
+        for comando in declaracao_bloco.bloco:
+            if hasattr(comando, "accept"):
+                comando.accept(self)
+            else:
+                print(comando)
 
     def visitorCondicionalIf(self, condicional_if):
         print("if (", end="")
@@ -341,7 +398,16 @@ def visitorCHAMADA_FUNCAO(self, chamada):
 
     def visitorCondicionalIfElse(self, condicional_if_else):
         global tab
-        self.visitorCondicionalIfElse(condicional_if_else)
+        # Chama o método base para o if, mas passa os atributos corretos
+        print("if (", end="")
+        condicional_if_else.condicao.accept(self)  
+        print(") {")
+        for stmt in condicional_if_else.bloco_if:     
+            if hasattr(stmt, "accept"):
+                stmt.accept(self)
+            else:
+                print(stmt)
+        print("}")
         
         print(" else {")
         tab += 2
@@ -353,54 +419,82 @@ def visitorCHAMADA_FUNCAO(self, chamada):
 
     def visitorCondicionalIfElsif(self, condicional_if_elsif):
        
-        self.visitorCondicionalIfElsif(condicional_if_elsif)
+        print("if (", end="")
+        condicional_if_elsif.condicao.accept(self)  
+        print(") {")
+        for stmt in condicional_if_elsif.bloco_if:     
+            if hasattr(stmt, "accept"):
+                stmt.accept(self)
+            else:
+                print(stmt)
+        print("}")
         
         for elsif_node in condicional_if_elsif.elsifs:
             elsif_node.accept(self)
 
     def visitorCondicionalIfElsifElse(self, condicional_if_elsif_else):
-        global tab
+        print("if (", end="")
+        condicional_if_elsif_else.condicao.accept(self)  
+        print(") {")
         
-        self.visitorCondicionalIfElsifElse(condicional_if_elsif_else)
+        for stmt in condicional_if_elsif_else.bloco_if:     
+            if hasattr(stmt, "accept"):
+                stmt.accept(self)
+            else:
+                print(stmt)
+        
+        print("}")
+        
+        for elsif_node in condicional_if_elsif_else.elsifs:
+            elsif_node.accept(self)
 
         print(" else {")
-        tab += 2
+        
         for declaracao in condicional_if_elsif_else.bloco_else:
             if hasattr(declaracao, "accept"):
                 declaracao.accept(self)
-        tab -= 2
-        print(blank() + "}")
+        
+        print("}")
 
     def visitorElsif(self, elsif):
-        global tab
         print(" elsif ", end="")
         elsif.condicao.accept(self)
         print(" {")
         
-        tab += 2
         for declaracao in elsif.bloco:
             if hasattr(declaracao, "accept"):
                 declaracao.accept(self)
-        tab -= 2
-        print(blank() + "}", end="")
+        
+        print("}", end="")
 
 
 def main():
-    f = open(os.path.join(os.path.dirname(__file__), "main.raku"))
-    lexer = lex.lex(module=lexico)
-    lexer.input(f.read())
-    parser = yacc.yacc(module=sintatico, start='programa')
-    result = parser.parse(debug=False)
+    caminho = os.path.join(os.path.dirname(__file__), "main.raku")
+    with open(caminho, "r", encoding="utf-8") as f:
+        codigo = f.read()
+
+    lexer = lexico.lexer
+    parser = yacc.yacc(module=sintatico)
+    result = parser.parse(codigo, lexer=lexer, debug=False)
+
     print("imprime o programa que foi passado como entrada")
     vis = visitor()
-    result.accept(vis)
 
-    if isinstance(result, list):
-      for node in result:
-        if node is not None:
-         node.accept(vis)
+    if result is not None:
+        if isinstance(result, list):
+            for node in result:
+                if node is not None:
+                    if hasattr(node, "accept"):
+                        node.accept(vis)
+                    else:
+                        print(node)
+        else:
+            if hasattr(result, "accept"):
+                result.accept(vis)
+            else:
+                print(result)
     else:
-     result.accept(vis)
+        print("Erro: Parser retornou None")
 
 if __name__ == "__main__":
     main()
